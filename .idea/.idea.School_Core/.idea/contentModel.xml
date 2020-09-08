@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\KarmoKiima\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\KarmoKiima\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\KarmoKiima\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\KarmoKiima\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.api.dll" t="Include" />
+    <e p="C:\Users\KarmoKiima\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.dll" t="Include" />
+    <e p="C:\Users\KarmoKiima\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
+    <e p="C:\Users\KarmoKiima\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="C:\Users\KarmoKiima\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\KarmoKiima\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_School_Core.655096536.00" t="ExcludeRecursive" />
+    <e p="C:\Users\KarmoKiima\source\repos\School_Core" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="School_Core" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Commands" t="Include">
+          <e p="ArchiveLectureCommand.cs" t="Include" />
+          <e p="CloseLectureEnrollmentCommand.cs" t="Include" />
+          <e p="EnrollStudentCommand.cs" t="Include" />
+          <e p="ICommand.cs" t="Include" />
+          <e p="RegisterNewStudentCommand.cs" t="Include" />
+        </e>
+        <e p="Contexts" t="Include">
+          <e p="ModelbuilderExtentions.cs" t="Include" />
+          <e p="SchoolCoreDbContext.cs" t="Include" />
+        </e>
+        <e p="Controllers" t="Include">
+          <e p="HomeController.cs" t="Include" />
+          <e p="LectureController.cs" t="Include" />
+          <e p="StudentController.cs" t="Include" />
+          <e p="TeacherController.cs" t="Include" />
+        </e>
+        <e p="Databases" t="Include">
+          <e p="DummyDatabase.cs" t="Include" />
+          <e p="IDatabase.cs" t="Include" />
+          <e p="LocalDatabase.cs" t="Include" />
+        </e>
+        <e p="Domain" t="Include">
+          <e p="Models" t="Include">
+            <e p="Enrollment.cs" t="Include" />
+            <e p="Lecture.cs" t="Include" />
+            <e p="Person.cs" t="Include" />
+            <e p="Student.cs" t="Include" />
+            <e p="Teacher.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Migrations" t="Include">
+          <e p="20200827124336_ReworkSeedAndDomainModels.cs" t="Include" />
+          <e p="20200827124336_ReworkSeedAndDomainModels.Designer.cs" t="Include" />
+          <e p="20200827124724_UpdateSeed.cs" t="Include" />
+          <e p="20200827124724_UpdateSeed.Designer.cs" t="Include" />
+          <e p="20200827143406_UpdateLecture.cs" t="Include" />
+          <e p="20200827143406_UpdateLecture.Designer.cs" t="Include" />
+          <e p="20200828095916_UpdateEnrollment.cs" t="Include" />
+          <e p="20200828095916_UpdateEnrollment.Designer.cs" t="Include" />
+          <e p="20200828111225_UpdateModel.cs" t="Include" />
+          <e p="20200828111225_UpdateModel.Designer.cs" t="Include" />
+          <e p="SchoolCoreDbContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="School_Core.AssemblyInfo.cs" t="Include" />
+              <e p="School_Core.RazorAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Querys" t="Include">
+          <e p="GetLecturesQuery.cs" t="Include" />
+          <e p="GetStudentQuery.cs" t="Include" />
+          <e p="GetTeachersQuery.cs" t="Include" />
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="LectureRepository.cs" t="Include" />
+          <e p="StudentRepository.cs" t="Include" />
+          <e p="TeacherRepository.cs" t="Include" />
+        </e>
+        <e p="School_Core.csproj" t="IncludeRecursive" />
+        <e p="Specifications" t="Include">
+          <e p="AndSpecification.cs" t="Include" />
+          <e p="CompositeSpecification.cs" t="Include" />
+          <e p="ExpressionExtension.cs" t="Include" />
+          <e p="MatchAllSpecification.cs" t="Include" />
+          <e p="MatchNoneSpecification.cs" t="Include" />
+          <e p="NotSpecification.cs" t="Include" />
+          <e p="OrSpecification.cs" t="Include" />
+          <e p="ParameterRebinder.cs" t="Include" />
+          <e p="SortSpecification.cs" t="Include" />
+          <e p="Specification.cs" t="Include" />
+          <e p="Specifier.cs" t="Include" />
+          <e p="WrappedSpecification.cs" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="Util" t="Include">
+          <e p="Messages.cs" t="Include" />
+        </e>
+        <e p="ViewComponents" t="Include">
+          <e p="CounterViewComponent.cs" t="Include" />
+        </e>
+        <e p="ViewModels" t="Include">
+          <e p="CounterTableViewModel.cs" t="Include" />
+          <e p="ErrorViewModel.cs" t="Include" />
+          <e p="Home" t="Include">
+            <e p="HomeViewModel.cs" t="Include" />
+          </e>
+          <e p="Lecture" t="Include">
+            <e p="LectureAddStudentViewModel.cs" t="Include" />
+            <e p="LectureDetailsViewModel.cs" t="Include" />
+            <e p="LectureListViewModel.cs" t="Include" />
+            <e p="LectureViewModel.cs" t="Include" />
+          </e>
+          <e p="Student" t="Include">
+            <e p="StudentAddNewViewModel.cs" t="Include" />
+            <e p="StudentDetailsViewModel.cs" t="Include" />
+            <e p="StudentListViewModel.cs" t="Include" />
+            <e p="StudentViewModel.cs" t="Include" />
+          </e>
+          <e p="Teacher" t="Include">
+            <e p="TeacherDetailsViewModel.cs" t="Include" />
+            <e p="TeacherListViewModel.cs" t="Include" />
+            <e p="TeacherViewModel.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Views" t="Include">
+          <e p="_ViewImports.cshtml" t="Include" />
+          <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Error.cshtml" t="Include" />
+          <e p="Home" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Lecture" t="Include">
+            <e p="Details.cshtml" t="Include" />
+            <e p="EnrollStudent.cshtml" t="Include" />
+            <e p="List.cshtml" t="Include" />
+          </e>
+          <e p="Shared" t="Include">
+            <e p="_Layout.cshtml" t="Include" />
+            <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+            <e p="Components" t="Include">
+              <e p="Counter" t="Include">
+                <e p="Default.cshtml" t="Include" />
+              </e>
+            </e>
+            <e p="Error.cshtml" t="Include" />
+          </e>
+          <e p="Student" t="Include">
+            <e p="AddNew.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="List.cshtml" t="Include" />
+          </e>
+          <e p="Teacher" t="Include">
+            <e p="Details.cshtml" t="Include" />
+            <e p="List.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="wwwroot" t="Include">
+          <e p="css" t="Include">
+            <e p="site.css" t="Include" />
+          </e>
+          <e p="favicon.ico" t="Include" />
+          <e p="js" t="Include">
+            <e p="site.js" t="Include" />
+          </e>
+          <e p="lib" t="Include">
+            <e p="bootstrap" t="Include">
+              <e p="dist" t="Include">
+                <e p="css" t="Include">
+                  <e p="bootstrap-grid.css" t="Include" />
+                  <e p="bootstrap-grid.css.map" t="Include" />
+                  <e p="bootstrap-grid.min.css" t="Include" />
+                  <e p="bootstrap-grid.min.css.map" t="Include" />
+                  <e p="bootstrap-reboot.css" t="Include" />
+                  <e p="bootstrap-reboot.css.map" t="Include" />
+                  <e p="bootstrap-reboot.min.css" t="Include" />
+                  <e p="bootstrap-reboot.min.css.map" t="Include" />
+                  <e p="bootstrap.css" t="Include" />
+                  <e p="bootstrap.css.map" t="Include" />
+                  <e p="bootstrap.min.css" t="Include" />
+                  <e p="bootstrap.min.css.map" t="Include" />
+                </e>
+                <e p="js" t="Include">
+                  <e p="bootstrap.bundle.js" t="Include" />
+                  <e p="bootstrap.bundle.js.map" t="Include" />
+                  <e p="bootstrap.bundle.min.js" t="Include" />
+                  <e p="bootstrap.bundle.min.js.map" t="Include" />
+                  <e p="bootstrap.js" t="Include" />
+                  <e p="bootstrap.js.map" t="Include" />
+                  <e p="bootstrap.min.js" t="Include" />
+                  <e p="bootstrap.min.js.map" t="Include" />
+                </e>
+              </e>
+              <e p="LICENSE" t="Include" />
+            </e>
+            <e p="jquery" t="Include">
+              <e p="dist" t="Include">
+                <e p="jquery.js" t="Include" />
+                <e p="jquery.min.js" t="Include" />
+                <e p="jquery.min.map" t="Include" />
+              </e>
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+            <e p="jquery-validation" t="Include">
+              <e p="dist" t="Include">
+                <e p="additional-methods.js" t="Include" />
+                <e p="additional-methods.min.js" t="Include" />
+                <e p="jquery.validate.js" t="Include" />
+                <e p="jquery.validate.min.js" t="Include" />
+              </e>
+              <e p="LICENSE.md" t="Include" />
+            </e>
+            <e p="jquery-validation-unobtrusive" t="Include">
+              <e p="jquery.validate.unobtrusive.js" t="Include" />
+              <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="School_Core.sln" t="IncludeFlat" />
+      <e p="TestingTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CloseLectureEnrollmentCommandTests.cs" t="Include" />
+        <e p="LectureControllerTests.cs" t="Include" />
+        <e p="LectureTests.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="TestingTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="StudentAddNewViewModelMapperTests.cs" t="Include" />
+        <e p="TestingTests.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>

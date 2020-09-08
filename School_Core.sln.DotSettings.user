@@ -1,0 +1,13 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5cf7a4b1_002D61ee_002D42bf_002Db86f_002D1999a39a55c2/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c0e88f15_002D5a09_002D4c0a_002D8301_002Dc73a2917bed4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_Returns_True_When_StatusIsOpen" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.CloseLectureEnrollmentCommandHandlerTests.Handle_Returns_True_When_StatusIsOpen&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.LectureTests.EnrollStudent_Does_Not_Add_Enrollment_When_There_Is_Student_With_Same_Id_Enrolled&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.LectureTests.EnrollStudent_Throws_ArgumentException_When_Empty_Guid_Is_Passed&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

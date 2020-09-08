@@ -1,0 +1,21 @@
+﻿@model School_Core.ViewModels.CounterTableViewModel
+
+<div class="row">
+    <div class="col">
+        <h4>@Model.PageTitle</h4>
+
+        <table style="border: 2px solid @Model.BorderColor">
+
+            <tbody>
+                @foreach (var item in Model.CounterViewModels)
+                {
+
+                    <tr>
+                        <td>@item.RowName:</td>
+                        <td>@item.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

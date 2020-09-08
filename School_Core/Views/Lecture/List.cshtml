@@ -1,0 +1,51 @@
+﻿@model School_Core.ViewModels.Lecture.LectureListViewModel
+
+@{
+    ViewData["Title"] = @Model.HeadingTitle;
+}
+<h1 style="color:@Model.HeadingColor">@Model.HeadingTitle</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lecture in Model.LectureViewModels)
+                    {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(lecture.Name, "Details", "Lecture", new { id = lecture.Id })
+                        </td>
+                        <td>
+                            @lecture.Status
+                        </td>
+                        
+                        <td>
+                            <a class="btn btn-outline-danger" asp-controller="Lecture" asp-action="CloseEnrollment" asp-route-id="@lecture.Id">Close Enrollment</a>
+                            @*<a class="btn btn-outline-danger disabled" asp-controller="Lecture" asp-action="AddNew">Close Enrollment</a>*@
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-secondary" asp-controller="Lecture" asp-action="ArchiveEnrollment" asp-route-id="@lecture.Id">Archive</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            @*<a class="btn btn-primary" asp-controller="Lecture" asp-action="AddNew">Add New</a>*@
+
+        </div>
+    </div>
+    <div style="margin-top:20px">
+        @await Component.InvokeAsync("Counter", new { color = Model.HeadingColor })
+    </div>
+</div>

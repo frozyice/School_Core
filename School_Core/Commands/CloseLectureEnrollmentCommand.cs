@@ -1,0 +1,46 @@
+﻿using School_Core.Contexts;
+using School_Core.Domain.Models;
+using System;
+
+namespace School_Core.Commands
+{
+    public class CloseLectureEnrollmentCommand : ICommand
+    {
+        public Guid Id { get; private set; }
+
+        public CloseLectureEnrollmentCommand(Guid id)
+        {
+            Id = id;
+        }
+
+        public class Handler : ICommandHandler<CloseLectureEnrollmentCommand>
+        {
+            private readonly SchoolCoreDbContext _dbContext;
+
+            public Handler(SchoolCoreDbContext dbContext)
+            {
+                _dbContext = dbContext;
+            }
+
+            // kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
+            // kui on mingi põhjus et me ei saa valideerimist teha domeenis siis paneme Commandi 
+            // 
+            public bool Handle(CloseLectureEnrollmentCommand command)
+            {
+                var lecture = _dbContext.Lectures.Find(command.Id);
+                if (lecture == null)
+                {
+                    return false;
+                }
+                
+                if (lecture.Status == LectureStatus.Open)
+                {
+                    lecture.CloseLectureEnrollment();
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+    }
+}

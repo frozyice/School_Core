@@ -1,0 +1,19 @@
+﻿@model School_Core.ViewModels.Lecture.LectureAddStudentViewModel
+
+<div class="container">
+    <div class="col-md-6">
+        @*<h1>Add student to @Model.Name</h1>*@
+        <form asp-controller="Lecture" asp-action="EnrollStudent" method="post">
+            <input asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="StudentName"></label>
+                <input asp-for="StudentName" class="form-control"/>
+                <span asp-validation-for="StudentName" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary form-control">Enroll Student</button>
+            </div>
+        </form>
+    </div>
+</div>
