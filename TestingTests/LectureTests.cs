@@ -71,7 +71,7 @@ namespace TestingTests
             var sut = new Mock<Lecture>();
             var enrollments = new List<Enrollment>()
             {
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.None)
+                new Enrollment(Guid.NewGuid(), Grade.None)
             };
             sut.Setup(x => x.Enrollments).Returns(enrollments);
 
@@ -89,8 +89,8 @@ namespace TestingTests
             var sut = new Mock<Lecture>();
             var enrollments = new List<Enrollment>()
             {
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.A),
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.None)
+                new Enrollment(Guid.NewGuid(), Grade.A),
+                new Enrollment(Guid.NewGuid(), Grade.None)
             };
             sut.Setup(x => x.Enrollments).Returns(enrollments);
 
@@ -107,12 +107,12 @@ namespace TestingTests
             var sut = new Mock<Lecture>();
             var enrollments = new List<Enrollment>()
             {
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.A),
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.B),
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.C),
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.D),
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.E),
-                new Enrollment(sut.Object.Id, Guid.NewGuid(), Grade.F),
+                new Enrollment(Guid.NewGuid(), Grade.A),
+                new Enrollment(Guid.NewGuid(), Grade.B),
+                new Enrollment(Guid.NewGuid(), Grade.C),
+                new Enrollment(Guid.NewGuid(), Grade.D),
+                new Enrollment(Guid.NewGuid(), Grade.E),
+                new Enrollment(Guid.NewGuid(), Grade.F),
             };
             
             sut.Setup(x => x.Enrollments).Returns(enrollments);

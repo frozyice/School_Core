@@ -30,7 +30,7 @@ namespace School_Core.Contexts
             new Teacher("McCarroll")
 
         };
-
+        
         public static List<Lecture> GetLectures()
         {
             return lectures;

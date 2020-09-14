@@ -22,7 +22,7 @@ namespace School_Core.Commands
                 _dbContext = dbContext;
             }
 
-            // kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
+            //todo: kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
             // kui on mingi põhjus et me ei saa valideerimist teha domeenis siis paneme Commandi 
             // 
             public bool Handle(CloseLectureEnrollmentCommand command)

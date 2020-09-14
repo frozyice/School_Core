@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Domain.Specifications;
-using School_Core.Contexts;
-using School_Core.Domain.Models;
+﻿using School_Core.Contexts;
 
 namespace School_Core.Querys
 {

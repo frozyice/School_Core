@@ -7,14 +7,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace School_Core.ViewModels.Lecture
 {
-    public class LectureAddStudentViewModel
+    public class EnrollStudentViewModel
     {
         [HiddenInput]
         public Guid Id { get; set; }
 
-        [HiddenInput]
-        public string Name { get; set; }
+        //[HiddenInput]
+        //public string Name { get; set; }
 
+        public IEnumerable<StudentEnrolledViewModel> StudentsEnrolled { get; set; } = new List<StudentEnrolledViewModel>();
+        
         [Required]
         [MaxLength(50)]
         [DisplayName("Student name")]
@@ -23,7 +25,7 @@ namespace School_Core.ViewModels.Lecture
 
         public interface IMapper
         {
-            public Guid AddStudentToLecture(LectureAddStudentViewModel lectureAddStudentViewModel);
+            public Guid AddStudentToLecture(EnrollStudentViewModel enrollStudentViewModel);
             public List<string> Validate(Guid lectureId, string studentName);
         }
 
@@ -38,10 +40,11 @@ namespace School_Core.ViewModels.Lecture
                 _lectureRepository = lectureRepository;
                 _studentRepository = studentRepository;
             }
-            public Guid AddStudentToLecture(LectureAddStudentViewModel lectureAddStudentViewModel)
+            public Guid AddStudentToLecture(EnrollStudentViewModel enrollStudentViewModel)
             {
-                var lecture = _lectureRepository.GetLecture(lectureAddStudentViewModel.Id);
-                var student = _studentRepository.GetStudentByName(lectureAddStudentViewModel.StudentName);
+                var a = enrollStudentViewModel;
+                var lecture = _lectureRepository.GetLecture(enrollStudentViewModel.Id);
+                var student = _studentRepository.GetStudentByName(enrollStudentViewModel.StudentName);
                 //lecture.AddStudent(student);
                 _lectureRepository.EditLecture(lecture);
                 return lecture.Id;
@@ -75,24 +78,31 @@ namespace School_Core.ViewModels.Lecture
         }
         public interface IProvider
         {
-            public LectureAddStudentViewModel Provide(Guid id);
+            public EnrollStudentViewModel Provide(Guid id);
         }
 
         public class Provider : IProvider
         {
-            private readonly ILectureRepository _lectureRepository;
+            private readonly StudentEnrolledViewModel.IProvider _provider;
 
-            public Provider(ILectureRepository lectureRepository)
+
+            public Provider(StudentEnrolledViewModel.IProvider provider)
             {
-                _lectureRepository = lectureRepository;
+                _provider = provider;
             }
 
-            public LectureAddStudentViewModel Provide(Guid id)
+            public EnrollStudentViewModel Provide(Guid id)
             {
-                var lecture = _lectureRepository.GetLecture(id);
-                var lectureAddStudentViewModel = new LectureAddStudentViewModel();
-                lectureAddStudentViewModel.Id = id;
-                lectureAddStudentViewModel.Name = lecture.Name;
+                var lectureAddStudentViewModel = new EnrollStudentViewModel()
+                {
+                    Id = id,
+                    StudentsEnrolled = _provider.Provide(id)
+                };
+                // var lecture = _lectureRepository.GetLecture(id);
+                // lectureAddStudentViewModel.Id = id;
+                // lectureAddStudentViewModel.Name = lecture.Name;
+                
+                
                 return lectureAddStudentViewModel;
             }
         }

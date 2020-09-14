@@ -503,3 +503,6 @@ C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.
 C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
+C:\Users\KarmoKiima\source\repos\School_Core\TestingTests\bin\Debug\netcoreapp3.1\dotnet-ef.dll

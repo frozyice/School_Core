@@ -1,5 +1,7 @@
-﻿using School_Core.Contexts;
+﻿using System;
+using School_Core.Contexts;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace School_Core.Commands
 {
@@ -7,12 +9,12 @@ namespace School_Core.Commands
 
     public sealed class EnrollStudentCommand : ICommand
     {
-        public string LectureName { get; }
+        public Guid LectureId { get; }
         public string StudentName { get; }
 
-        public EnrollStudentCommand(string lectureName, string studentName)
+        public EnrollStudentCommand(Guid lectureId, string studentName)
         {
-            LectureName = lectureName;
+            LectureId = lectureId;
             StudentName = studentName;
         }
 
@@ -27,7 +29,8 @@ namespace School_Core.Commands
 
             public bool Handle(EnrollStudentCommand command)
             {
-                var lecture = _context.Lectures.FirstOrDefault(l => l.Name == command.LectureName);
+                var lecture = _context.Lectures.Where(l => l.Id == command.LectureId).Include(x=>x.Enrollments).Single();
+                
                 var student = _context.Students.FirstOrDefault(s => s.Name == command.StudentName);
 
                 if (lecture == null && student == null)
@@ -35,6 +38,11 @@ namespace School_Core.Commands
                     return false;
                     
                 }
+                
+                //var enrollment = new Enrollment(student.Id);
+                lecture.EnrollStudent(student.Id);
+                _context.SaveChanges();
+                
 
                 
 
@@ -64,6 +72,8 @@ namespace School_Core.Commands
                 //};
                 //_context.Add(lectureStudents);
                 //_context.SaveChanges();
+
+                
 
                 return true;
 

@@ -2,13 +2,13 @@
 
 @if (Model.Status == School_Core.Domain.Models.LectureStatus.Open)
 {
-    <h1 class="p-3 mb-2 bg-success text-white">
+    <h1 class="p-3 mb-2" style="background-color: #0CAE75; color: white">
         @Model.Name
     </h1>
 }
 else if (Model.Status == School_Core.Domain.Models.LectureStatus.Closed)
 {
-    <h1 class="p-3 mb-2 bg-danger text-white">
+    <h1 class="p-3 mb-2" style="background-color: #F11135; color: white">
         @Model.Name
     </h1>
 }

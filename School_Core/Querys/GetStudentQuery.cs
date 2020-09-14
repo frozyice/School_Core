@@ -7,16 +7,16 @@ using System.Linq;
 namespace School_Core.Querys
 {
 
-    public interface IGetStudentQuery
+    public interface IStudentQuery
     {
         IReadOnlyList<Student> GetStudents(Specification<Student> spec = null);
     }
 
-    public class GetStudentQuery : IGetStudentQuery
+    public class StudentQuery : IStudentQuery
     {
         private readonly SchoolCoreDbContext _dbContext;
 
-        public GetStudentQuery(SchoolCoreDbContext dbContext)
+        public StudentQuery(SchoolCoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using School_Core.Domain.Models;
 using School_Core.Querys;
 
@@ -24,9 +22,9 @@ namespace School_Core.ViewModels.Home
         
         public class Provider : IProvider
         {
-            private readonly IGetLectureQuery _query;
+            private readonly ILectureQuery _query;
 
-            public Provider(IGetLectureQuery query)
+            public Provider(ILectureQuery query)
             {
                 _query = query;
                 _query = query;

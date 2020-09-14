@@ -12,15 +12,15 @@ namespace TestingTests
     class LectureControllerTests
     {
         public LectureController _sut;
-        private Mock<LectureAddStudentViewModel.IProvider> _mockLectureAddStudentProvider;
-        private Mock<LectureAddStudentViewModel.IMapper> _mockLectureAddStudentMapper;
+        private Mock<EnrollStudentViewModel.IProvider> _mockLectureAddStudentProvider;
+        private Mock<EnrollStudentViewModel.IMapper> _mockLectureAddStudentMapper;
 
 
         [SetUp]
         public void Setup()
         {
-            _mockLectureAddStudentProvider = new Mock<LectureAddStudentViewModel.IProvider>();
-            _mockLectureAddStudentMapper = new Mock<LectureAddStudentViewModel.IMapper>();
+            _mockLectureAddStudentProvider = new Mock<EnrollStudentViewModel.IProvider>();
+            _mockLectureAddStudentMapper = new Mock<EnrollStudentViewModel.IMapper>();
         }
 
         //https://stackoverflow.com/questions/22561834/asp-net-mvc-controller-post-method-unit-test-modelstate-isvalid-always-true
@@ -46,7 +46,7 @@ namespace TestingTests
         public void AddStudent_Returns_ViewResult_When_Modelstate_Is_Not_Valid()
         {
             var modelId = Guid.NewGuid();
-            var parameterModel = new LectureAddStudentViewModel();
+            var parameterModel = new EnrollStudentViewModel();
             parameterModel.Id = modelId;
 
             _mockLectureAddStudentMapper.Setup(x => x.Validate(modelId, It.IsAny<string>())).Returns(new List<string>());
@@ -57,7 +57,7 @@ namespace TestingTests
             var result = (ViewResult)_sut.EnrollStudent(parameterModel);
 
             // Assert
-            var model = (LectureAddStudentViewModel)result.ViewData.Model;
+            var model = (EnrollStudentViewModel)result.ViewData.Model;
             Assert.That(model.Id, Is.EqualTo(parameterModel.Id));
 
             //Assert.That(isModelStateValid, Is.False);
@@ -69,7 +69,7 @@ namespace TestingTests
         [Test]
         public void AddStudent_Returns_ViewResult_When_Validate_Has_Errors()
         {
-            var viewModel = new LectureAddStudentViewModel();
+            var viewModel = new EnrollStudentViewModel();
 
             var errors = new List<string>() { "error1", "error2", "error3" };
             _mockLectureAddStudentMapper.Setup(x => x.Validate(It.IsAny<Guid>(), It.IsAny<string>())).Returns(errors);
@@ -101,7 +101,7 @@ namespace TestingTests
         [Test]
         public void AddStudent_AddsStudentToLecture_When_Modelstate_Is_Valid()
         {
-            var viewModel = new LectureAddStudentViewModel();
+            var viewModel = new EnrollStudentViewModel();
             _mockLectureAddStudentMapper.Setup(x => x.Validate(It.IsAny<Guid>(), It.IsAny<string>())).Returns(new List<string>());
             _mockLectureAddStudentMapper.Setup(x => x.AddStudentToLecture(viewModel)).Returns(null);
 

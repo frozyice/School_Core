@@ -60,6 +60,8 @@
           <e p="20200828095916_UpdateEnrollment.Designer.cs" t="Include" />
           <e p="20200828111225_UpdateModel.cs" t="Include" />
           <e p="20200828111225_UpdateModel.Designer.cs" t="Include" />
+          <e p="20200910113830_SimpleEnrollment.cs" t="Include" />
+          <e p="20200910113830_SimpleEnrollment.Designer.cs" t="Include" />
           <e p="SchoolCoreDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -113,10 +115,11 @@
             <e p="HomeViewModel.cs" t="Include" />
           </e>
           <e p="Lecture" t="Include">
-            <e p="LectureAddStudentViewModel.cs" t="Include" />
+            <e p="EnrollStudentViewModel.cs" t="Include" />
             <e p="LectureDetailsViewModel.cs" t="Include" />
             <e p="LectureListViewModel.cs" t="Include" />
             <e p="LectureViewModel.cs" t="Include" />
+            <e p="StudentEnrolledViewModel.cs" t="Include" />
           </e>
           <e p="Student" t="Include">
             <e p="StudentAddNewViewModel.cs" t="Include" />

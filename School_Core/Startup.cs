@@ -33,9 +33,11 @@ namespace School_Core
             //Commands
             services.AddTransient<ICommandHandler<CloseLectureEnrollmentCommand>, CloseLectureEnrollmentCommand.Handler>();
             services.AddTransient<ICommandHandler<ArchiveLectureCommand>, ArchiveLectureCommand.Handler>();
+            services.AddTransient<ICommandHandler<EnrollStudentCommand>, EnrollStudentCommand.Handler>();
 
             //Querys
-            services.AddTransient<IGetLectureQuery, GetLectureQuery>();
+            services.AddTransient<ILectureQuery, LectureQuery>();
+            services.AddTransient<IStudentQuery, StudentQuery>();
 
             //ViewModelProviders/Mappers
             services.AddTransient<StudentViewModel.IProvider, StudentViewModel.Provider>();
@@ -50,8 +52,10 @@ namespace School_Core
             services.AddTransient<LectureViewModel.IProvider, LectureViewModel.Provider>();
             services.AddTransient<LectureListViewModel.IProvider, LectureListViewModel.Provider>();
             services.AddTransient<LectureDetailsViewModel.IProvider, LectureDetailsViewModel.Provider>();
-            services.AddTransient<LectureAddStudentViewModel.IMapper, LectureAddStudentViewModel.Mapper>();
-            services.AddTransient<LectureAddStudentViewModel.IProvider, LectureAddStudentViewModel.Provider>();
+            services.AddTransient<EnrollStudentViewModel.IMapper, EnrollStudentViewModel.Mapper>();
+            services.AddTransient<StudentEnrolledViewModel.IProvider, StudentEnrolledViewModel.Provider>();
+            services.AddTransient<EnrollStudentViewModel.IProvider, EnrollStudentViewModel.Provider>();
+            services.AddTransient<EnrollStudentViewModel.IProvider, EnrollStudentViewModel.Provider>();
 
             services.AddTransient<CounterTableViewModel.IProvider, CounterTableViewModel.Provider>();
 

@@ -237,7 +237,6 @@ C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Collections.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Collections.NonGeneric.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Collections.Specialized.dll
-C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.ComponentModel.Annotations.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.ComponentModel.DataAnnotations.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.ComponentModel.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.ComponentModel.EventBasedAsync.dll
@@ -317,7 +316,6 @@ C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Resources.Reader.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Resources.ResourceManager.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Resources.Writer.dll
-C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Runtime.CompilerServices.VisualC.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Runtime.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Runtime.Extensions.dll
@@ -386,8 +384,6 @@ C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\obj\Debug\netcoreapp3.1\Razor\Views\Student\AddNew.cshtml.g.cs
-C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -395,9 +391,7 @@ C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
@@ -443,3 +437,12 @@ C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\obj\Debug\netcoreapp3.1\School_Core.csproj.CoreCompileInputs.cache
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\obj\Debug\netcoreapp3.1\School_Core.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\KarmoKiima\source\repos\School_Core\School_Core\obj\Debug\netcoreapp3.1\School_Core.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\dotnet-ef.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.ComponentModel.Annotations.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\refs\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+C:\Users\KarmoKiima\source\repos\School_Core\School_Core\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll

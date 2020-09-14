@@ -1,6 +1,5 @@
 ﻿using School_Core.Querys;
 using School_Core.Domain.Models;
-using School_Core.Repositories;
 using System;
 using System.Collections.Generic;
 
@@ -19,9 +18,9 @@ namespace School_Core.ViewModels.Lecture
         }
         public class Provider : IProvider
         {
-            private readonly IGetLectureQuery _query;
+            private readonly ILectureQuery _query;
 
-            public Provider(IGetLectureQuery query)
+            public Provider(ILectureQuery query)
             {
                 _query = query;
             }

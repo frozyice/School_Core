@@ -8,7 +8,7 @@ namespace School_Core.Domain.Models
         
         public int YearOfStudy { get; private set; }
         public StudyField Field { get; private set; }
-        public List<Enrollment> Enrollments { get; private set; }
+             public ICollection<Enrollment> Enrollments { get; private set; }
 
         public Student(string name, int yearOfStudy = 1, StudyField field = StudyField.None) : base(name)
         { 

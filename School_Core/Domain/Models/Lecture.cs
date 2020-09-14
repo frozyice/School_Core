@@ -20,9 +20,21 @@ namespace School_Core.Domain.Models
         //1:1
         public Teacher Teacher { get; private set; }
         //M:M
-        //public List<Enrollment> Enrollments { get; private set; }
-        private List<Enrollment> _enrollments = new List<Enrollment>();
-        public virtual IReadOnlyList<Enrollment> Enrollments => _enrollments.ToList();
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        // public List<Enrollment> _enrollments = new List<Enrollment>();
+        // public virtual IReadOnlyList<Enrollment> Enrollments => _enrollments.ToList();
+        
+        // private ICollection<Enrollment> _enrollments;
+        // protected virtual ICollection<Enrollment> EnrollmentsCollection
+        // {
+        //     get { return _enrollments ?? (_enrollments = new HashSet<Enrollment>()); }
+        //     set { _enrollments = value; }
+        // }
+        //
+        // public virtual IReadOnlyCollection<Enrollment> Enrollments => EnrollmentsCollection.ToList().AsReadOnly();
+        
+        
+        
 
         protected Lecture()
         {
@@ -36,6 +48,7 @@ namespace School_Core.Domain.Models
             CanTakeFromYear = canTakeFromYear;
             FieldOfStudy = fieldOfStudy;
             Status = LectureStatus.Open; //todo: default: closed, lecture has teacher ? open
+            Enrollments = new List<Enrollment>();
         }
 
         public void CloseLectureEnrollment()
@@ -52,10 +65,11 @@ namespace School_Core.Domain.Models
                 return true;
             }
 
-            var a = _enrollments;
-            var canArchive = Enrollments.All(x => x.Grade != Grade.None);
+            var a = Enrollments;
+            //var canArchive = Enrollments.All(x => x.Grade != Grade.None);
 
-            return canArchive;
+            //return canArchive;
+            return true;
         }
 
         public void ArchiveLecture()
@@ -66,19 +80,23 @@ namespace School_Core.Domain.Models
             }
         }
 
+        public void EnrollStudent2(Enrollment e)
+        {
+            Enrollments.Add(e);
+        }
+
         public void EnrollStudent(Guid studentId) 
         {
             //todo: juba on opilane seal  ?? kirjuta test enne näiteks / mingi exception ka mingil juhul
-            if (true)
+            if (studentId == Guid.Empty)
             {
                 throw new ArgumentException($"{studentId} :  is not valid {nameof(studentId)} ");
             }
-
-            var existingEnrollment = _enrollments.FirstOrDefault(x => x.StudentId == studentId); 
-            
+            var existingEnrollment = Enrollments.FirstOrDefault(x => x.StudentId == studentId); 
+            //todo: throw
             if (Status == LectureStatus.Open && existingEnrollment==null)
             {
-                _enrollments.Add(new Enrollment(Id,studentId));
+                Enrollments.Add(new Enrollment(studentId));
             }
             
         }

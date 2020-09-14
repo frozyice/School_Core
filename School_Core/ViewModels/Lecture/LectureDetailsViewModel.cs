@@ -40,7 +40,8 @@ namespace School_Core.ViewModels.Lecture
                 { 
                     foreach (var student in lecture.Enrollments)
                     {
-                        studentNamesInLecture.Add(student.Student.Name);
+                        //todo: pole vajalik
+                        //studentNamesInLecture.Add(student.Student.Name);
                     }
                 }
 

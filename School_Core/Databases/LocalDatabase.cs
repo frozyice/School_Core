@@ -41,7 +41,7 @@ namespace School_Core.Databases
         {
             //var lecture = _dbContext.Lectures.FirstOrDefault(x => x.Id == id);
             //Eager loading
-            var lecture = _dbContext.Lectures.Include(t => t.Teacher).Include(x => x.Enrollments).ThenInclude(x => x.Student).First(e=>e.Id == id);
+            var lecture = _dbContext.Lectures.Include(t => t.Teacher).Include(x => x.Enrollments).First(e=>e.Id == id);//.ThenInclude(x => x.Student).First(e=>e.Id == id);
             return lecture;
         }
 
