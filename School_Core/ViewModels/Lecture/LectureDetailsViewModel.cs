@@ -3,6 +3,7 @@ using School_Core.Repositories;
 using School_Core.ViewModels.Teacher;
 using System;
 using System.Collections.Generic;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels.Lecture
 {
@@ -24,27 +25,30 @@ namespace School_Core.ViewModels.Lecture
         }
         public class Provider : IProvider
         {
-            private readonly ILectureRepository _lectureRepository;
             private readonly TeacherDetailsViewModel.IProvider _teacherDetailsProvider;
+            private readonly ILectureQuery _lectureQuery;
+            private readonly IStudentQuery _studentQuery;
 
-            public Provider(ILectureRepository lectureRepository, TeacherDetailsViewModel.IProvider teacherDetailsProvider)
+            public Provider(TeacherDetailsViewModel.IProvider teacherDetailsProvider, ILectureQuery lectureQuery, IStudentQuery studentQuery)
             {
-                _lectureRepository = lectureRepository;
                 _teacherDetailsProvider = teacherDetailsProvider;
+                _lectureQuery = lectureQuery;
+                _studentQuery = studentQuery;
             }
             public LectureDetailsViewModel Provide(Guid id)
             {
-                var lecture = _lectureRepository.GetLecture(id);
+
+                var lecture = _lectureQuery.GetLecture(id);
                 var studentNamesInLecture = new List<string>();
                 if (lecture.Enrollments!=null)
                 { 
-                    foreach (var student in lecture.Enrollments)
+                    foreach (var enrollment in lecture.Enrollments)
                     {
-                        //todo: pole vajalik
-                        //studentNamesInLecture.Add(student.Student.Name);
+                        var student = _studentQuery.GetStudent(enrollment.StudentId);
+                        studentNamesInLecture.Add(student.Name);
                     }
                 }
-
+//todo mis see on?
                 TeacherDetailsViewModel teacher = null;
                 if (lecture.Teacher!=null)
                 {

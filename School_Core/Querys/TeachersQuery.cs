@@ -2,16 +2,16 @@
 
 namespace School_Core.Querys
 {
-    public interface IGetTeacherQuery
+    public interface ITeacherQuery
     {
         
     }
     
-    public class GetTeachersQuery : IGetTeacherQuery
+    public class TeachersQuery : ITeacherQuery
     {
         private readonly SchoolCoreDbContext _dbContext;
 
-        public GetTeachersQuery(SchoolCoreDbContext dbContext)
+        public TeachersQuery(SchoolCoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }

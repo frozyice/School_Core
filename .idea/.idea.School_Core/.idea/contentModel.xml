@@ -62,6 +62,8 @@
           <e p="20200828111225_UpdateModel.Designer.cs" t="Include" />
           <e p="20200910113830_SimpleEnrollment.cs" t="Include" />
           <e p="20200910113830_SimpleEnrollment.Designer.cs" t="Include" />
+          <e p="20200914153600_UpdateEnrolmentModel.cs" t="Include" />
+          <e p="20200914153600_UpdateEnrolmentModel.Designer.cs" t="Include" />
           <e p="SchoolCoreDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -77,9 +79,9 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Querys" t="Include">
-          <e p="GetLecturesQuery.cs" t="Include" />
-          <e p="GetStudentQuery.cs" t="Include" />
-          <e p="GetTeachersQuery.cs" t="Include" />
+          <e p="LectureQuery.cs" t="Include" />
+          <e p="StudentQuery.cs" t="Include" />
+          <e p="TeachersQuery.cs" t="Include" />
         </e>
         <e p="Repositories" t="Include">
           <e p="LectureRepository.cs" t="Include" />

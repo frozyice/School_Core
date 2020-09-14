@@ -35,7 +35,7 @@ namespace School_Core.Querys
 
         public Lecture GetLecture(Guid lectureId)
         {
-            return _dbContext.Lectures.Where(x => x.Id == lectureId).Include(e => e.Enrollments).FirstOrDefault();
+            return _dbContext.Lectures.Where(x => x.Id == lectureId).Include(e => e.Enrollments).SingleOrDefault();
         }
     }
 }

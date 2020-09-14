@@ -1,4 +1,5 @@
-﻿using Domain.Specifications;
+﻿using System;
+using Domain.Specifications;
 using School_Core.Contexts;
 using School_Core.Domain.Models;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace School_Core.Querys
     public interface IStudentQuery
     {
         IReadOnlyList<Student> GetStudents(Specification<Student> spec = null);
+        Student GetStudent(Guid id);
     }
 
     public class StudentQuery : IStudentQuery
@@ -30,6 +32,11 @@ namespace School_Core.Querys
             var studentsExpression = spec.SatisfyEntitiesFrom(_dbContext.Students);
             var students = studentsExpression.ToList();
             return students;
+        }
+
+        public Student GetStudent(Guid id)
+        {
+            return _dbContext.Students.SingleOrDefault(x => x.Id == id);
         }
     }
 }

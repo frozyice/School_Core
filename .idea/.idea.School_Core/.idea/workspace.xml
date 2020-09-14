@@ -17,84 +17,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7215986f-8cd0-48e3-98e3-4bc2ce02fa22" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/School_Core/Migrations/20200910113830_SimpleEnrollment.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/School_Core/Migrations/20200910113830_SimpleEnrollment.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/StudentEnrolledViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Relational.Design.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.SqlServer.Design.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/dotnet-ef.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Relational.Design.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.SqlServer.Design.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/dotnet-ef.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/School_Core/Migrations/20200914153600_UpdateEnrolmentModel.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/School_Core/Migrations/20200914153600_UpdateEnrolmentModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.School_Core/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.School_Core/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.School_Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.School_Core/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/School_Core/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/School_Core/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/School_Core/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/School_Core/v16/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Commands/CloseLectureEnrollmentCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Commands/CloseLectureEnrollmentCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Commands/EnrollStudentCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Commands/EnrollStudentCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Contexts/ModelbuilderExtentions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Contexts/ModelbuilderExtentions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Controllers/LectureController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Controllers/LectureController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Databases/LocalDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Databases/LocalDatabase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/School_Core/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Controllers/HomeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/Domain/Models/Enrollment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Domain/Models/Enrollment.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Domain/Models/Lecture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Domain/Models/Lecture.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Domain/Models/Student.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Domain/Models/Student.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/Migrations/SchoolCoreDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Migrations/SchoolCoreDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Querys/GetLecturesQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Querys/GetLecturesQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Querys/GetStudentQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Querys/GetStudentQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Querys/GetTeachersQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Querys/GetTeachersQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/School_Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/School_Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/ViewModels/Home/HomeViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/ViewModels/Home/HomeViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureAddStudentViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/EnrollStudentViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/School_Core/Querys/GetLecturesQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Querys/LectureQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/School_Core/Querys/GetStudentQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Querys/StudentQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/School_Core/Querys/GetTeachersQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Querys/TeachersQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureDetailsViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureDetailsViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Views/Lecture/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Views/Lecture/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Views/Lecture/EnrollStudent.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Views/Lecture/EnrollStudent.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/Views/Lecture/List.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/Views/Lecture/List.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/bin/Debug/netcoreapp3.1/School_Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/Razor/Views/Lecture/Details.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/Razor/Views/Lecture/Details.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/Razor/Views/Lecture/EnrollStudent.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/Razor/Views/Lecture/EnrollStudent.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/Razor/Views/Lecture/List.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/Razor/Views/Lecture/List.cshtml.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/Debug/netcoreapp3.1/School_Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/School_Core.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/School_Core.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/School_Core.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/School_Core.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/School_Core/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/School_Core/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/LectureControllerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/LectureControllerTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/LectureTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/LectureTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.dll" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/School_Core.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/TestingTests.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/TestingTests.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/TestingTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/TestingTests.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/TestingTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/bin/Debug/netcoreapp3.1/TestingTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/Debug/netcoreapp3.1/TestingTests.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/TestingTests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/TestingTests.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/TestingTests.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/TestingTests.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/TestingTests.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/TestingTests.csproj.nuget.g.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestingTests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/TestingTests/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,21 +103,16 @@
         <option value="$PROJECT_DIR$/TestingTests/LectureControllerTests.cs" />
         <option value="$PROJECT_DIR$/School_Core/Domain/Models/Person.cs" />
         <option value="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureViewModel.cs" />
-        <option value="$PROJECT_DIR$/School_Core/Querys/GetTeachersQuery.cs" />
-        <option value="$PROJECT_DIR$/School_Core/Controllers/HomeController.cs" />
         <option value="$PROJECT_DIR$/School_Core/Views/Home/Index.cshtml" />
         <option value="$PROJECT_DIR$/School_Core/ViewModels/Home/HomeViewModel.cs" />
         <option value="$PROJECT_DIR$/School_Core/ViewModels/Lecture/StudentViewModel.cs" />
         <option value="$PROJECT_DIR$/School_Core/Contexts/ModelbuilderExtentions.cs" />
         <option value="$PROJECT_DIR$/School_Core/Startup.cs" />
         <option value="$PROJECT_DIR$/School_Core/Commands/CloseLectureEnrollmentCommand.cs" />
-        <option value="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureDetailsViewModel.cs" />
         <option value="$PROJECT_DIR$/School_Core/Databases/LocalDatabase.cs" />
         <option value="$PROJECT_DIR$/School_Core/Commands/ArchiveLectureCommand.cs" />
         <option value="$PROJECT_DIR$/School_Core/Domain/Models/Student.cs" />
         <option value="$PROJECT_DIR$/School_Core/Contexts/SchoolCoreDbContext.cs" />
-        <option value="$PROJECT_DIR$/School_Core/Domain/Models/Enrollment.cs" />
-        <option value="$PROJECT_DIR$/School_Core/Controllers/LectureController.cs" />
         <option value="$PROJECT_DIR$/School_Core/Domain/Models/Lecture.cs" />
         <option value="$PROJECT_DIR$/School_Core/Commands/EnrollStudentCommand.cs" />
         <option value="$PROJECT_DIR$/TestingTests/LectureTests.cs" />
@@ -175,6 +124,13 @@
         <option value="$PROJECT_DIR$/School_Core/Views/Lecture/EnrollStudent.cshtml" />
         <option value="$PROJECT_DIR$/School_Core/Views/Lecture/Details.cshtml" />
         <option value="$PROJECT_DIR$/School_Core/Views/Lecture/List.cshtml" />
+        <option value="$PROJECT_DIR$/School_Core/Controllers/HomeController.cs" />
+        <option value="$PROJECT_DIR$/School_Core/Controllers/LectureController.cs" />
+        <option value="$PROJECT_DIR$/School_Core/Querys/GetTeachersQuery.cs" />
+        <option value="$PROJECT_DIR$/School_Core/Domain/Models/Enrollment.cs" />
+        <option value="$PROJECT_DIR$/School_Core/Querys/LectureQuery.cs" />
+        <option value="$PROJECT_DIR$/School_Core/Querys/StudentQuery.cs" />
+        <option value="$PROJECT_DIR$/School_Core/ViewModels/Lecture/LectureDetailsViewModel.cs" />
       </list>
     </option>
   </component>
@@ -259,7 +215,15 @@
       <workItem from="1599720678557" duration="1533000" />
       <workItem from="1599722249177" duration="25341000" />
       <workItem from="1600069191090" duration="2047000" />
+      <workItem from="1600096533508" duration="1989000" />
     </task>
+    <task id="LOCAL−00001" summary="add content">
+      <created>1600096581527</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1600096581527</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +256,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="add content" />
+    <option name="LAST_COMMIT_MESSAGE" value="add content" />
   </component>
   <component name="WindowStateProjectService">
     <state x="736" y="426" key="#Code_Cleanup_Options" timestamp="1599049524383">
@@ -325,33 +291,37 @@
       <screen x="1920" y="13" width="1920" height="1160" />
     </state>
     <state x="2102" y="-7" width="1736" height="976" maximized="true" key="DiffContextDialog/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@0.0.1920.1160" timestamp="1599745327446" />
-    <state width="1877" height="158" key="GridCell.Tab.0.bottom" timestamp="1600072533263">
-      <screen x="1920" y="13" width="1920" height="1160" />
+    <state width="1877" height="158" key="GridCell.Tab.0.bottom" timestamp="1600098374249">
+      <screen x="0" y="0" width="1920" height="1160" />
     </state>
+    <state width="1877" height="158" key="GridCell.Tab.0.bottom/-1920.0.1536.832/0.0.1920.1160@0.0.1920.1160" timestamp="1600098374249" />
     <state width="1877" height="251" key="GridCell.Tab.0.bottom/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@0.0.1920.1160" timestamp="1599553059922" />
     <state width="1877" height="224" key="GridCell.Tab.0.bottom/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@1920.13.1920.1160" timestamp="1599043394431" />
     <state width="1877" height="224" key="GridCell.Tab.0.bottom/-1920.122.1536.832/1920.0.1920.1160/0.0.1920.1160@0.0.1920.1160" timestamp="1599042218082" />
     <state width="1877" height="251" key="GridCell.Tab.0.bottom/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@0.0.1920.1160" timestamp="1600068043092" />
     <state width="1877" height="158" key="GridCell.Tab.0.bottom/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@1920.13.1920.1160" timestamp="1600072533263" />
-    <state width="1877" height="158" key="GridCell.Tab.0.center" timestamp="1600072533262">
-      <screen x="1920" y="13" width="1920" height="1160" />
+    <state width="1877" height="158" key="GridCell.Tab.0.center" timestamp="1600098374249">
+      <screen x="0" y="0" width="1920" height="1160" />
     </state>
+    <state width="1877" height="158" key="GridCell.Tab.0.center/-1920.0.1536.832/0.0.1920.1160@0.0.1920.1160" timestamp="1600098374249" />
     <state width="1877" height="251" key="GridCell.Tab.0.center/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@0.0.1920.1160" timestamp="1599553059922" />
     <state width="1877" height="224" key="GridCell.Tab.0.center/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@1920.13.1920.1160" timestamp="1599043394431" />
     <state width="1877" height="224" key="GridCell.Tab.0.center/-1920.122.1536.832/1920.0.1920.1160/0.0.1920.1160@0.0.1920.1160" timestamp="1599042218082" />
     <state width="1877" height="251" key="GridCell.Tab.0.center/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@0.0.1920.1160" timestamp="1600068043092" />
     <state width="1877" height="158" key="GridCell.Tab.0.center/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@1920.13.1920.1160" timestamp="1600072533262" />
-    <state width="1877" height="158" key="GridCell.Tab.0.left" timestamp="1600072533262">
-      <screen x="1920" y="13" width="1920" height="1160" />
+    <state width="1877" height="158" key="GridCell.Tab.0.left" timestamp="1600098374249">
+      <screen x="0" y="0" width="1920" height="1160" />
     </state>
+    <state width="1877" height="158" key="GridCell.Tab.0.left/-1920.0.1536.832/0.0.1920.1160@0.0.1920.1160" timestamp="1600098374249" />
     <state width="1877" height="251" key="GridCell.Tab.0.left/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@0.0.1920.1160" timestamp="1599553059922" />
     <state width="1877" height="224" key="GridCell.Tab.0.left/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@1920.13.1920.1160" timestamp="1599043394431" />
     <state width="1877" height="224" key="GridCell.Tab.0.left/-1920.122.1536.832/1920.0.1920.1160/0.0.1920.1160@0.0.1920.1160" timestamp="1599042218082" />
     <state width="1877" height="251" key="GridCell.Tab.0.left/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@0.0.1920.1160" timestamp="1600068043092" />
     <state width="1877" height="158" key="GridCell.Tab.0.left/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@1920.13.1920.1160" timestamp="1600072533262" />
-    <state width="1877" height="158" key="GridCell.Tab.0.right" timestamp="1600072533263">
-      <screen x="1920" y="13" width="1920" height="1160" />
+    <state width="1877" height="158" key="GridCell.Tab.0.right" timestamp="1600098374249">
+      <screen x="0" y="0" width="1920" height="1160" />
     </state>
+    <state width="1877" height="158" key="GridCell.Tab.0.right/-1920.0.1536.832/0.0.1920.1160@0.0.1920.1160" timestamp="1600098374249" />
     <state width="1877" height="251" key="GridCell.Tab.0.right/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@0.0.1920.1160" timestamp="1599553059922" />
     <state width="1877" height="224" key="GridCell.Tab.0.right/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@1920.13.1920.1160" timestamp="1599043394431" />
     <state width="1877" height="224" key="GridCell.Tab.0.right/-1920.122.1536.832/1920.0.1920.1160/0.0.1920.1160@0.0.1920.1160" timestamp="1599042218082" />
@@ -479,9 +449,10 @@
     <state x="524" y="265" key="SettingsEditor/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@0.0.1920.1160" timestamp="1599054523610" />
     <state x="524" y="265" key="SettingsEditor/-1920.122.1536.832/1920.0.1920.1160/0.0.1920.1160@0.0.1920.1160" timestamp="1599033831077" />
     <state x="524" y="265" key="SettingsEditor/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@0.0.1920.1160" timestamp="1599726757203" />
-    <state x="-1974" y="107" width="1457" height="894" maximized="true" key="dock-window-1" timestamp="1599735923673">
-      <screen x="-1920" y="122" width="1536" height="824" />
+    <state x="-2038" y="-12" width="1550" height="918" maximized="true" key="dock-window-1" timestamp="1600097631051">
+      <screen x="-1920" y="0" width="1536" height="832" />
     </state>
+    <state x="-2038" y="-12" width="1550" height="918" maximized="true" key="dock-window-1/-1920.0.1536.832/0.0.1920.1160@0.0.1920.1160" timestamp="1600097631051" />
     <state x="1920" y="13" width="1893" height="1147" key="dock-window-1/-1920.122.1536.832/0.0.1920.1160/1920.13.1920.1160@0.0.1920.1160" timestamp="1599230102643" />
     <state x="1920" y="0" width="1413" height="798" key="dock-window-1/-1920.122.1536.832/1920.0.1920.1160/0.0.1920.1160@0.0.1920.1160" timestamp="1598965436283" />
     <state x="-1974" y="107" width="1457" height="894" maximized="true" key="dock-window-1/0.0.1920.1160/1920.13.1920.1160/-1920.122.1536.824@0.0.1920.1160" timestamp="1599735923673" />
