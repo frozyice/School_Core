@@ -32,7 +32,7 @@ namespace School_Core.Commands.Lecture
                 var lecture = _context.Lectures.Where(l => l.Id == command.LectureId).Include(x => x.Enrollments).FirstOrDefault();
                 var student = _context.Students.FirstOrDefault(s => s.Name == command.StudentName); // getStudentsWithNameSpec
 
-                if (lecture == null && student == null)
+                if (lecture == null || student == null)
                 {
                     return false;
                 }

@@ -66,6 +66,12 @@ namespace School_Core.Domain.Models
                 return false;
             }
 
+            var a = EnrollableFromYear <= student.YearOfStudy;
+            var b = FieldOfStudy == student.FieldOfStudy;
+            var c = FieldOfStudy == StudyField.None;
+            var d = b || c;
+            var e = a && (b || c);
+            
             if (EnrollableFromYear <= student.YearOfStudy && (FieldOfStudy == student.FieldOfStudy || FieldOfStudy == StudyField.None))
             {
                 return true;

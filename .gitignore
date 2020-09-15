@@ -214,3 +214,6 @@ tools/
 
 # Generated SpecFlow test files
 Web.FunctionalTestsSpecflow/Features/*.feature.cs
+
+*/bin/
+*/obj/
