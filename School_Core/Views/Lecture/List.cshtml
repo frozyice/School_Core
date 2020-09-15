@@ -1,0 +1,63 @@
+﻿@model School_Core.ViewModels.Lecture.LectureListViewModel
+
+@{
+    ViewData["Title"] = @Model.HeadingTitle;
+}
+<h1 style="color:@Model.HeadingColor">@Model.HeadingTitle</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var lecture in Model.LectureViewModels)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(lecture.Name, "Details", "Lecture", new {id = lecture.Id})
+                        </td>
+                        <td>
+                            @lecture.Status
+                        </td>
+
+                        <td>
+                            <a class="btn btn-outline-danger" asp-controller="Lecture" asp-action="CloseLecture" asp-route-id="@lecture.Id">Close Enrollment</a>
+                            @*<a class="btn btn-outline-danger disabled" asp-controller="Lecture" asp-action="AddNew">Close Enrollment</a>*@
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-secondary" asp-controller="Lecture" asp-action="ArchiveLecture" asp-route-id="@lecture.Id">Archive</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <label for="counterToggle">Show Counter</label>
+    <input id="counterToggle" type="checkbox" data-bind="checked: shouldShowCounter" />
+    <div data-bind="visible: shouldShowCounter" style="margin-top:20px">
+
+        @await Component.InvokeAsync("Counter", new {color = Model.HeadingColor})
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+@* <script type='text/javascript' src="~/js/knockout-3.5.1.js"></script> *@
+
+<script>
+    function AppViewModel() {
+    this.shouldShowCounter = ko.observable(true);
+    }
+
+    ko.applyBindings(new AppViewModel());
+</script>

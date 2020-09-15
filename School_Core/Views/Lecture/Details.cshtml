@@ -1,0 +1,73 @@
+﻿@model School_Core.ViewModels.Lecture.LectureDetailsViewModel
+
+@if (Model.Status == School_Core.Domain.Models.LectureStatus.Open)
+{
+    <h1 class="p-3 mb-2" style="background-color: #0CAE75; color: white">
+        @Model.Name
+    </h1>
+}
+else if (Model.Status == School_Core.Domain.Models.LectureStatus.Closed)
+{
+    <h1 class="p-3 mb-2" style="background-color: #F11135; color: white">
+        @Model.Name
+    </h1>
+}
+else
+{
+    <h1 class="p-3 mb-2 bg-secondary text-white">
+        @Model.Name
+    </h1>
+}
+<p>
+    <b>Field of Study: @Model.FieldOfStudy</b>
+</p>
+<p>
+    <b>Can enroll from year: @Model.CanTakeFromYear</b>
+</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Teacher</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>@Model.TeacherName</td>
+            </tr>
+    </tbody>
+</table>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="3">Students (@Model.StudentCount)</th>
+
+        </tr>
+        <tr>
+            <th>Name</th>
+            <th>Grade</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var name in Model.StudentNamesInLecture)
+        {
+            <tr>
+                <td>@name</td>
+                <td>student.grade</td>
+                <td><a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="GradeStudent">Grade Student</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="EnrollStudent" asp-route-id="@Model.Id">Enroll Students</a>
+
+
+
+
+@*<a class="btn btn-primary" asp-controller="Lecture" asp-action="AddStudent" asp-route-id="@Model.Id">Add Student</a>
+    <a class="btn btn-primary" asp-controller="Lecture" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>*@

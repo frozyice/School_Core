@@ -1,0 +1,63 @@
+﻿@model School_Core.ViewModels.Student.StudentListViewModel
+@{
+    ViewData["Title"] = @Model.HeadingTitle;
+}
+<h1 style="color:@Model.HeadingColor">@Model.HeadingTitle</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Year of Study</th>
+                        <th>Field of Study</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.StudentViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @*@Html.ActionLink(@item.Name, "Details", "Student", new { id = item.Id }, null)*@
+                                @student.Name
+                            </td>
+                            <td>
+                                @student.YearOfStudy
+                            </td>
+                            <td>
+                                @student.FieldOfStudy
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditInfo">Edit Student Info</a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div style="margin-top:20px">
+        <form asp-controller="Student" asp-action="List" method="get">
+            @*<label asp-for="IsLawStudent"></label>
+                <input asp-for="IsLawStudent" />
+                <label asp-for="IsFirstYearStudent"></label>
+                <input asp-for="IsFirstYearStudent" />*@
+            <label for="smt">somefilter</label>
+            <input type="checkbox" />
+            <button class="btn btn-outline-primary" type="submit">Filter</button>
+        </form>
+    </div>
+    <div style="margin-top:20px">
+
+        <a class="btn btn-outline-primary" asp-controller="Student" asp-action="RegisterNew">Register New</a>
+    </div>
+    <div style="margin-top:20px">
+        @await Component.InvokeAsync("Counter", new { color = Model.HeadingColor, shouldAddTeachers = false })
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model School_Core.ViewModels.Student.StudentAddNewViewModel
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <form asp-controller="Student" asp-action="RegisterNew" method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Register Student</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
