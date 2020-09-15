@@ -1,4 +1,4 @@
-﻿@model School_Core.ViewModels.Student.StudentViewModel
+﻿@model School_Core.ViewModels.Student.StudentListViewModel
 @{
     ViewData["Title"] = @Model.HeadingTitle;
 }
@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var student in Model.StudentListViewModels)
+                    @foreach (var student in Model.StudentViewModels)
                     {
                         <tr>
                             <td>
@@ -26,13 +26,13 @@
                                 @student.Name
                             </td>
                             <td>
-                                student.YearOfStudy
+                                @student.YearOfStudy
                             </td>
                             <td>
-                                student.FieldOfStudy
+                                @student.FieldOfStudy
                             </td>
                             <td>
-                                <a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="AddNew">Edit Student Info</a>
+                                <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditInfo">Edit Student Info</a>
                             </td>
 
                         </tr>
@@ -55,7 +55,7 @@
     </div>
     <div style="margin-top:20px">
 
-        <a class="btn btn-outline-primary" asp-controller="Student" asp-action="Addnew">Register New</a>
+        <a class="btn btn-outline-primary" asp-controller="Student" asp-action="RegisterNew">Register New</a>
     </div>
     <div style="margin-top:20px">
         @await Component.InvokeAsync("Counter", new { color = Model.HeadingColor, shouldAddTeachers = false })

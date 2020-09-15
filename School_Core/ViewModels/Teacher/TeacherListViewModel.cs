@@ -1,42 +1,40 @@
-﻿using School_Core.Repositories;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels.Teacher
 {
     public class TeacherListViewModel
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        private static string _headingTitle = "Teachers";
+        private static string _headingColor = "#B03A2E";
         public string HeadingColor { get; set; }
         public string HeadingTitle { get; set; }
+        
+        public IEnumerable<TeacherViewModel> Teachers { get; set; }
         public interface IProvider
         {
-            IEnumerable<TeacherListViewModel> GetViewModels();
+            TeacherListViewModel Provide();
         }
         public class Provider : IProvider
         {
-            private readonly ITeacherRepository _teacherRepository;
-            public Provider(ITeacherRepository teacherRepository)
-            {
-                _teacherRepository = teacherRepository;
-            }
-            public IEnumerable<TeacherListViewModel> GetViewModels()
-            {
-                var teachers = _teacherRepository.GetTeachers();
-                var teacherListViewModels = new List<TeacherListViewModel>();
-                foreach (var teacher in teachers)
-                {
-                    teacherListViewModels.Add(new TeacherListViewModel()
-                    {
-                        Id = teacher.Id,
-                        Name = teacher.Name ?? "",
-                        HeadingTitle = "Teachers",
-                        HeadingColor = "#B03A2E"
-                    });
+            private readonly TeacherViewModel.IProvider _teacherProvider;
 
-                }
-                return teacherListViewModels;
+            public Provider(TeacherViewModel.IProvider teacherProvider)
+            {
+                _teacherProvider = teacherProvider;
+            }
+            public TeacherListViewModel Provide()
+            {
+                var teacherListViewModel = new TeacherListViewModel()
+                {
+                    HeadingColor = _headingColor,
+                    HeadingTitle = _headingTitle,
+                    Teachers = _teacherProvider.Provide()
+                };
+
+                return teacherListViewModel;
             }
         }
     }

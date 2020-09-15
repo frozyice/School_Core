@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200914174438_UpdateTeacherModel.cs" />
+    <Compile Remove="Migrations\20200914174438_UpdateTeacherModel.Designer.cs" />
+    <Compile Remove="Migrations\20200914183405_UpdateTeacherModel.cs" />
+    <Compile Remove="Migrations\20200914183405_UpdateTeacherModel.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.11.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />

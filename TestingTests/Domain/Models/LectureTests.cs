@@ -4,8 +4,9 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using School_Core.Domain.Models;
+using School_Core.Domain.Models.Students;
 
-namespace TestingTests
+namespace TestingTests.Domain.Models
 {
     public class LectureTests
     {
@@ -21,7 +22,7 @@ namespace TestingTests
         public void CloseLectureEnrollment_Sets_StatusToClosed_When_StatusIsOpen()
         {
             //Act
-            _sut.CloseLectureEnrollment();
+            _sut.CloseLecture();
 
             //Assert
             var result = _sut.Status;
@@ -34,7 +35,7 @@ namespace TestingTests
             _sut.ArchiveLecture();
 
             //Act
-            _sut.CloseLectureEnrollment();
+            _sut.CloseLecture();
 
             //Assert
             var result = _sut.Status;
@@ -55,7 +56,7 @@ namespace TestingTests
         [Test]
         public void ArchiveLecture_Sets_Status_To_Archived_When_StatusIsClosed()
         {
-            _sut.CloseLectureEnrollment();
+            _sut.CloseLecture();
 
             //Act
             _sut.ArchiveLecture();
@@ -136,7 +137,7 @@ namespace TestingTests
             //Assert
             var result = _sut.Enrollments.FirstOrDefault(x => x.StudentId == studentId);
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.LectureId,Is.EqualTo(_sut.Id));
+            //Assert.That(result.LectureId,Is.EqualTo(_sut.Id)); //todo?
             Assert.That(result.StudentId,Is.EqualTo(studentId));
         }
 
@@ -145,7 +146,7 @@ namespace TestingTests
         {
             var student =  TestStudent.Create();
             var studentId = student.Id;
-            _sut.CloseLectureEnrollment();
+            _sut.CloseLecture();
 
             //Act
             _sut.EnrollStudent(studentId);
@@ -170,7 +171,6 @@ namespace TestingTests
             Assert.That(result, Is.Null);
         }
         
-        //Test First
         [Test]
         public void EnrollStudent_Does_Not_Add_Enrollment_When_There_Is_Student_With_Same_Id_Enrolled()
         {
@@ -193,18 +193,24 @@ namespace TestingTests
             
         }
         
-        //Test First
         [Test]
         public void EnrollStudent_Throws_ArgumentException_When_Empty_Guid_Is_Passed()
         {
 
-            var guid = Guid.NewGuid();
+            var guid = Guid.Empty;
             
             //Act
             var ex = Assert.Throws<ArgumentException>(() => _sut.EnrollStudent(guid));
 
             //Assert
-            Assert.That(ex.Message, Is.EqualTo($"{guid} is not valid "));
+            Assert.That(ex.Message, Is.EqualTo($"{guid} :  is not valid studentId"));
+        }
+
+        [Test]
+        public void CanEnroll_Returns_False_When_Student_Is_Not_Allowed_To_Enroll()
+        {
+            var student = new TestStudent();
+            throw new NotImplementedException();
         }
     }
 

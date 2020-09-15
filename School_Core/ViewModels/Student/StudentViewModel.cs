@@ -1,34 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using School_Core.Domain.Models;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels.Student
 {
 
     public class StudentViewModel
     {
-        public IEnumerable<StudentListViewModel> StudentListViewModels { get; set; }
-        public string HeadingColor { get; set; }
-        public string HeadingTitle { get; set; }
+        public string Name { get; set; }
+        public int YearOfStudy { get; set; }
+        public StudyField FieldOfStudy { get; set; }
 
         public interface IProvider
         {
-            StudentViewModel GetViewModel();
+            IEnumerable<StudentViewModel> Provide();
         }
 
         public class Provider : IProvider
         {
-            private readonly StudentListViewModel.IProvider _studentListProvider;
-            public Provider(StudentListViewModel.IProvider studentListProvider)
+            private readonly IStudentQuery _query;
+
+            public Provider(IStudentQuery query)
             {
-                _studentListProvider = studentListProvider;
+                _query = query;
             }
-            public StudentViewModel GetViewModel()
+            public IEnumerable<StudentViewModel> Provide()
             {
-                return new StudentViewModel()
+                var students = _query.GetStudents();
+                var studentViewModels = new List<StudentViewModel>();
+                foreach (var student in students)
                 {
-                    StudentListViewModels = _studentListProvider.GetViewModels(),
-                    HeadingTitle = "Students",
-                    HeadingColor = "#2874A6"
-                };
+                    studentViewModels.Add(new StudentViewModel()
+                    {
+                        Name = student.Name,
+                        YearOfStudy = student.YearOfStudy,
+                        FieldOfStudy = student.FieldOfStudy
+                    });
+                }
+
+                return studentViewModels;
             }
         }
     }

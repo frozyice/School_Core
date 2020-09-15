@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using School_Core.Contexts;
-using School_Core.Domain.Models;
 using School_Core.Querys;
 
 
 namespace School_Core.ViewModels.Lecture
 {
-    public class StudentEnrolledViewModel
+    public class StudentNotEnrolledViewModel
     {
         public string Name { get; set; }
-        public bool isEnrolled { get; set; }
+        public bool canEnroll { get; set; }
         public interface IProvider
         {
-            IEnumerable<StudentEnrolledViewModel> Provide(Guid id);
+            IEnumerable<StudentNotEnrolledViewModel> Provide(Guid id);
         }
     
         public class Provider : IProvider
@@ -29,14 +27,13 @@ namespace School_Core.ViewModels.Lecture
                 _studentQuery = studentQuery;
                 _context = context;
                 _lectureQuery = lectureQuery;
-                //todo: siin on pooleli
             }
         
-            public IEnumerable<StudentEnrolledViewModel> Provide(Guid lectureId)
+            public IEnumerable<StudentNotEnrolledViewModel> Provide(Guid lectureId)
             {
                 var students = _studentQuery.GetStudents();
                 var lecture = _lectureQuery.GetLecture(lectureId);
-                var viewModels = new List<StudentEnrolledViewModel>();
+                var viewModels = new List<StudentNotEnrolledViewModel>();
                 if (lecture.Enrollments == null)
                 {
                     return viewModels;
@@ -44,12 +41,14 @@ namespace School_Core.ViewModels.Lecture
 
                 foreach (var student in students)
                 {
-                    var viewmodel = new StudentEnrolledViewModel();
+
+                    var viewmodel = new StudentNotEnrolledViewModel();
                     viewmodel.Name = student.Name;
                     
-                    var enrollment = lecture.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
-                    viewmodel.isEnrolled = enrollment == null ? false : true;
+                    //var enrollment = lecture.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
+                    viewmodel.canEnroll = lecture.CanEnroll(student);//enrollment == null ? false : true;
                     viewModels.Add(viewmodel);
+                    
                 }
 
                 return viewModels;

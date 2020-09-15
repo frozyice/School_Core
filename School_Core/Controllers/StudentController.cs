@@ -1,60 +1,45 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using School_Core.Repositories;
 using School_Core.ViewModels.Student;
 
 namespace School_Core.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly StudentListViewModel.IProvider _studentProvider;
 
-        private readonly IStudentRepository _studentRepository;
-
-        private readonly StudentViewModel.IProvider _studentProvider;
-        private readonly StudentDetailsViewModel.IProvider _studentDetailsProvider;
-        private readonly StudentAddNewViewModel.IMapper _studentAddNewMapper;
-
-
-        public StudentController(IStudentRepository studentRepository, StudentDetailsViewModel.IProvider studentDetailsProvider, StudentAddNewViewModel.IMapper studentAddNewMapper, StudentViewModel.IProvider studentProvider)
+        public StudentController(StudentListViewModel.IProvider studentProvider)
         {
-            _studentRepository = studentRepository;
-
             _studentProvider = studentProvider;
-            _studentDetailsProvider = studentDetailsProvider;
-            _studentAddNewMapper = studentAddNewMapper;
         }
 
         public IActionResult List()
         {
-            return View(_studentProvider.GetViewModel());
+            // todo samad not found asjad 
+            return View(_studentProvider.Provide());
         }
 
-        public IActionResult Details(Guid id)
-        {
-            return View(_studentDetailsProvider.GetViewModel(id));
-        }
-
-        public IActionResult AddNew()
+        public IActionResult RegisterNew()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddNew(StudentAddNewViewModel studentAddNewViewModel)
+        public IActionResult RegisterNew(StudentAddNewViewModel studentAddNewViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(studentAddNewViewModel);
             }
-            var error = _studentAddNewMapper.Validate(studentAddNewViewModel.Name);
-            if (!string.IsNullOrEmpty(error))
-            {
-                ModelState.AddModelError("Name", error);
-                return View(studentAddNewViewModel);
-            }
-            _studentAddNewMapper.AddNewStudent(studentAddNewViewModel);
+            throw new NotImplementedException();
             return Redirect("List"); 
         }
+
+        public IActionResult EditInfo()
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }

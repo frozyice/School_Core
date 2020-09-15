@@ -1,37 +1,37 @@
-﻿using School_Core.Repositories;
-using System;
+﻿﻿using System;
+ using System.Linq;
+ using School_Core.Querys;
 
 namespace School_Core.ViewModels.Teacher
 {
     public class TeacherDetailsViewModel
     {
         public string Name { get; set; }
-        public string Phonenumber { get; set; }
 
         public interface IProvider
         {
-            TeacherDetailsViewModel GetViewModel(Guid id);
+            TeacherDetailsViewModel Provide(Guid id);
         }
 
         public class Provider : IProvider
         {
-            private readonly ITeacherRepository _teacherRepository;
-
-            public Provider(ITeacherRepository teacherRepository)
+            private readonly ITeacherQuery _query;
+            public Provider(ITeacherQuery query)
             {
-                _teacherRepository = teacherRepository;
+                _query = query;
             }
-            public TeacherDetailsViewModel GetViewModel(Guid id)
+            public TeacherDetailsViewModel Provide(Guid id)
             {
-                var teacher = _teacherRepository.GetTeacher(id);
-
+                var teacher = _query.GetAll().FirstOrDefault(x => x.Id == id); // todo peaks spec olema ja query täiendus
+                if (teacher == null)
+                {
+                    return null;
+                }
                 return new TeacherDetailsViewModel()
                 {
-                    Name = teacher.Name ?? "Nimi puudub",
-                    
+                    Name = teacher.Name 
                 };
             }
         }
     }
-
 }

@@ -1,4 +1,4 @@
-﻿@model School_Core.ViewModels.Teacher.TeacherViewModel
+﻿@model School_Core.ViewModels.Teacher.TeacherListViewModel
 
 @{
     ViewData["Title"] = "View";
@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var teacher in Model.TeacherListViewModels)
+                    @foreach (var teacher in Model.Teachers)
                     {
                         <tr>
                             <td>
@@ -26,10 +26,10 @@
                                 @teacher.Name
                             </td>
                             <td>
-                                teacher.lecture
+                                @teacher.LectureName
                             </td>
                             <td>
-                                <a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="Assign to Lecture">Assign to Lecture</a>
+                                <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture">Assign to Lecture</a>
                             </td>
                         </tr>
                     }

@@ -27,7 +27,6 @@ namespace School_Core.ViewModels.Home
             public Provider(ILectureQuery query)
             {
                 _query = query;
-                _query = query;
             }
 
             public HomeViewModel Provide()

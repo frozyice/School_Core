@@ -3,7 +3,7 @@ using School_Core.Domain.Models;
 using System;
 using System.Linq;
 
-namespace School_Core.Commands
+namespace School_Core.Commands.Lecture
 {
     public class ArchiveLectureCommand : ICommand
     {
@@ -25,17 +25,13 @@ namespace School_Core.Commands
 
             public bool Handle(ArchiveLectureCommand command)
             {
-                //var lecture = _dbContext.Lectures.Where(x => x.Id == command.Id).FirstOrDefault();
-                //var result = lecture.Enrollments; // vüib olla null ?    // lazy puhul tehakse iga enrollmendi kohta lisa päring 
                 var lecture = _dbContext.Lectures.Find(command.Id);
-
-                var enrollments = _dbContext.Enrollments.Where(x => x.LectureId == command.Id).Where(x => x.Grade != Grade.None).FirstOrDefault();
-
-
-                //?
+                if (lecture == null)
+                {
+                    return false;
+                }
                 if (lecture.CanArchive())
                 {
-
                     lecture.ArchiveLecture();
                     _dbContext.SaveChanges();
                     return true;

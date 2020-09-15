@@ -49,7 +49,7 @@ namespace School_Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CanTakeFromYear")
+                    b.Property<int>("EnrollableFromYear")
                         .HasColumnType("int");
 
                     b.Property<int>("FieldOfStudy")
@@ -73,45 +73,45 @@ namespace School_Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b3a151db-da23-4b3e-bd6d-6ae2f5c17b4e"),
-                            CanTakeFromYear = 2,
+                            Id = new Guid("a625a775-58ce-424f-8b83-c1685d6f3366"),
+                            EnrollableFromYear = 2,
                             FieldOfStudy = 0,
                             Name = "Philosophy",
                             Status = 0
                         },
                         new
                         {
-                            Id = new Guid("2eb93c30-c0fa-4e76-96fb-6eff820c4083"),
-                            CanTakeFromYear = 1,
+                            Id = new Guid("ae93d6f0-fcf4-4256-8c04-1939aa3d8e31"),
+                            EnrollableFromYear = 1,
                             FieldOfStudy = 0,
                             Name = "Sociology",
                             Status = 0
                         },
                         new
                         {
-                            Id = new Guid("af040f08-864b-4e61-8c7a-5408a950d1bf"),
-                            CanTakeFromYear = 1,
+                            Id = new Guid("a1b54f8b-7cb5-492a-b7b7-e274c27a56b6"),
+                            EnrollableFromYear = 1,
                             FieldOfStudy = 1,
                             Name = "Introduction To Common Law",
                             Status = 0
                         },
                         new
                         {
-                            Id = new Guid("743a5577-d8f5-4074-a261-fc41d73e68f9"),
-                            CanTakeFromYear = 2,
+                            Id = new Guid("d3f3bd63-b5e4-49b4-9b82-087a4caa8a2a"),
+                            EnrollableFromYear = 2,
                             FieldOfStudy = 1,
                             Name = "Constitutional Law",
                             Status = 0
                         });
                 });
 
-            modelBuilder.Entity("School_Core.Domain.Models.Student", b =>
+            modelBuilder.Entity("School_Core.Domain.Models.Students.Student", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Field")
+                    b.Property<int>("FieldOfStudy")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -127,29 +127,29 @@ namespace School_Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e10b638a-97b2-4787-bb1d-24c47efeb9b9"),
-                            Field = 0,
+                            Id = new Guid("df6d8f00-0d7b-460b-b422-e9af773fe6a5"),
+                            FieldOfStudy = 0,
                             Name = "Angus",
                             YearOfStudy = 1
                         },
                         new
                         {
-                            Id = new Guid("081f7caf-10b1-484e-bc28-7869ca000bec"),
-                            Field = 1,
+                            Id = new Guid("86ce4f83-190e-4b70-a540-67bae7687d3c"),
+                            FieldOfStudy = 1,
                             Name = "Kane",
                             YearOfStudy = 1
                         },
                         new
                         {
-                            Id = new Guid("f6623f44-c365-409d-bc51-f4b518c34abb"),
-                            Field = 1,
+                            Id = new Guid("f8a7fa7a-9b64-47c1-bfbc-45248c10de17"),
+                            FieldOfStudy = 1,
                             Name = "Lian",
                             YearOfStudy = 2
                         },
                         new
                         {
-                            Id = new Guid("7637fd90-2dd2-46ff-9eb0-6c7cb77946eb"),
-                            Field = 0,
+                            Id = new Guid("0276092c-67f0-43d2-bcd7-8a7af869a4f5"),
+                            FieldOfStudy = 0,
                             Name = "Alissa",
                             YearOfStudy = 2
                         });
@@ -171,22 +171,22 @@ namespace School_Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4e0c6473-b891-49c7-974b-36b5f3fabfd8"),
+                            Id = new Guid("c01e9ea1-23f5-4215-930d-4c3d60262187"),
                             Name = "Freestone"
                         },
                         new
                         {
-                            Id = new Guid("afa997d6-c151-443c-b81d-c4cddfb4126e"),
+                            Id = new Guid("8fa34838-23c8-42e1-850f-7394d9ffccf5"),
                             Name = "Richmont"
                         },
                         new
                         {
-                            Id = new Guid("f0fb11b0-455f-4cf5-837b-c8a7ae5dcf47"),
+                            Id = new Guid("811104f6-d1cf-483f-9dc7-5834d99c03ea"),
                             Name = "Laker"
                         },
                         new
                         {
-                            Id = new Guid("a27ac51a-769f-4b25-a4de-9c1189ef0a59"),
+                            Id = new Guid("155f0dcd-a845-419f-9028-00a02c99f088"),
                             Name = "McCarroll"
                         });
                 });
@@ -199,7 +199,7 @@ namespace School_Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("School_Core.Domain.Models.Student", "Student")
+                    b.HasOne("School_Core.Domain.Models.Students.Student", null)
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)

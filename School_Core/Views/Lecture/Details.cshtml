@@ -18,7 +18,12 @@ else
         @Model.Name
     </h1>
 }
-
+<p>
+    <b>Field of Study: @Model.FieldOfStudy</b>
+</p>
+<p>
+    <b>Can enroll from year: @Model.CanTakeFromYear</b>
+</p>
 
 <table class="table">
 
@@ -28,13 +33,9 @@ else
         </tr>
     </thead>
     <tbody>
-        @if (Model.Teacher != null)
-        {
             <tr>
-                <td>@Model.Teacher.Name</td>
-
+                <td>@Model.TeacherName</td>
             </tr>
-        }
     </tbody>
 </table>
 
@@ -57,7 +58,7 @@ else
             <tr>
                 <td>@name</td>
                 <td>student.grade</td>
-                <td><a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="AddNew">Grade Student</a></td>
+                <td><a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="GradeStudent">Grade Student</a></td>
             </tr>
         }
     </tbody>

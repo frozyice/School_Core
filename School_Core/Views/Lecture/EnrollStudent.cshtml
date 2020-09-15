@@ -3,7 +3,7 @@
 <div class="container">
     <div class="col-md-6">
         <form asp-controller="Lecture" asp-action="EnrollStudent" method="post">
-            <input asp-for="Id" />
+            <input asp-for="LectureId" />
             <div class="form-group">
                 
                 
@@ -11,21 +11,19 @@
                     <thead>
                     <tr>
                         <th>Student</th>
-                        <th>Enrolled</th>
+                        <th>Can Enroll</th>
                     </tr>
                     </thead>
                     <tbody>
-                        
-                    @{ var i = 0; }
-                    @foreach (var student in Model.StudentsEnrolled)
-                    {
-                        <tr>
-                            <td>@student.Name</td>
-                            <td>@student.isEnrolled</td>
-                            <td><input asp-for="@Model.StudentsEnrolled.ToList()[i].isEnrolled"/></td>
-                        </tr>
-                        i++;
-                    }
+                    
+                     @foreach (var student in Model.StudentsNotEnrolled)
+                     {
+                         <tr>
+                             <td>@student.Name</td>
+                             <td>@student.canEnroll</td>
+                         </tr>
+                     }
+                    
                     </tbody>
                 </table>
 

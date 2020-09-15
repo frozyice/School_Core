@@ -19,10 +19,12 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Commands" t="Include">
-          <e p="ArchiveLectureCommand.cs" t="Include" />
-          <e p="CloseLectureEnrollmentCommand.cs" t="Include" />
-          <e p="EnrollStudentCommand.cs" t="Include" />
           <e p="ICommand.cs" t="Include" />
+          <e p="Lecture" t="Include">
+            <e p="ArchiveLectureCommand.cs" t="Include" />
+            <e p="CloseLectureCommand.cs" t="Include" />
+            <e p="EnrollStudentCommand.cs" t="Include" />
+          </e>
           <e p="RegisterNewStudentCommand.cs" t="Include" />
         </e>
         <e p="Contexts" t="Include">
@@ -35,17 +37,23 @@
           <e p="StudentController.cs" t="Include" />
           <e p="TeacherController.cs" t="Include" />
         </e>
-        <e p="Databases" t="Include">
-          <e p="DummyDatabase.cs" t="Include" />
-          <e p="IDatabase.cs" t="Include" />
-          <e p="LocalDatabase.cs" t="Include" />
-        </e>
         <e p="Domain" t="Include">
           <e p="Models" t="Include">
             <e p="Enrollment.cs" t="Include" />
-            <e p="Lecture.cs" t="Include" />
+            <e p="Lectures" t="Include">
+              <e p="Lecture.cs" t="Include" />
+              <e p="Specs" t="Include">
+                <e p="LecturesWithTeacherIdsSpecification.cs" t="Include" />
+              </e>
+            </e>
             <e p="Person.cs" t="Include" />
-            <e p="Student.cs" t="Include" />
+            <e p="Students" t="Include">
+              <e p="Specs" t="Include">
+                <e p="InLectureSpecification.cs" t="Include" />
+                <e p="IsFirstYearStudentSpecification.cs" t="Include" />
+              </e>
+              <e p="Student.cs" t="Include" />
+            </e>
             <e p="Teacher.cs" t="Include" />
           </e>
         </e>
@@ -64,6 +72,10 @@
           <e p="20200910113830_SimpleEnrollment.Designer.cs" t="Include" />
           <e p="20200914153600_UpdateEnrolmentModel.cs" t="Include" />
           <e p="20200914153600_UpdateEnrolmentModel.Designer.cs" t="Include" />
+          <e p="20200914165013_UpdateStudentModel.cs" t="Include" />
+          <e p="20200914165013_UpdateStudentModel.Designer.cs" t="Include" />
+          <e p="20200915093430_CanTakeFromYearRenamed.cs" t="Include" />
+          <e p="20200915093430_CanTakeFromYearRenamed.Designer.cs" t="Include" />
           <e p="SchoolCoreDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -82,11 +94,6 @@
           <e p="LectureQuery.cs" t="Include" />
           <e p="StudentQuery.cs" t="Include" />
           <e p="TeachersQuery.cs" t="Include" />
-        </e>
-        <e p="Repositories" t="Include">
-          <e p="LectureRepository.cs" t="Include" />
-          <e p="StudentRepository.cs" t="Include" />
-          <e p="TeacherRepository.cs" t="Include" />
         </e>
         <e p="School_Core.csproj" t="IncludeRecursive" />
         <e p="Specifications" t="Include">
@@ -121,11 +128,10 @@
             <e p="LectureDetailsViewModel.cs" t="Include" />
             <e p="LectureListViewModel.cs" t="Include" />
             <e p="LectureViewModel.cs" t="Include" />
-            <e p="StudentEnrolledViewModel.cs" t="Include" />
+            <e p="StudentNotEnrolledViewModel.cs" t="Include" />
           </e>
           <e p="Student" t="Include">
             <e p="StudentAddNewViewModel.cs" t="Include" />
-            <e p="StudentDetailsViewModel.cs" t="Include" />
             <e p="StudentListViewModel.cs" t="Include" />
             <e p="StudentViewModel.cs" t="Include" />
           </e>
@@ -158,12 +164,10 @@
             <e p="Error.cshtml" t="Include" />
           </e>
           <e p="Student" t="Include">
-            <e p="AddNew.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
             <e p="List.cshtml" t="Include" />
+            <e p="RegisterNew.cshtml" t="Include" />
           </e>
           <e p="Teacher" t="Include">
-            <e p="Details.cshtml" t="Include" />
             <e p="List.cshtml" t="Include" />
           </e>
         </e>
@@ -173,6 +177,7 @@
           </e>
           <e p="favicon.ico" t="Include" />
           <e p="js" t="Include">
+            <e p="knockout-3.5.1.js" t="Include" />
             <e p="site.js" t="Include" />
           </e>
           <e p="lib" t="Include">
@@ -233,9 +238,14 @@
       <e p="School_Core.sln" t="IncludeFlat" />
       <e p="TestingTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="CloseLectureEnrollmentCommandTests.cs" t="Include" />
-        <e p="LectureControllerTests.cs" t="Include" />
-        <e p="LectureTests.cs" t="Include" />
+        <e p="Commands" t="Include">
+          <e p="CloseLectureEnrollmentCommandTests.cs" t="Include" />
+        </e>
+        <e p="Domain" t="Include">
+          <e p="Models" t="Include">
+            <e p="LectureTests.cs" t="Include" />
+          </e>
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -243,7 +253,6 @@
             </e>
           </e>
         </e>
-        <e p="StudentAddNewViewModelMapperTests.cs" t="Include" />
         <e p="TestingTests.csproj" t="IncludeRecursive" />
       </e>
     </e>

@@ -1,6 +1,6 @@
-﻿using School_Core.Repositories;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels
 {
@@ -24,15 +24,15 @@ namespace School_Core.ViewModels
 
         public class Provider : IProvider
         {
-            private readonly ILectureRepository _lectureRepository;
-            private readonly IStudentRepository _studentRepository;
-            private readonly ITeacherRepository _teacherRepository;
+            private readonly ILectureQuery _lectureQuery;
+            private readonly ITeacherQuery _teacherQuery;
+            private readonly IStudentQuery _studentQuery;
 
-            public Provider(ILectureRepository lectureRepository, IStudentRepository studentRepository, ITeacherRepository teacherRepository)
+            public Provider(ILectureQuery lectureQuery, ITeacherQuery teacherQuery, IStudentQuery studentQuery)
             {
-                _lectureRepository = lectureRepository;
-                _studentRepository = studentRepository;
-                _teacherRepository = teacherRepository;
+                _lectureQuery = lectureQuery;
+                _teacherQuery = teacherQuery;
+                _studentQuery = studentQuery;
             }
 
 
@@ -62,14 +62,14 @@ namespace School_Core.ViewModels
                 new CounterViewModel
                 {
                     RowName = "Lectures",
-                    Count = _lectureRepository.GetLectures().Count()
+                    Count = _lectureQuery.GetLectures().ToList().Count()
                 }
                     );
 
                 model.CounterViewModels.Add(new CounterViewModel
                 {
                     RowName = "Students",
-                    Count = _studentRepository.GetStudents().Count()
+                    Count = _studentQuery.GetStudents().ToList().Count()
                 });
 
                 if (shouldAddTeachers)
@@ -77,7 +77,7 @@ namespace School_Core.ViewModels
                     model.CounterViewModels.Add(new CounterViewModel
                     {
                         RowName = "Teachers",
-                        Count = _teacherRepository.GetTeachers().Count()
+                        Count = _teacherQuery.GetAll().Count()
                     });
                 }
 

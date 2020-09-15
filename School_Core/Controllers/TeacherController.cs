@@ -7,9 +7,9 @@ namespace School_Core.Controllers
 
     public class TeacherController : Controller
     {
-        private readonly TeacherViewModel.IProvider _teacherProvider;
+        private readonly TeacherListViewModel.IProvider _teacherProvider;
         private readonly TeacherDetailsViewModel.IProvider _teacherDetailsProvider;
-        public TeacherController(TeacherDetailsViewModel.IProvider teacherDetailsProvider, TeacherViewModel.IProvider teacherProvider)
+        public TeacherController(TeacherDetailsViewModel.IProvider teacherDetailsProvider, TeacherListViewModel.IProvider teacherProvider)
         {
             _teacherProvider = teacherProvider;
             _teacherDetailsProvider = teacherDetailsProvider;
@@ -17,12 +17,13 @@ namespace School_Core.Controllers
 
         public IActionResult List()
         {
-            return View(_teacherProvider.GetViewModel());
+            // todo samad not found asjad 
+            return View(_teacherProvider.Provide());
         }
 
-        public IActionResult Details(Guid id)
+        public IActionResult AssignToLecture()
         {
-            return View(_teacherDetailsProvider.GetViewModel(id));
+            throw new NotImplementedException();
         }
     }
 }

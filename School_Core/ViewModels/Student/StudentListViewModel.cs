@@ -1,44 +1,37 @@
-﻿using School_Core.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels.Student
 {
     public class StudentListViewModel
     {
-
-        public static string pageColor = "#2874A6";
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        private static string _headingTitle = "Students";
+        private static string _headingColor = "#2874A6";
         public string HeadingColor { get; set; }
         public string HeadingTitle { get; set; }
+        public IEnumerable<StudentViewModel> StudentViewModels { get; set; } = new List<StudentViewModel>();
         public interface IProvider
         {
-            IEnumerable<StudentListViewModel> GetViewModels();
+            StudentListViewModel Provide();
         }
         public class Provider : IProvider
         {
-            private readonly IStudentRepository _studentRepository;
-            public Provider(IStudentRepository studentRepository)
+            private readonly StudentViewModel.IProvider _provider;
+            
+            public Provider(StudentViewModel.IProvider provider)
             {
-                _studentRepository = studentRepository;
+                _provider = provider;
             }
-            public IEnumerable<StudentListViewModel> GetViewModels()
+            public StudentListViewModel Provide()
             {
-                var students = _studentRepository.GetStudents();
-                var studentListViewModels = new List<StudentListViewModel>();
-                foreach (var student in students)
+                var studentListViewModel = new StudentListViewModel()
                 {
-                    studentListViewModels.Add(new StudentListViewModel()
-                    {
-                        Id = student.Id,
-                        Name = student.Name ?? "",
-                        HeadingTitle = "Students",
-                        HeadingColor = pageColor
-                    });
-
-                }
-                return studentListViewModels;
+                    HeadingColor = _headingColor,
+                    HeadingTitle = _headingTitle,
+                    StudentViewModels = _provider.Provide()
+                };
+                return studentListViewModel;
             }
         }
     }

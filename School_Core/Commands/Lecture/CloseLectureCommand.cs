@@ -2,18 +2,18 @@
 using School_Core.Domain.Models;
 using System;
 
-namespace School_Core.Commands
+namespace School_Core.Commands.Lecture
 {
-    public class CloseLectureEnrollmentCommand : ICommand
+    public class CloseLectureCommand : ICommand
     {
         public Guid Id { get; private set; }
 
-        public CloseLectureEnrollmentCommand(Guid id)
+        public CloseLectureCommand(Guid id)
         {
             Id = id;
         }
 
-        public class Handler : ICommandHandler<CloseLectureEnrollmentCommand>
+        public class Handler : ICommandHandler<CloseLectureCommand>
         {
             private readonly SchoolCoreDbContext _dbContext;
 
@@ -25,7 +25,7 @@ namespace School_Core.Commands
             //todo: kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
             // kui on mingi põhjus et me ei saa valideerimist teha domeenis siis paneme Commandi 
             // 
-            public bool Handle(CloseLectureEnrollmentCommand command)
+            public bool Handle(CloseLectureCommand command)
             {
                 var lecture = _dbContext.Lectures.Find(command.Id);
                 if (lecture == null)
@@ -35,7 +35,7 @@ namespace School_Core.Commands
                 
                 if (lecture.Status == LectureStatus.Open)
                 {
-                    lecture.CloseLectureEnrollment();
+                    lecture.CloseLecture();
                     _dbContext.SaveChanges();
                     return true;
                 }

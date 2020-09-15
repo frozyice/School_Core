@@ -1,34 +1,44 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using School_Core.Domain.Models.Specs;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels.Teacher
 {
     public class TeacherViewModel
     {
-        public IEnumerable<TeacherListViewModel> TeacherListViewModels { get; set; }
-        public string HeadingColor { get; set; }
-        public string HeadingTitle { get; set; }
+        public string Name { get; set; }
+        public string LectureName { get; set; }
 
         public interface IProvider
         {
-            TeacherViewModel GetViewModel();
+            IEnumerable<TeacherViewModel> Provide();
         }
 
         public class Provider : IProvider
         {
-            private readonly TeacherListViewModel.IProvider _teacherListProvider;
-            public Provider(TeacherListViewModel.IProvider teacherListProvider)
+            private readonly ILectureQuery _lectureQuery;
+            private readonly ITeacherQuery _teacherQuery;
+
+            public Provider(ILectureQuery lectureQuery, ITeacherQuery teacherQuery)
             {
-                _teacherListProvider = teacherListProvider;
+                _lectureQuery = lectureQuery;
+                _teacherQuery = teacherQuery;
             }
 
-            public TeacherViewModel GetViewModel()
+            public IEnumerable<TeacherViewModel> Provide()
             {
-                return new TeacherViewModel()
+                var teachers = _teacherQuery.GetAll();
+                var teacherLectures  =  _lectureQuery.GetLectures(new LecturesWithTeacherIdsSpecification(teachers.Select(x=>x.Id))); // Kuna me ei taha, et student näeks kollektsiooni Lecture-st. ( meie DDD lähenemine ), kuid võiksime ka kollektsiooni lisada ( readonly )  
+
+                foreach (var teacher in teachers)
                 {
-                    TeacherListViewModels = _teacherListProvider.GetViewModels(),
-                    HeadingTitle = "Teachers",
-                    HeadingColor = "#B03A2E"
-                };
+                    yield return new TeacherViewModel
+                    {
+                        Name = teacher.Name,
+                        LectureName = teacherLectures.SingleOrDefault(x => x.Teacher.Id == teacher.Id)?.Name ??  "none" 
+                    };
+                }
             }
         }
     }

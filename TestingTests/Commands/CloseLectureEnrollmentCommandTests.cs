@@ -2,12 +2,12 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using School_Core.Commands;
+using School_Core.Commands.Lecture;
 using School_Core.Contexts;
 using School_Core.Domain.Models;
 using System.Linq;
 
-namespace TestingTests
+namespace TestingTests.Commands
 {
     class CloseLectureEnrollmentCommandHandlerTests
     {
@@ -15,8 +15,8 @@ namespace TestingTests
         SchoolCoreDbContext _dbContextMock;
         private Lecture _lecture;
         private Guid _id;
-        CloseLectureEnrollmentCommand _command;
-        CloseLectureEnrollmentCommand.Handler _sut;
+        CloseLectureCommand _command;
+        CloseLectureCommand.Handler _sut;
 
         [SetUp]
         public void Setup()
@@ -25,8 +25,8 @@ namespace TestingTests
             _dbContextMock = DbContextFactory.GetInMemoryDbContext();
             _lecture = new Lecture("name");
             _id = _lecture.Id;
-            _command = new CloseLectureEnrollmentCommand(_id);
-            _sut = new CloseLectureEnrollmentCommand.Handler(_dbContextMock);
+            _command = new CloseLectureCommand(_id);
+            _sut = new CloseLectureCommand.Handler(_dbContextMock);
             //dbContextMock.Database.EnsureDeleted();
             //dbContextMock.Database.EnsureCreated();
             //var a = dbContextMock.Lectures.ToList();
@@ -119,7 +119,7 @@ namespace TestingTests
         [Test]
         public void Handle_Returns_False_When_LectureStatusIsClosed()
         {
-            _lecture.CloseLectureEnrollment();
+            _lecture.CloseLecture();
             _dbContextMock.Add(_lecture);
             _dbContextMock.SaveChanges();
 
