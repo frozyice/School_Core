@@ -4,6 +4,8 @@ using School_Core.Contexts;
 using School_Core.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using School_Core.Domain.Models.Students;
 
 namespace School_Core.Querys
 {
@@ -29,7 +31,7 @@ namespace School_Core.Querys
                 var allStudents = _dbContext.Students.ToList();
                 return allStudents;
             }
-            var studentsExpression = spec.SatisfyEntitiesFrom(_dbContext.Students);
+            var studentsExpression = spec.SatisfyEntitiesFrom(_dbContext.Students).Include(x=>x.Enrollments);
             var students = studentsExpression.ToList();
             return students;
         }

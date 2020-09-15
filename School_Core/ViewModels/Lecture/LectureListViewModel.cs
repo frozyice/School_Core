@@ -4,6 +4,8 @@ namespace School_Core.ViewModels.Lecture
 {
     public class LectureListViewModel
     {
+        private static string _headingTitle = "Lectures";
+        private static string _headingColor = "#1E8449";
         public IEnumerable<LectureViewModel> LectureViewModels { get; set; }
         public string HeadingColor { get; set; }
         public string HeadingTitle { get; set; }
@@ -25,11 +27,10 @@ namespace School_Core.ViewModels.Lecture
                 return new LectureListViewModel()
                 {
                     LectureViewModels = _lectureProvider.Provide(),
-                    HeadingTitle = "Lectures",
-                    HeadingColor = "#1E8449"
+                    HeadingTitle = _headingTitle,
+                    HeadingColor = _headingColor
                 };
             }
         }
-
     }
 }

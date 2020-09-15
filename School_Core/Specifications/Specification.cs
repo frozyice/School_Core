@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using School_Core.Domain.Models.Students;
 
 namespace Domain.Specifications
 {
@@ -150,10 +151,7 @@ namespace Domain.Specifications
     //    }
     //}
 
-    public class IsFirstYearStudentSpecification : Specification<Student>
-    {
-        internal override Expression<Func<Student, bool>> Predicate => s=>s.YearOfStudy == 1;
-    }
+  
   
     /// <summary>
     /// Do not use this interface directly for implementing specifications, use abstract Specification<T> class for that.
