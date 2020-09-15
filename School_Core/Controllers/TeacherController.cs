@@ -8,11 +8,9 @@ namespace School_Core.Controllers
     public class TeacherController : Controller
     {
         private readonly TeacherListViewModel.IProvider _teacherProvider;
-        private readonly TeacherDetailsViewModel.IProvider _teacherDetailsProvider;
-        public TeacherController(TeacherDetailsViewModel.IProvider teacherDetailsProvider, TeacherListViewModel.IProvider teacherProvider)
+        public TeacherController(TeacherListViewModel.IProvider teacherProvider)
         {
             _teacherProvider = teacherProvider;
-            _teacherDetailsProvider = teacherDetailsProvider;
         }
 
         public IActionResult List()

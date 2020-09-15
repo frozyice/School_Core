@@ -28,7 +28,7 @@ namespace School_Core.Commands.Lecture
 
             public bool Handle(EnrollStudentCommand command)
             {
-                // todo teoorias võiks spec olla ( vb peaks queryt täiendama, et saaks include lisada ) 
+                //todo teoorias võiks spec olla ( vb peaks queryt täiendama, et saaks include lisada ) 
                 var lecture = _context.Lectures.Where(l => l.Id == command.LectureId).Include(x => x.Enrollments).FirstOrDefault();
                 var student = _context.Students.FirstOrDefault(s => s.Name == command.StudentName); // getStudentsWithNameSpec
 

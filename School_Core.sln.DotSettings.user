@@ -1,14 +1,9 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2ca764f1_002D22bc_002D4c9a_002D8c4d_002Dd1b0b2c6a761/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ArchiveLecture_DoesNotSet_StatusToArchived_When_There_Are_Enrolments_With_GradeNone" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.Domain.Models.LectureTests.ArchiveLecture_DoesNotSet_StatusToArchived_When_There_Are_Enrolments_With_GradeNone&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c345b081_002Dc750_002D4650_002D8a83_002Daae70577acce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ArchiveLecture_DoesNotSet_StatusToArchived_When_There_Are_Enrolments_With_GradeNone #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.Domain.Models.LectureTests.ArchiveLecture_DoesNotSet_StatusToArchived_When_There_Are_Enrolments_With_GradeNone&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ef3df496_002D22f4_002D4c02_002Db10d_002Db525d35edde4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1a729a8b_002Da8e7_002D4462_002Db2ac_002D040af1d8c242/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_Returns_False_When_Lecture_Is_Null #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=521a632f_002Db885_002D4a7b_002Db4dd_002D89f9ce82d25e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_Returns_False_When_Lecture_Is_Null" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.Commands.ArchiveLectureCommandTests.Handle_Returns_False_When_Lecture_Is_Null&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

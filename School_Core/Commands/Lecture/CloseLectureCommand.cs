@@ -24,7 +24,6 @@ namespace School_Core.Commands.Lecture
 
             //todo: kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
             // kui on mingi põhjus et me ei saa valideerimist teha domeenis siis paneme Commandi 
-            // 
             public bool Handle(CloseLectureCommand command)
             {
                 var lecture = _dbContext.Lectures.Find(command.Id);
