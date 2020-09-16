@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\KarmoKiima\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\KarmoKiima\\.nuget\\packages"
-    ]
-  }
-}

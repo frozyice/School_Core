@@ -1,9 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1a729a8b_002Da8e7_002D4462_002Db2ac_002D040af1d8c242/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_Returns_False_When_Lecture_Is_Null #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=521a632f_002Db885_002D4a7b_002Db4dd_002D89f9ce82d25e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_Returns_False_When_Lecture_Is_Null" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::E1F6B7FE-FBA5-41E7-BDA4-BF5829DC6558::.NETCoreApp,Version=v3.1::TestingTests.Commands.ArchiveLectureCommandTests.Handle_Returns_False_When_Lecture_Is_Null&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
