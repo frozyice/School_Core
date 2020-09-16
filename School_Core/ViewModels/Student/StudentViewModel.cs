@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using System.Collections.Generic;
+using Domain.Specifications;
 using School_Core.Domain.Models;
 using School_Core.Querys;
+using School_Core.Domain.Models.Students;
+using School_Core.Domain.Models.Students.Specs;
 
 namespace School_Core.ViewModels.Student
 {
@@ -15,7 +16,7 @@ namespace School_Core.ViewModels.Student
 
         public interface IProvider
         {
-            IEnumerable<StudentViewModel> Provide();
+            IEnumerable<StudentViewModel> Provide(bool filterFirstYearStudents, bool filterLawStudents);
         }
 
         public class Provider : IProvider
@@ -26,9 +27,27 @@ namespace School_Core.ViewModels.Student
             {
                 _query = query;
             }
-            public IEnumerable<StudentViewModel> Provide()
+            public IEnumerable<StudentViewModel> Provide(bool filterFirstYearStudents, bool filterLawStudents)
             {
-                var students = _query.GetStudents();
+                Specification<Domain.Models.Students.Student> spec = null;
+                if (filterFirstYearStudents)
+                {
+                    spec = new IsFirstYearStudentSpecification();
+                }
+
+                if (filterLawStudents)
+                {
+                    if (spec == null)
+                    {
+                        spec = new IsLawStudentSpecification();
+                    }
+                    else
+                    {
+                        spec = spec && new IsLawStudentSpecification();
+                    }
+                }
+                
+                var students = _query.GetStudents(spec);
                 var studentViewModels = new List<StudentViewModel>();
                 foreach (var student in students)
                 {

@@ -44,12 +44,10 @@
     </div>
     <div style="margin-top:20px">
         <form asp-controller="Student" asp-action="List" method="get">
-            @*<label asp-for="IsLawStudent"></label>
-                <input asp-for="IsLawStudent" />
-                <label asp-for="IsFirstYearStudent"></label>
-                <input asp-for="IsFirstYearStudent" />*@
-            <label for="smt">somefilter</label>
-            <input type="checkbox" />
+            <label asp-for="filterFirstYearStudents">First Year Students</label>
+            <input asp-for="filterFirstYearStudents" />
+            <label asp-for="FilterLawStudents">Law Students</label>
+            <input asp-for="FilterLawStudents" />
             <button class="btn btn-outline-primary" type="submit">Filter</button>
         </form>
     </div>

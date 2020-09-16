@@ -28,7 +28,7 @@ namespace School_Core.Querys
         {
             if (spec == null)
             {
-                var allStudents = _dbContext.Students.ToList();
+                var allStudents = _dbContext.Students.Include(x=>x.Enrollments).ToList();
                 return allStudents;
             }
             var studentsExpression = spec.SatisfyEntitiesFrom(_dbContext.Students).Include(x=>x.Enrollments);

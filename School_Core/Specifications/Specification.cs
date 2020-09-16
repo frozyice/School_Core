@@ -139,20 +139,6 @@ namespace Domain.Specifications
         public static MatchAllSpecification<T> MatchAll => new MatchAllSpecification<T>();
     }
 
-    
-    //public  class IsLawStudentSpecification : Specification<Student>
-    //{
-    //    internal override Expression<Func<Student, bool>> Predicate
-    //    {
-    //        get 
-    //        {
-    //          return x => x.IsLawStudent;
-    //        }
-    //    }
-    //}
-
-  
-  
     /// <summary>
     /// Do not use this interface directly for implementing specifications, use abstract Specification<T> class for that.
     /// </summary>

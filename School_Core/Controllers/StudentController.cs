@@ -16,9 +16,9 @@ namespace School_Core.Controllers
             _studentQuery = studentQuery;
         }
 
-        public IActionResult List()
+        public IActionResult List(bool filterFirstYearStudents, bool filterLawStudents)
         {
-            return View(_studentProvider.Provide());
+            return View(_studentProvider.Provide(filterFirstYearStudents, filterLawStudents));
         }
 
         public IActionResult RegisterNew()
