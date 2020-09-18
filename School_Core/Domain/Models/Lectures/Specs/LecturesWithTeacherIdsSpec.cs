@@ -6,11 +6,11 @@ using Domain.Specifications;
 
 namespace School_Core.Domain.Models.Specs
 {
-    public class LecturesWithTeacherIdsSpecification : Specification<Lecture>
+    public class LecturesWithTeacherIdsSpec : Specification<Lecture>
     {
         public IEnumerable<Guid> TeacherIds { get; }
 
-        public LecturesWithTeacherIdsSpecification(IEnumerable<Guid> teacherIds)
+        public LecturesWithTeacherIdsSpec(IEnumerable<Guid> teacherIds)
         {
             TeacherIds = teacherIds;
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using School_Core.Models;
+﻿using School_Core.Models;
 
 namespace School_Core.Domain.Models
 {

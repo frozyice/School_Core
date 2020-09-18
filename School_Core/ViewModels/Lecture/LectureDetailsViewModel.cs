@@ -46,7 +46,7 @@ namespace School_Core.ViewModels.Lecture
             public LectureDetailsViewModel Provide(Guid id)
             {
                 var lecture = _lectureQuery.GetLecture(id);
-                var studentsNames = _studentQuery.GetStudents(new InLectureSpecification(id)).Select(x => x.Name);
+                var studentsNames = _studentQuery.GetStudents(new InLectureSpec(id)).Select(x => x.Name);
 
                 return new LectureDetailsViewModel()
                 {

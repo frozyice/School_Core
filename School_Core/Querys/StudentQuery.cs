@@ -1,7 +1,6 @@
 ﻿using System;
 using Domain.Specifications;
 using School_Core.Contexts;
-using School_Core.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;

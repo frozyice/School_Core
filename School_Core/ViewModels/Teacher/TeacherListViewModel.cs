@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using School_Core.Querys;
+﻿using System.Collections.Generic;
 
 namespace School_Core.ViewModels.Teacher
 {

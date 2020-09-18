@@ -2,7 +2,6 @@
 using Domain.Specifications;
 using School_Core.Domain.Models;
 using School_Core.Querys;
-using School_Core.Domain.Models.Students;
 using School_Core.Domain.Models.Students.Specs;
 
 namespace School_Core.ViewModels.Student
@@ -32,18 +31,18 @@ namespace School_Core.ViewModels.Student
                 Specification<Domain.Models.Students.Student> spec = null;
                 if (filterFirstYearStudents)
                 {
-                    spec = new IsFirstYearStudentSpecification();
+                    spec = new IsFirstYearStudentSpec();
                 }
 
                 if (filterLawStudents)
                 {
                     if (spec == null)
                     {
-                        spec = new IsLawStudentSpecification();
+                        spec = new IsLawStudentSpec();
                     }
                     else
                     {
-                        spec = spec && new IsLawStudentSpecification();
+                        spec = spec && new IsLawStudentSpec();
                     }
                 }
                 

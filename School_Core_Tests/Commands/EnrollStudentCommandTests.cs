@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using School_Core.Commands.Lecture;
@@ -63,24 +64,25 @@ namespace School_Core_Tests.Commands
         }
 
         [Test]
-        public void Handle_Returns_False_And_Does_Not_Enroll_Student_To_lecture_When_Student_Is_Enrolled()
+        public void Handle_Returns_False_And_Does_Not_Enroll_Student_To_lecture_When_Student_Has_Enrollment()
         {
             _dbContextMock.Add(_student);
             _dbContextMock.Add(_lecture);
-            _lecture.EnrollStudent(_student.Id);
+            _lecture.EnrollStudent(_student);
             _dbContextMock.SaveChanges();
-
+            
             //Act
             var result = _sut.Handle(_command);
 
             //Assert
-            Enrollment resultEnrollment;
+            List<Enrollment> enrollments = new List<Enrollment>();
             using (var context = DbContextFactory.GetInMemoryDbContext())
             {
-                resultEnrollment = context.Enrollments.Where(x => x.StudentId == _student.Id).Single();
+                enrollments = context.Enrollments.Where(e => e.LectureId == _lectureId).ToList(); //.Lectures.Where(l => l.Id == lecture.Id).Include(x => x.Enrollments).ToList();
             }
 
             Assert.That(result, Is.False);
+            Assert.That(enrollments.Count, Is.EqualTo(1));
         }
 
         [TestCase(1, StudyField.Law)]

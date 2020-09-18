@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using School_Core.Domain.Models.Students;
+using School_Core.Domain.Models.Students.Specs;
 
 namespace School_Core.Domain.Models
 {
@@ -58,39 +59,17 @@ namespace School_Core.Domain.Models
             }
         }
 
-        public bool CanEnroll(Student student)
+        public void EnrollStudent(Student student)
         {
-            var existingEnrollment = _enrollments.SingleOrDefault(x => x.StudentId == student.Id);
-            if (existingEnrollment != null)
+            if (student.Id == Guid.Empty) // kontroll ainult selleks et saaks testimist harjutada. 
             {
-                return false;
+                throw new ArgumentException($"{student.Id} :  is not valid {nameof(student.Id)}");
             }
 
-            var a = EnrollableFromYear <= student.YearOfStudy;
-            var b = FieldOfStudy == student.FieldOfStudy;
-            var c = FieldOfStudy == StudyField.None;
-            var d = b || c;
-            var e = a && (b || c);
-            
-            if (EnrollableFromYear <= student.YearOfStudy && (FieldOfStudy == student.FieldOfStudy || FieldOfStudy == StudyField.None))
+            var canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(this);
+            if (Status == LectureStatus.Open && canEnroll)
             {
-                return true;
-            }
-
-            return false;
-        }
-
-        public void EnrollStudent(Guid studentId)
-        {
-            if (studentId == Guid.Empty) // kontroll ainult selleks et saaks testimist harjutada. 
-            {
-                throw new ArgumentException($"{studentId} :  is not valid {nameof(studentId)}");
-            }
-
-            var existingEnrollment = _enrollments.SingleOrDefault(x => x.StudentId == studentId);
-            if (Status == LectureStatus.Open && existingEnrollment == null)
-            {
-                _enrollments.Add(new Enrollment(studentId));
+                _enrollments.Add(new Enrollment(student.Id));
             }
         }
     }

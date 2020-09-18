@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using School_Core.Contexts;
+using School_Core.Domain.Models.Students.Specs;
 using School_Core.Querys;
 
 
@@ -46,7 +46,7 @@ namespace School_Core.ViewModels.Lecture
                     viewmodel.Name = student.Name;
                     
                     //var enrollment = lecture.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
-                    viewmodel.canEnroll = lecture.CanEnroll(student);//enrollment == null ? false : true;
+                    viewmodel.canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture);//enrollment == null ? false : true;
                     viewModels.Add(viewmodel);
                     
                 }

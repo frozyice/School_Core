@@ -1,7 +1,5 @@
 ﻿using School_Core.Contexts;
-using School_Core.Domain.Models;
 using System;
-using System.Linq;
 
 namespace School_Core.Commands.Lecture
 {

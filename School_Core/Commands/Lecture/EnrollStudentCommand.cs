@@ -2,7 +2,7 @@
 using School_Core.Contexts;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using School_Core.Domain.Models;
+using School_Core.Domain.Models.Students.Specs;
 
 namespace School_Core.Commands.Lecture
 {
@@ -36,10 +36,11 @@ namespace School_Core.Commands.Lecture
                 {
                     return false;
                 }
-
-                if (lecture.CanEnroll(student))
+                
+                var canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture);
+                if (canEnroll)
                 {
-                    lecture.EnrollStudent(student.Id);
+                    lecture.EnrollStudent(student);
                     _context.SaveChanges();
                     return true;
                 }

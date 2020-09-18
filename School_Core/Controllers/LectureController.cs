@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using School_Core.Commands.Lecture;
-using School_Core.Contexts;
 using School_Core.Querys;
 using School_Core.Util;
 using School_Core.ViewModels.Lecture;

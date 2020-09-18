@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using NUnit.Framework;
 using School_Core.Commands.Lecture;
 using School_Core.Contexts;
@@ -71,7 +70,7 @@ namespace School_Core_Tests.Commands
         {
             var student = new Student("name");
             _dbContextMock.Add(student);
-            _lecture.EnrollStudent(student.Id);
+            _lecture.EnrollStudent(student);
             _dbContextMock.Add(new Student("name"));
             
             _dbContextMock.Add(_lecture);

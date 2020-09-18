@@ -5,7 +5,6 @@ namespace School_Core.Domain.Models.Students
 {
     public class Student : Person
     {
-        
         public int YearOfStudy { get; private set; }
         public StudyField FieldOfStudy { get; private set; }
         public ICollection<Enrollment> Enrollments { get; private set; }
