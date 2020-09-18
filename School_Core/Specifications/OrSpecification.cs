@@ -5,7 +5,6 @@ namespace Domain.Specifications
 {
     public sealed class OrSpecification<TEntity> : CompositeSpecification<TEntity>
     {
-
         public OrSpecification(params Specification<TEntity>[] specifications) : base(specifications)
         {
         }

@@ -30,7 +30,7 @@ namespace School_Core_Tests.Commands
         {
             _dbContextMock.Database.EnsureDeleted();
         }
-        
+
         [Test]
         public void Handle_Returns_False_When_Lecture_Is_Null()
         {
@@ -43,15 +43,16 @@ namespace School_Core_Tests.Commands
             {
                 resultLecture = context.Lectures.Find(_lectureId);
             }
+
             Assert.That(result, Is.False);
         }
-        
+
         [Test]
         public void Handle_Returns_True_And_Archives_Lecture_When_Lecture_Enrollment_Has_No_Students_With_Grade_None()
         {
             _dbContextMock.Add(_lecture);
             _dbContextMock.SaveChanges();
-            
+
             //Act
             var result = _sut.Handle(_command);
 
@@ -61,10 +62,11 @@ namespace School_Core_Tests.Commands
             {
                 resultLecture = context.Lectures.Find(_lectureId);
             }
+
             Assert.That(result, Is.True);
             Assert.That(resultLecture.Status, Is.EqualTo(LectureStatus.Archived));
         }
-        
+
         [Test]
         public void Handle_Returns_False_And_Does_Not_Archive_Lecture_When_Lecture_Enrollment_Has_Students_With_Grade_None()
         {
@@ -72,10 +74,10 @@ namespace School_Core_Tests.Commands
             _dbContextMock.Add(student);
             _lecture.EnrollStudent(student);
             _dbContextMock.Add(new Student("name"));
-            
+
             _dbContextMock.Add(_lecture);
             _dbContextMock.SaveChanges();
-            
+
             //Act
             var result = _sut.Handle(_command);
 
@@ -85,6 +87,7 @@ namespace School_Core_Tests.Commands
             {
                 resultLecture = context.Lectures.Find(_lectureId);
             }
+
             Assert.That(result, Is.False);
             Assert.That(resultLecture.Status, Is.EqualTo(LectureStatus.Open));
         }

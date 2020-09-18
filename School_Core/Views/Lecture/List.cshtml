@@ -43,7 +43,7 @@
         </div>
     </div>
     <label for="counterToggle">Show Counter</label>
-    <input id="counterToggle" type="checkbox" data-bind="checked: shouldShowCounter" />
+    <input id="counterToggle" type="checkbox" data-bind="checked: shouldShowCounter"/>
     <div data-bind="visible: shouldShowCounter" style="margin-top:20px">
 
         @await Component.InvokeAsync("Counter", new {color = Model.HeadingColor})

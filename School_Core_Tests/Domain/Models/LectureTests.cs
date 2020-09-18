@@ -106,7 +106,7 @@ namespace School_Core_Tests.Domain.Models
                 new Enrollment(Guid.NewGuid(), Grade.E),
                 new Enrollment(Guid.NewGuid(), Grade.F),
             };
-            
+
             sut.Setup(x => x.Enrollments).Returns(enrollments);
 
             //Act
@@ -124,59 +124,59 @@ namespace School_Core_Tests.Domain.Models
 
             //Act
             _sut.EnrollStudent(student);
-            
+
             //Assert
             var result = _sut.Enrollments.FirstOrDefault(x => x.StudentId == studentId);
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.StudentId,Is.EqualTo(studentId));
+            Assert.That(result.StudentId, Is.EqualTo(studentId));
         }
 
         [Test]
         public void EnrollStudent_Do_Not_Add_Enrollment_When_LectureStatus_Is_Closed()
         {
-            var student =  TestStudent.Create();
+            var student = TestStudent.Create();
             var studentId = student.Id;
             _sut.CloseLecture();
 
             //Act
             _sut.EnrollStudent(student);
-            
+
             //Assert
             var result = _sut.Enrollments.FirstOrDefault(x => x.StudentId == studentId);
             Assert.That(result, Is.Null);
         }
-        
+
         [Test]
         public void EnrollStudent_Do_Not_Add_Enrollment_When_LectureStatus_Is_Archived()
         {
-            var student =  TestStudent.Create();
+            var student = TestStudent.Create();
             var studentId = student.Id;
             _sut.ArchiveLecture();
 
             //Act
             _sut.EnrollStudent(student);
-            
+
             //Assert
             var result = _sut.Enrollments.FirstOrDefault(x => x.StudentId == studentId);
             Assert.That(result, Is.Null);
         }
-        
+
         [Test]
         public void EnrollStudent_Does_Not_Add_Enrollment_When_There_Is_Student_With_Same_Id_Enrolled()
         {
             var student = new Student("name", 1, StudyField.Law);
-            var sut = new Lecture("name",1,StudyField.Law);
+            var sut = new Lecture("name", 1, StudyField.Law);
             var studentId = student.Id;
             sut.EnrollStudent(student);
 
             //Act
             sut.EnrollStudent(student);
-            
+
             //Assert
             var enrollment = sut.Enrollments.Single(x => x.StudentId == studentId);
             Assert.That(enrollment.StudentId, Is.EqualTo(studentId));
         }
-        
+
 
         //
         // [TestCase(1,StudyField.Law)]
@@ -220,7 +220,7 @@ namespace School_Core_Tests.Domain.Models
     {
         public static Student Create(string name = "testName", int yearsOFStudy = 1, List<Enrollment> enrollments = null)
         {
-            var student = new Student(name,yearsOFStudy);
+            var student = new Student(name, yearsOFStudy);
             return student;
         }
     }

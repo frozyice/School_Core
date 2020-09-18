@@ -9,7 +9,7 @@ namespace School_Core.Querys
     {
         IReadOnlyList<Teacher> GetAll();
     }
-    
+
     public class TeachersQuery : ITeacherQuery
     {
         private readonly SchoolCoreDbContext _dbContext;

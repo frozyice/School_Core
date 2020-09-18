@@ -4,9 +4,9 @@ namespace School_Core.Domain.Models
 {
     public class Enrollment
     {
-        public Guid Id { get;  private set; }
-        public Guid LectureId { get;  private set; }
-        public Guid StudentId { get;  private set; }
+        public Guid Id { get; private set; }
+        public Guid LectureId { get; private set; }
+        public Guid StudentId { get; private set; }
 
         public Grade Grade { get; private set; }
 
@@ -15,8 +15,8 @@ namespace School_Core.Domain.Models
             StudentId = studentId;
             Grade = grade;
         }
-
     }
+
     public enum Grade
     {
         None,

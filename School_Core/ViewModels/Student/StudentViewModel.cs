@@ -6,7 +6,6 @@ using School_Core.Domain.Models.Students.Specs;
 
 namespace School_Core.ViewModels.Student
 {
-
     public class StudentViewModel
     {
         public string Name { get; set; }
@@ -26,6 +25,7 @@ namespace School_Core.ViewModels.Student
             {
                 _query = query;
             }
+
             public IEnumerable<StudentViewModel> Provide(bool filterFirstYearStudents, bool filterLawStudents)
             {
                 Specification<Domain.Models.Students.Student> spec = null;
@@ -45,17 +45,12 @@ namespace School_Core.ViewModels.Student
                         spec = spec && new IsLawStudentSpec();
                     }
                 }
-                
+
                 var students = _query.GetStudents(spec);
                 var studentViewModels = new List<StudentViewModel>();
                 foreach (var student in students)
                 {
-                    studentViewModels.Add(new StudentViewModel()
-                    {
-                        Name = student.Name,
-                        YearOfStudy = student.YearOfStudy,
-                        FieldOfStudy = student.FieldOfStudy
-                    });
+                    studentViewModels.Add(new StudentViewModel() {Name = student.Name, YearOfStudy = student.YearOfStudy, FieldOfStudy = student.FieldOfStudy});
                 }
 
                 return studentViewModels;

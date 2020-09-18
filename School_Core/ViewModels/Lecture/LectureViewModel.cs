@@ -16,6 +16,7 @@ namespace School_Core.ViewModels.Lecture
         {
             IEnumerable<LectureViewModel> Provide();
         }
+
         public class Provider : IProvider
         {
             private readonly ILectureQuery _query;
@@ -24,23 +25,18 @@ namespace School_Core.ViewModels.Lecture
             {
                 _query = query;
             }
+
             public IEnumerable<LectureViewModel> Provide()
             {
-
                 var lectures = _query.GetLectures();
                 var lectureViewModels = new List<LectureViewModel>();
                 foreach (var lecture in lectures)
                 {
-                    lectureViewModels.Add(new LectureViewModel()
-                    {
-                        Id = lecture.Id,
-                        Name = lecture.Name ?? "",
-                        Status = lecture.Status
-                    });
+                    lectureViewModels.Add(new LectureViewModel() {Id = lecture.Id, Name = lecture.Name ?? "", Status = lecture.Status});
                 }
+
                 return lectureViewModels;
             }
         }
-
     }
 }

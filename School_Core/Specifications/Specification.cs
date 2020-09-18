@@ -7,7 +7,6 @@ using System.Reflection;
 
 namespace Domain.Specifications
 {
-
     public abstract class Specification<T> : ISpecification<T>, IEquatable<Specification<T>>
     {
         public IQueryable<T> SatisfyEntitiesFrom(IQueryable<T> query)
@@ -87,14 +86,15 @@ namespace Domain.Specifications
                 var arr1 = enumerable.Cast<object>().ToArray();
                 var arr2 = enumerable2.Cast<object>().ToArray();
 
-                return ((IStructuralEquatable)arr1).Equals(arr2, StructuralComparisons.StructuralEqualityComparer);
+                return ((IStructuralEquatable) arr1).Equals(arr2, StructuralComparisons.StructuralEqualityComparer);
             }
 
             return false;
         }
 
-        private IEnumerable<FieldInfo> GetInstanceFields(Type type) => type?.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-            .Where(f => f.Name != $"<{nameof(Predicate)}>k__BackingField").Concat(GetInstanceFields(type.BaseType)) ?? Enumerable.Empty<FieldInfo>();
+        private IEnumerable<FieldInfo> GetInstanceFields(Type type) =>
+            type?.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).Where(f => f.Name != $"<{nameof(Predicate)}>k__BackingField")
+                .Concat(GetInstanceFields(type.BaseType)) ?? Enumerable.Empty<FieldInfo>();
 
         public override int GetHashCode()
         {
@@ -105,7 +105,7 @@ namespace Domain.Specifications
 
         public bool Equals(Specification<T> other)
         {
-            return Equals((object)other);
+            return Equals((object) other);
         }
 
         public static bool operator ==(Specification<T> left, Specification<T> right)
@@ -130,6 +130,7 @@ namespace Domain.Specifications
                 {
                     hashResult = (hashResult * 486187739) + hash; // It's better to pick a large prime to multiply, they say (apparently 486187739 is good?)
                 }
+
                 return hashResult;
             }
         }
@@ -142,9 +143,9 @@ namespace Domain.Specifications
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface ISpecification<T>
-{
-    IQueryable<T> SatisfyEntitiesFrom(IQueryable<T> query);
-    IEnumerable<T> SatisfyEntitiesFrom(IEnumerable<T> collection);
-    bool IsSatisfiedBy(T entity);
-}
+    {
+        IQueryable<T> SatisfyEntitiesFrom(IQueryable<T> query);
+        IEnumerable<T> SatisfyEntitiesFrom(IEnumerable<T> collection);
+        bool IsSatisfiedBy(T entity);
+    }
 }

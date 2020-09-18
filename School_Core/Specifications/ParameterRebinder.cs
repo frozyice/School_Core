@@ -24,6 +24,7 @@ namespace Domain.Specifications
             {
                 p = replacement;
             }
+
             return base.VisitParameter(p);
         }
     }

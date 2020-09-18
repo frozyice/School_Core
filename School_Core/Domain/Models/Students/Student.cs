@@ -17,8 +17,6 @@ namespace School_Core.Domain.Models.Students
 
         protected Student()
         {
-            
         }
     }
 }
-

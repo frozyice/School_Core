@@ -8,12 +8,14 @@ namespace School_Core.ViewModels.Teacher
         private static string _headingColor = "#B03A2E";
         public string HeadingColor { get; set; }
         public string HeadingTitle { get; set; }
-        
+
         public IEnumerable<TeacherViewModel> Teachers { get; set; }
+
         public interface IProvider
         {
             TeacherListViewModel Provide();
         }
+
         public class Provider : IProvider
         {
             private readonly TeacherViewModel.IProvider _teacherProvider;
@@ -22,6 +24,7 @@ namespace School_Core.ViewModels.Teacher
             {
                 _teacherProvider = teacherProvider;
             }
+
             public TeacherListViewModel Provide()
             {
                 var teacherListViewModel = new TeacherListViewModel()

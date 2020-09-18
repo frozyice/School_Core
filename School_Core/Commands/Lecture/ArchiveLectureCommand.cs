@@ -28,12 +28,14 @@ namespace School_Core.Commands.Lecture
                 {
                     return false;
                 }
+
                 if (lecture.CanArchive())
                 {
                     lecture.ArchiveLecture();
                     _dbContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
         }

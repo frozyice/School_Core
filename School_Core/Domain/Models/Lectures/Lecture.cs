@@ -12,7 +12,9 @@ namespace School_Core.Domain.Models
         public string Name { get; private set; }
         public LectureStatus Status { get; private set; }
         public StudyField FieldOfStudy { get; private set; }
+
         public int EnrollableFromYear { get; private set; }
+
         //1:1
         public Teacher Teacher { get; private set; }
 

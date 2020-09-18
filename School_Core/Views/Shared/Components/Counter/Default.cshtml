@@ -7,14 +7,13 @@
         <table style="border: 2px solid @Model.BorderColor">
 
             <tbody>
-                @foreach (var item in Model.CounterViewModels)
-                {
-
-                    <tr>
-                        <td>@item.RowName:</td>
-                        <td>@item.Count</td>
-                    </tr>
-                }
+            @foreach (var item in Model.CounterViewModels)
+            {
+                <tr>
+                    <td>@item.RowName:</td>
+                    <td>@item.Count</td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>

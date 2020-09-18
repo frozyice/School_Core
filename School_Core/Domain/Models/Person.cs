@@ -6,15 +6,15 @@ namespace School_Core.Models
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
+
         public Person(string name)
         {
-            Id = Guid.NewGuid();  
+            Id = Guid.NewGuid();
             Name = name;
         }
 
         protected Person()
         {
-            
         }
     }
 }

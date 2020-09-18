@@ -36,7 +36,7 @@ namespace School_Core.Commands.Lecture
                 {
                     return false;
                 }
-                
+
                 var canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture);
                 if (canEnroll)
                 {

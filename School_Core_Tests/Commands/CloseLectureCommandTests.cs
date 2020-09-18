@@ -11,7 +11,6 @@ namespace School_Core_Tests.Commands
 {
     class CloseLectureEnrollmentCommandHandlerTests
     {
-
         SchoolCoreDbContext _dbContextMock;
         private Lecture _lecture;
         private Guid _id;
@@ -21,7 +20,6 @@ namespace School_Core_Tests.Commands
         [SetUp]
         public void Setup()
         {
-            
             _dbContextMock = DbContextFactory.GetInMemoryDbContext();
             _lecture = new Lecture("name");
             _id = _lecture.Id;
@@ -38,20 +36,20 @@ namespace School_Core_Tests.Commands
             _dbContextMock.Database.EnsureDeleted();
             //var a = dbContextMock.Lectures.ToList();
         }
-        
+
 
         [Test]
         public void Handle_Returns_True_When_StatusIsOpen()
         {
-            _dbContextMock.Add(_lecture); 
+            _dbContextMock.Add(_lecture);
             _dbContextMock.SaveChanges();
-            
+
             // var _sut = new CloseLectureEnrollmentCommand.Handler(_dbContextMock);
 
             //Act
             var result = _sut.Handle(_command);
-            
-            
+
+
             //Assert
             Lecture resultLecture;
             using (var context = DbContextFactory.GetInMemoryDbContext())
@@ -60,7 +58,7 @@ namespace School_Core_Tests.Commands
             }
 
             Assert.That(result, Is.True);
-            Assert.That(resultLecture.Status , Is.EqualTo(LectureStatus.Closed));
+            Assert.That(resultLecture.Status, Is.EqualTo(LectureStatus.Closed));
         }
 
         //SQLite inMemory
@@ -103,8 +101,8 @@ namespace School_Core_Tests.Commands
 
         [Test]
         public void Handle_Returns_False_When_LectureIsNotInDatabase()
-        {           
-            _dbContextMock.Add(new Lecture("uus ")); 
+        {
+            _dbContextMock.Add(new Lecture("uus "));
 
 
             //Act
@@ -124,18 +122,19 @@ namespace School_Core_Tests.Commands
             _dbContextMock.SaveChanges();
 
             //Act
-            var result =_sut.Handle(_command);
-            
+            var result = _sut.Handle(_command);
+
             //Assert
             Lecture lectureResult;
             using (var context = DbContextFactory.GetInMemoryDbContext())
             {
                 lectureResult = context.Lectures.Find(_id);
             }
+
             Assert.That(result, Is.False);
             Assert.That(lectureResult.Status, Is.EqualTo(LectureStatus.Closed));
         }
-        
+
         [Test]
         public void Handle_Returns_False_When_LectureStatusIsArchived()
         {
@@ -144,28 +143,26 @@ namespace School_Core_Tests.Commands
             _dbContextMock.SaveChanges();
 
             //Act
-            var result =_sut.Handle(_command);
-            
+            var result = _sut.Handle(_command);
+
             //Assert
             Lecture lectureResult;
             using (var context = DbContextFactory.GetInMemoryDbContext())
             {
                 lectureResult = context.Lectures.Find(_id);
             }
+
             Assert.That(result, Is.False);
             Assert.That(lectureResult.Status, Is.EqualTo(LectureStatus.Archived));
         }
-
     }
 
     public static class DbContextFactory
     {
-         //https://justsimplycode.com/2018/06/02/mocking-entity-framework-core-dbcontext-for-unit-testing/
+        //https://justsimplycode.com/2018/06/02/mocking-entity-framework-core-dbcontext-for-unit-testing/
         public static SchoolCoreDbContext GetInMemoryDbContext()
         {
-            var options = new DbContextOptionsBuilder<SchoolCoreDbContext>()
-                .UseInMemoryDatabase(databaseName: "InMemoryArticleDatabase")
-                .Options;
+            var options = new DbContextOptionsBuilder<SchoolCoreDbContext>().UseInMemoryDatabase(databaseName: "InMemoryArticleDatabase").Options;
 
             //var options = new DbContextOptionsBuilder<SchoolCoreDbContext>().UseSqlite("Data Source=:memory:;Version=3;New=True;").Options;
 
@@ -177,11 +174,10 @@ namespace School_Core_Tests.Commands
         }
 
         //https://www.thereformedprogrammer.net/using-in-memory-databases-for-unit-testing-ef-core-applications/
-        public static DbContextOptions<SchoolCoreDbContext> CreateSqlLiteOptions()  
+        public static DbContextOptions<SchoolCoreDbContext> CreateSqlLiteOptions()
         {
             //This creates the SQLite connection string to in-memory database
-            var connectionStringBuilder = new SqliteConnectionStringBuilder
-                { DataSource = ":memory:" };
+            var connectionStringBuilder = new SqliteConnectionStringBuilder {DataSource = ":memory:"};
             var connectionString = connectionStringBuilder.ToString();
 
             //This creates a SqliteConnectionwith that string
@@ -198,9 +194,4 @@ namespace School_Core_Tests.Commands
 
         //https://docs.microsoft.com/en-us/ef/core/miscellaneous/testing/#unit-testing
     }
-
-
-
-    
-
 }

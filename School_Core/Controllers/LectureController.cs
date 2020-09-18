@@ -15,9 +15,8 @@ namespace School_Core.Controllers
         private readonly ILectureQuery _lectureQuery;
         private readonly LectureDetailsViewModel.IProvider _lectureDetailsProvider;
 
-        public LectureController(Messages messages, EnrollStudentViewModel.IProvider LectureAddStudentProvider,
-            LectureDetailsViewModel.IProvider lectureDetailProvider, LectureListViewModel.IProvider lectureListProvider,
-            ILectureQuery lectureQuery)
+        public LectureController(Messages messages, EnrollStudentViewModel.IProvider LectureAddStudentProvider, LectureDetailsViewModel.IProvider lectureDetailProvider,
+            LectureListViewModel.IProvider lectureListProvider, ILectureQuery lectureQuery)
         {
             _messages = messages;
             _lectureAddStudentProvider = LectureAddStudentProvider;
@@ -92,11 +91,12 @@ namespace School_Core.Controllers
             }
 
             var command = new EnrollStudentCommand(enrollStudentViewModel.LectureId, enrollStudentViewModel.StudentName);
-            var isSuccess =  _messages.Dispatch(command);
+            var isSuccess = _messages.Dispatch(command);
             if (isSuccess == false)
             {
                 // võiks veateade olla, kas commandist võiks juba Result tulla näiteks 
             }
+
             return RedirectToAction(nameof(Details), new {Id = enrollStudentViewModel.LectureId});
         }
 

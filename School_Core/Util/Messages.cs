@@ -15,11 +15,11 @@ namespace School_Core.Util
         public bool Dispatch(ICommand command)
         {
             Type type = typeof(ICommandHandler<>);
-            Type[] typeArgs = { command.GetType() };
+            Type[] typeArgs = {command.GetType()};
             Type handlerType = type.MakeGenericType(typeArgs);
 
             dynamic handler = _provider.GetService(handlerType);
-            dynamic result = handler.Handle((dynamic)command);
+            dynamic result = handler.Handle((dynamic) command);
 
             return result;
         }

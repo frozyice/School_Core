@@ -8,7 +8,6 @@ using School_Core.Domain.Models.Students;
 
 namespace School_Core.Querys
 {
-
     public interface IStudentQuery
     {
         IReadOnlyList<Student> GetStudents(Specification<Student> spec = null);
@@ -23,14 +22,16 @@ namespace School_Core.Querys
         {
             _dbContext = dbContext;
         }
+
         public IReadOnlyList<Student> GetStudents(Specification<Student> spec = null)
         {
             if (spec == null)
             {
-                var allStudents = _dbContext.Students.Include(x=>x.Enrollments).ToList();
+                var allStudents = _dbContext.Students.Include(x => x.Enrollments).ToList();
                 return allStudents;
             }
-            var studentsExpression = spec.SatisfyEntitiesFrom(_dbContext.Students).Include(x=>x.Enrollments);
+
+            var studentsExpression = spec.SatisfyEntitiesFrom(_dbContext.Students).Include(x => x.Enrollments);
             var students = studentsExpression.ToList();
             return students;
         }
@@ -41,7 +42,6 @@ namespace School_Core.Querys
         }
     }
 }
-
 
 
 //    public class GetStudetsQuery : IQuery<IReadOnlyList<Student>>

@@ -11,28 +11,28 @@
 
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Lecture</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Lecture</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var teacher in Model.Teachers)
-                    {
-                        <tr>
-                            <td>
-                                @*@Html.ActionLink(teacher.Name, "Details", "Teacher", new { id = teacher.Id })*@
-                                @teacher.Name
-                            </td>
-                            <td>
-                                @teacher.LectureName
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture">Assign to Lecture</a>
-                            </td>
-                        </tr>
-                    }
+                @foreach (var teacher in Model.Teachers)
+                {
+                    <tr>
+                        <td>
+                            @*@Html.ActionLink(teacher.Name, "Details", "Teacher", new { id = teacher.Id })*@
+                            @teacher.Name
+                        </td>
+                        <td>
+                            @teacher.LectureName
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture">Assign to Lecture</a>
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
 
@@ -40,6 +40,6 @@
     </div>
     <div style="margin-top:20px">
 
-        @await Component.InvokeAsync("Counter", new { color = Model.HeadingColor})
+        @await Component.InvokeAsync("Counter", new {color = Model.HeadingColor})
     </div>
 </div>

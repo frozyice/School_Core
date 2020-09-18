@@ -21,19 +21,19 @@ namespace School_Core.Domain.Models.Students.Specs
     // {
     //     private Expression<Func<TEntity, bool>> Predicate { get; }
     // }
-    
+
     public class IsWithFieldOfStudySpec : Specification<Lecture>
     {
-    
         public StudyField LectureFieldOfStudy { get; }
-    
+
         public IsWithFieldOfStudySpec(StudyField fieldOfStudy)
         {
             LectureFieldOfStudy = fieldOfStudy;
         }
+
         internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == LectureFieldOfStudy;
     }
-    
+
     public class IsFieldOfStudyNoneSpec : Specification<Lecture>
     {
         internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == StudyField.None;
@@ -75,7 +75,9 @@ namespace School_Core.Domain.Models.Students.Specs
             YearOfStudy = student.YearOfStudy;
             FieldOfStudy = student.FieldOfStudy;
         }
-        public override Specification<Lecture> Specification => new HasExistingEnrollmentSpec(StudentId).Negate() && new HasYearOfStudyToEnrollSpec(YearOfStudy) && (new IsWithFieldOfStudySpec(FieldOfStudy) || new IsFieldOfStudyNoneSpec());
+
+        public override Specification<Lecture> Specification =>
+            new HasExistingEnrollmentSpec(StudentId).Negate() && new HasYearOfStudyToEnrollSpec(YearOfStudy) &&
+            (new IsWithFieldOfStudySpec(FieldOfStudy) || new IsFieldOfStudyNoneSpec());
     }
-    
 }

@@ -10,33 +10,33 @@
 
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Year of Study</th>
-                        <th>Field of Study</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Year of Study</th>
+                    <th>Field of Study</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var student in Model.StudentViewModels)
-                    {
-                        <tr>
-                            <td>
-                                @*@Html.ActionLink(@item.Name, "Details", "Student", new { id = item.Id }, null)*@
-                                @student.Name
-                            </td>
-                            <td>
-                                @student.YearOfStudy
-                            </td>
-                            <td>
-                                @student.FieldOfStudy
-                            </td>
-                            <td>
-                                <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditInfo">Edit Student Info</a>
-                            </td>
+                @foreach (var student in Model.StudentViewModels)
+                {
+                    <tr>
+                        <td>
+                            @*@Html.ActionLink(@item.Name, "Details", "Student", new { id = item.Id }, null)*@
+                            @student.Name
+                        </td>
+                        <td>
+                            @student.YearOfStudy
+                        </td>
+                        <td>
+                            @student.FieldOfStudy
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditInfo">Edit Student Info</a>
+                        </td>
 
-                        </tr>
-                    }
+                    </tr>
+                }
                 </tbody>
             </table>
 
@@ -45,9 +45,9 @@
     <div style="margin-top:20px">
         <form asp-controller="Student" asp-action="List" method="get">
             <label asp-for="filterFirstYearStudents">First Year Students</label>
-            <input asp-for="filterFirstYearStudents" />
+            <input asp-for="filterFirstYearStudents"/>
             <label asp-for="FilterLawStudents">Law Students</label>
-            <input asp-for="FilterLawStudents" />
+            <input asp-for="FilterLawStudents"/>
             <button class="btn btn-outline-primary" type="submit">Filter</button>
         </form>
     </div>
@@ -56,6 +56,6 @@
         <a class="btn btn-outline-primary" asp-controller="Student" asp-action="RegisterNew">Register New</a>
     </div>
     <div style="margin-top:20px">
-        @await Component.InvokeAsync("Counter", new { color = Model.HeadingColor, shouldAddTeachers = false })
+        @await Component.InvokeAsync("Counter", new {color = Model.HeadingColor, shouldAddTeachers = false})
     </div>
 </div>

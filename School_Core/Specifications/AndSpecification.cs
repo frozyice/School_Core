@@ -27,7 +27,7 @@ namespace Domain.Specifications
             if (specification2 == null)
                 return specification1;
 
-           return  specification1.And(specification2);
+            return specification1.And(specification2);
         }
     }
 }

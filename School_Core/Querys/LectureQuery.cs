@@ -23,12 +23,14 @@ namespace School_Core.Querys
         {
             _dbContext = dbContext;
         }
+
         public IReadOnlyList<Lecture> GetLectures(Specification<Lecture> spec = null)
         {
             if (spec == null)
             {
-                return _dbContext.Lectures.Include(x => x.Enrollments).Include(x=>x.Teacher).ToList();
+                return _dbContext.Lectures.Include(x => x.Enrollments).Include(x => x.Teacher).ToList();
             }
+
             var expression = spec.SatisfyEntitiesFrom(_dbContext.Lectures.Include(x => x.Enrollments).Include(x => x.Teacher));
             return expression.ToList();
         }

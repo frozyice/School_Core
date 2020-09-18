@@ -18,18 +18,15 @@ namespace School_Core.ViewModels.Lecture
         public class Provider : IProvider
         {
             private readonly LectureViewModel.IProvider _lectureProvider;
+
             public Provider(LectureViewModel.IProvider lectureProvider)
             {
                 _lectureProvider = lectureProvider;
             }
+
             public LectureListViewModel Provide()
             {
-                return new LectureListViewModel()
-                {
-                    LectureViewModels = _lectureProvider.Provide(),
-                    HeadingTitle = _headingTitle,
-                    HeadingColor = _headingColor
-                };
+                return new LectureListViewModel() {LectureViewModels = _lectureProvider.Provide(), HeadingTitle = _headingTitle, HeadingColor = _headingColor};
             }
         }
     }

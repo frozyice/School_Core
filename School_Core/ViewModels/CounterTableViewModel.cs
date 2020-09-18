@@ -4,7 +4,6 @@ using School_Core.Querys;
 
 namespace School_Core.ViewModels
 {
-
     public class CounterTableViewModel
     {
         public List<CounterViewModel> CounterViewModels { get; set; } = new List<CounterViewModel>();
@@ -16,6 +15,7 @@ namespace School_Core.ViewModels
             public string RowName { get; set; }
             public int Count { get; set; }
         }
+
         public interface IProvider
         {
             CounterTableViewModel GetViewModel(string borderColor, bool shouldAddTeachers = true);
@@ -40,8 +40,7 @@ namespace School_Core.ViewModels
             {
                 var model = new CounterTableViewModel
                 {
-                    BorderColor = borderColor,
-                    PageTitle = "Counter" // vaatame pärast 
+                    BorderColor = borderColor, PageTitle = "Counter" // vaatame pärast 
                 };
 
 
@@ -58,27 +57,13 @@ namespace School_Core.ViewModels
                 //}
 
 
-                model.CounterViewModels.Add(
-                new CounterViewModel
-                {
-                    RowName = "Lectures",
-                    Count = _lectureQuery.GetLectures().ToList().Count()
-                }
-                    );
+                model.CounterViewModels.Add(new CounterViewModel {RowName = "Lectures", Count = _lectureQuery.GetLectures().ToList().Count()});
 
-                model.CounterViewModels.Add(new CounterViewModel
-                {
-                    RowName = "Students",
-                    Count = _studentQuery.GetStudents().ToList().Count()
-                });
+                model.CounterViewModels.Add(new CounterViewModel {RowName = "Students", Count = _studentQuery.GetStudents().ToList().Count()});
 
                 if (shouldAddTeachers)
                 {
-                    model.CounterViewModels.Add(new CounterViewModel
-                    {
-                        RowName = "Teachers",
-                        Count = _teacherQuery.GetAll().Count()
-                    });
+                    model.CounterViewModels.Add(new CounterViewModel {RowName = "Teachers", Count = _teacherQuery.GetAll().Count()});
                 }
 
                 return model;

@@ -31,13 +31,14 @@ namespace School_Core.Commands.Lecture
                 {
                     return false;
                 }
-                
+
                 if (lecture.Status == LectureStatus.Open)
                 {
                     lecture.CloseLecture();
                     _dbContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
         }

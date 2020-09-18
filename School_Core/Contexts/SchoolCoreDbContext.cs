@@ -21,7 +21,6 @@ namespace School_Core.Contexts
 
         public SchoolCoreDbContext(DbContextOptions<SchoolCoreDbContext> options) : base(options)
         {
-
         }
 
 

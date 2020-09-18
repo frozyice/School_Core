@@ -12,7 +12,7 @@ namespace Domain.Specifications
         protected CompositeSpecification(params Specification<TEntity>[] specifications)
         {
             if (specifications == null) throw new ArgumentNullException(nameof(specifications));
-            
+
             Specifications = Reduce(specifications);
         }
 
@@ -34,15 +34,14 @@ namespace Domain.Specifications
                         if (!reducedSpecifications.Contains(compInnerSpec))
                             reducedSpecifications.Add(compInnerSpec);
                     }
-                else
-                    if (!reducedSpecifications.Contains(specification))
-                        reducedSpecifications.Add(specification);
+                else if (!reducedSpecifications.Contains(specification))
+                    reducedSpecifications.Add(specification);
             }
+
             return reducedSpecifications;
         }
 
-        protected abstract Expression<Func<TEntity, bool>> CombineExpressions(Expression<Func<TEntity, bool>> exp1,
-            Expression<Func<TEntity, bool>> exp2);
+        protected abstract Expression<Func<TEntity, bool>> CombineExpressions(Expression<Func<TEntity, bool>> exp1, Expression<Func<TEntity, bool>> exp2);
 
         internal sealed override Expression<Func<TEntity, bool>> Predicate
         {
@@ -83,8 +82,7 @@ namespace Domain.Specifications
 
         public override int GetHashCode()
         {
-            var hashes = Specifications.Select(s => s?.GetHashCode() ?? 0)
-                .OrderBy(h => h).ToList();
+            var hashes = Specifications.Select(s => s?.GetHashCode() ?? 0).OrderBy(h => h).ToList();
             hashes.Add(GetType().GetHashCode());
             return CombineHashCodes(hashes);
         }

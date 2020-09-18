@@ -4,7 +4,6 @@ namespace School_Core.Commands
 {
     public class RegisterNewStudentCommand : ICommand
     {
-
         public string Name { get; private set; }
         public int YearOfStudy { get; private set; }
         public bool IsLawStudent { get; private set; }
@@ -25,6 +24,7 @@ namespace School_Core.Commands
         {
             _dbContext = dbContext;
         }
+
         public bool Handle(RegisterNewStudentCommand command)
         {
             //var student = new Student(command.Name, command.YearOfStudy, command.IsLawStudent);
@@ -32,6 +32,5 @@ namespace School_Core.Commands
             //_dbContext.SaveChanges();
             return true;
         }
-
     }
 }

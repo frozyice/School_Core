@@ -70,7 +70,7 @@ namespace School_Core_Tests.Commands
             _dbContextMock.Add(_lecture);
             _lecture.EnrollStudent(_student);
             _dbContextMock.SaveChanges();
-            
+
             //Act
             var result = _sut.Handle(_command);
 

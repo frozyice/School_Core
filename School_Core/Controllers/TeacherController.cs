@@ -4,10 +4,10 @@ using School_Core.ViewModels.Teacher;
 
 namespace School_Core.Controllers
 {
-
     public class TeacherController : Controller
     {
         private readonly TeacherListViewModel.IProvider _teacherProvider;
+
         public TeacherController(TeacherListViewModel.IProvider teacherProvider)
         {
             _teacherProvider = teacherProvider;

@@ -1,6 +1,6 @@
-﻿﻿using System;
- using System.Linq;
- using School_Core.Querys;
+﻿using System;
+using System.Linq;
+using School_Core.Querys;
 
 namespace School_Core.ViewModels.Teacher
 {
@@ -16,10 +16,12 @@ namespace School_Core.ViewModels.Teacher
         public class Provider : IProvider
         {
             private readonly ITeacherQuery _query;
+
             public Provider(ITeacherQuery query)
             {
                 _query = query;
             }
+
             public TeacherDetailsViewModel Provide(Guid id)
             {
                 var teacher = _query.GetAll().FirstOrDefault(x => x.Id == id); // todo peaks spec olema ja query täiendus
@@ -27,10 +29,8 @@ namespace School_Core.ViewModels.Teacher
                 {
                     return null;
                 }
-                return new TeacherDetailsViewModel()
-                {
-                    Name = teacher.Name 
-                };
+
+                return new TeacherDetailsViewModel() {Name = teacher.Name};
             }
         }
     }

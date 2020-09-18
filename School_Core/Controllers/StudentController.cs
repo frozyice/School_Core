@@ -34,14 +34,14 @@ namespace School_Core.Controllers
             {
                 return View(studentAddNewViewModel);
             }
+
             throw new NotImplementedException();
-            return Redirect("List"); 
+            return Redirect("List");
         }
 
         public IActionResult EditInfo()
         {
             throw new NotImplementedException();
         }
-        
     }
 }

@@ -29,15 +29,14 @@ namespace School_Core.ViewModels.Teacher
             public IEnumerable<TeacherViewModel> Provide()
             {
                 var teachers = _teacherQuery.GetAll();
-                var teacherLectures  =  _lectureQuery.GetLectures(new LecturesWithTeacherIdsSpec(teachers.Select(x=>x.Id))); // Kuna me ei taha, et student näeks kollektsiooni Lecture-st. ( meie DDD lähenemine ), kuid võiksime ka kollektsiooni lisada ( readonly )  
+                var teacherLectures =
+                    _lectureQuery.GetLectures(
+                        new LecturesWithTeacherIdsSpec(teachers.Select(x =>
+                            x.Id))); // Kuna me ei taha, et student näeks kollektsiooni Lecture-st. ( meie DDD lähenemine ), kuid võiksime ka kollektsiooni lisada ( readonly )  
 
                 foreach (var teacher in teachers)
                 {
-                    yield return new TeacherViewModel
-                    {
-                        Name = teacher.Name,
-                        LectureName = teacherLectures.SingleOrDefault(x => x.Teacher.Id == teacher.Id)?.Name ??  "none" 
-                    };
+                    yield return new TeacherViewModel {Name = teacher.Name, LectureName = teacherLectures.SingleOrDefault(x => x.Teacher.Id == teacher.Id)?.Name ?? "none"};
                 }
             }
         }
