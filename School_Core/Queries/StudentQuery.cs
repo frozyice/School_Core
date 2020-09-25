@@ -1,12 +1,12 @@
 ﻿using System;
-using Domain.Specifications;
-using School_Core.Contexts;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using School_Core.Contexts;
 using School_Core.Domain.Models.Students;
+using School_Core.Specifications;
 
-namespace School_Core.Querys
+namespace School_Core.Queries
 {
     public interface IStudentQuery
     {

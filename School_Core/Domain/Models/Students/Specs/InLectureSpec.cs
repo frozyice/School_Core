@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Domain.Specifications;
+using School_Core.Specifications;
 
 namespace School_Core.Domain.Models.Students.Specs
 {

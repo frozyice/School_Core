@@ -24,6 +24,7 @@ namespace School_Core.ViewModels.Teacher
             {
                 _teacherProvider = teacherProvider;
             }
+            
 
             public TeacherListViewModel Provide()
             {

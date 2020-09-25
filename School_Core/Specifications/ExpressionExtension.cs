@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Domain.Specifications
+namespace School_Core.Specifications
 {
     public static class ExpressionExtension
     {

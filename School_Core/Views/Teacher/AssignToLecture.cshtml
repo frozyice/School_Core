@@ -1,0 +1,38 @@
+﻿@model School_Core.ViewModels.Teacher.TeacherAssignToLectureViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var lecture in Model.Lectures)
+                {
+                    <tr>
+                        <td>@lecture.Name</td>
+                        <td>@lecture.Status</td>
+                        <td>
+                            <form asp-controller="Teacher" asp-action="AssignToLecture" method="post">
+                                @{ Model.LectureId = lecture.Id; }
+                                <input type="hidden" asp-for="LectureId">
+                                <input type="hidden" asp-for="TeacherId">
+
+                        <button class="btn btn-outline-primary" type="submit">Assign</button>
+                                @* <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture" asp-route-id="@lecture.Id">Assign</a> *@
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

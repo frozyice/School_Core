@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Domain.Specifications
+namespace School_Core.Specifications
 {
     public abstract class WrappedSpecification<TEntity> : Specification<TEntity>
     {

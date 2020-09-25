@@ -1,12 +1,13 @@
-﻿@model School_Core.ViewModels.Lecture.LectureDetailsViewModel
+﻿@using School_Core.Domain.Models.Lectures
+@model School_Core.ViewModels.Lecture.LectureDetailsViewModel
 
-@if (Model.Status == School_Core.Domain.Models.LectureStatus.Open)
+@if (Model.Status == LectureStatus.Open)
 {
     <h1 class="p-3 mb-2" style="background-color: #0CAE75; color: white">
         @Model.Name
     </h1>
 }
-else if (Model.Status == School_Core.Domain.Models.LectureStatus.Closed)
+else if (Model.Status == LectureStatus.Closed)
 {
     <h1 class="p-3 mb-2" style="background-color: #F11135; color: white">
         @Model.Name

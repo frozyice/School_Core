@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using School_Core.Models;
+using School_Core.Domain.Models.Lectures;
 
 namespace School_Core.Domain.Models.Students
 {

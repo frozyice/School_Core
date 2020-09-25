@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace School_Core.Models
+namespace School_Core.Domain.Models
 {
     public class Person
     {

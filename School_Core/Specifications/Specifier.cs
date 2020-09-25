@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain.Specifications
+namespace School_Core.Specifications
 {
     /// <summary>
     /// </summary>

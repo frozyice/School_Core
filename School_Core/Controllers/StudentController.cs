@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using School_Core.Querys;
+using School_Core.Queries;
 using School_Core.ViewModels.Student;
 
 namespace School_Core.Controllers

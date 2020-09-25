@@ -29,7 +29,7 @@
                             @teacher.LectureName
                         </td>
                         <td>
-                            <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture">Assign to Lecture</a>
+                            <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture" asp-route-teacherId="@teacher.Id" method="post">Assign to Lecture</a>
                         </td>
                     </tr>
                 }

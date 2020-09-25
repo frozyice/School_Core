@@ -10,8 +10,9 @@ using School_Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using School_Core.Commands;
 using School_Core.Contexts;
-using School_Core.Querys;
 using School_Core.Commands.Lecture;
+using School_Core.Commands.Teacher;
+using School_Core.Queries;
 using School_Core.Util;
 using School_Core.ViewModels.Home;
 
@@ -33,11 +34,12 @@ namespace School_Core
             services.AddTransient<ICommandHandler<CloseLectureCommand>, CloseLectureCommand.Handler>();
             services.AddTransient<ICommandHandler<ArchiveLectureCommand>, ArchiveLectureCommand.Handler>();
             services.AddTransient<ICommandHandler<EnrollStudentCommand>, EnrollStudentCommand.Handler>();
+            services.AddTransient<ICommandHandler<AssignTeacherToLectureCommand>, AssignTeacherToLectureCommand.Handler>();
 
             //Querys
             services.AddTransient<ILectureQuery, LectureQuery>();
             services.AddTransient<IStudentQuery, StudentQuery>();
-            services.AddTransient<ITeacherQuery, TeachersQuery>();
+            services.AddTransient<ITeacherQuery, TeacherQuery>();
 
             //ViewModelProviders
             services.AddTransient<StudentViewModel.IProvider, StudentViewModel.Provider>();
@@ -46,6 +48,7 @@ namespace School_Core
             services.AddTransient<TeacherViewModel.IProvider, TeacherViewModel.Provider>();
             services.AddTransient<TeacherListViewModel.IProvider, TeacherListViewModel.Provider>();
             services.AddTransient<TeacherDetailsViewModel.IProvider, TeacherDetailsViewModel.Provider>();
+            services.AddTransient<TeacherAssignToLectureViewModel.IProvider, TeacherAssignToLectureViewModel.Provider>();
 
             services.AddTransient<LectureViewModel.IProvider, LectureViewModel.Provider>();
             services.AddTransient<LectureListViewModel.IProvider, LectureListViewModel.Provider>();

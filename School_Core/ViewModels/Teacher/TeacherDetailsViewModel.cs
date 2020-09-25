@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using School_Core.Querys;
+using School_Core.Queries;
 
 namespace School_Core.ViewModels.Teacher
 {

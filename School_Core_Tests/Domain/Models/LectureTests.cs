@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using School_Core.Domain.Models;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students;
+using School_Core.Domain.Models.Teachers;
 
-namespace School_Core_Tests.Domain.Models
+namespace TestingTests.Domain.Models
 {
     public class LectureTests
     {
@@ -177,43 +180,32 @@ namespace School_Core_Tests.Domain.Models
             Assert.That(enrollment.StudentId, Is.EqualTo(studentId));
         }
 
+        [Test]
+        public void AssignTeacher_Assigns_Teacher_To_Lecture_When_Lecture_Status_Not_Archived()
+        {
+            var teacher = new Teacher("name");
 
-        //
-        // [TestCase(1,StudyField.Law)]
-        // [TestCase(2,StudyField.None)]
-        // [TestCase(1,StudyField.None)]
-        // [Test]
-        // // public void CanEnroll_Returns_False_When_Student_Is_Not_Allowed_To_Enroll(int studentYearOfStudy, StudyField studentStudyField)
-        // // {
-        // //     var student = new Student("name",studentYearOfStudy,studentStudyField);
-        //     var sut = new Lecture("name",2,StudyField.Law);
-        //     
-        //     //Act
-        //     var result = sut.CanEnroll(student);
-        //     
-        //     //Assert
-        //     Assert.That(result, Is.False);
-        // }
-        //
-        // [TestCase(1,StudyField.None)]
-        // [TestCase(1,StudyField.Law)]
-        // [TestCase(2,StudyField.None)]
-        // [TestCase(2,StudyField.Law)]
-        // [TestCase(1,StudyField.Law,1,StudyField.Law)]
-        // [TestCase(2,StudyField.None,2,StudyField.None)]
-        // [TestCase(2,StudyField.Law,2,StudyField.None)]
-        // [Test]
-        // public void CanEnroll_Returns_True_When_Student_Is_Allowed_To_Enroll(int studentYearOfStudy, StudyField studentStudyField,int lectureEnrollableFromYear = 1, StudyField lectureStudyField = StudyField.None)
-        // {
-        //     var student = new Student("name",studentYearOfStudy,studentStudyField);
-        //     var sut = new Lecture("name",lectureEnrollableFromYear,lectureStudyField);
-        //     
-        //     //Act
-        //     var result = sut.CanEnroll(student);
-        //     
-        //     //Assert
-        //     Assert.That(result, Is.True);
-        // }
+            //Act
+            _sut.AssignTeacher(teacher);
+
+            //Assert
+            _sut.Teacher.Id.Should().Be(teacher.Id);
+            _sut.Status.Should().NotBe(LectureStatus.Archived);
+        }
+        
+        [Test]
+        public void AssignTeacher_Does_Not_Assign_Teacher_To_Lecture_When_Lecture_Status_Is_Archived()
+        {
+            var teacher = new Teacher("name");
+            _sut.ArchiveLecture();
+            
+            //Act
+            _sut.AssignTeacher(teacher);
+
+            //Assert
+            _sut.Teacher.Id.Should().Be(teacher.Id);
+            _sut.Status.Should().Be(LectureStatus.Archived);
+        }
     }
 
     public class TestStudent

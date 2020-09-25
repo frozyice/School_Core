@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using School_Core.Commands.Lecture;
-using School_Core.Querys;
+using School_Core.Queries;
 using School_Core.Util;
 using School_Core.ViewModels.Lecture;
 
@@ -32,7 +32,7 @@ namespace School_Core.Controllers
 
         public IActionResult CloseLecture(Guid id)
         {
-            var lecture = _lectureQuery.GetLecture(id);
+            var lecture = _lectureQuery.Get(id);
             if (lecture == null)
             {
                 return NotFound();
@@ -46,7 +46,7 @@ namespace School_Core.Controllers
 
         public IActionResult ArchiveLecture(Guid id)
         {
-            var lecture = _lectureQuery.GetLecture(id);
+            var lecture = _lectureQuery.Get(id);
             if (lecture == null)
             {
                 return NotFound();
@@ -60,7 +60,7 @@ namespace School_Core.Controllers
 
         public IActionResult Details(Guid id)
         {
-            var lecture = _lectureQuery.GetLecture(id);
+            var lecture = _lectureQuery.Get(id);
             if (lecture == null)
             {
                 return NotFound();
@@ -71,7 +71,7 @@ namespace School_Core.Controllers
 
         public IActionResult EnrollStudent(Guid id)
         {
-            var lecture = _lectureQuery.GetLecture(id);
+            var lecture = _lectureQuery.Get(id);
             if (lecture == null)
             {
                 return NotFound();
@@ -84,7 +84,7 @@ namespace School_Core.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnrollStudent(EnrollStudentViewModel enrollStudentViewModel)
         {
-            var lecture = _lectureQuery.GetLecture(enrollStudentViewModel.LectureId);
+            var lecture = _lectureQuery.Get(enrollStudentViewModel.LectureId);
             if (lecture == null)
             {
                 throw new ArgumentException(); // või peaks olema NotFound ikka ? 

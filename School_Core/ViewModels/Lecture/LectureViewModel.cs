@@ -1,7 +1,7 @@
-﻿using School_Core.Querys;
-using School_Core.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Queries;
 
 namespace School_Core.ViewModels.Lecture
 {
@@ -28,11 +28,11 @@ namespace School_Core.ViewModels.Lecture
 
             public IEnumerable<LectureViewModel> Provide()
             {
-                var lectures = _query.GetLectures();
+                var lectures = _query.GetAll();
                 var lectureViewModels = new List<LectureViewModel>();
                 foreach (var lecture in lectures)
                 {
-                    lectureViewModels.Add(new LectureViewModel() {Id = lecture.Id, Name = lecture.Name ?? "", Status = lecture.Status});
+                    lectureViewModels.Add(new LectureViewModel() {Id = lecture.Id, Name = lecture.Name, Status = lecture.Status});
                 }
 
                 return lectureViewModels;

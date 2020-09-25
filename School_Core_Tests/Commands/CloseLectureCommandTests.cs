@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using School_Core.Commands.Lecture;
 using School_Core.Contexts;
-using School_Core.Domain.Models;
-using System.Linq;
+using School_Core.Domain.Models.Lectures;
 
-namespace School_Core_Tests.Commands
+namespace TestingTests.Commands
 {
     class CloseLectureEnrollmentCommandHandlerTests
     {
@@ -172,7 +172,7 @@ namespace School_Core_Tests.Commands
 
             return dbContext;
         }
-
+        
         //https://www.thereformedprogrammer.net/using-in-memory-databases-for-unit-testing-ef-core-applications/
         public static DbContextOptions<SchoolCoreDbContext> CreateSqlLiteOptions()
         {

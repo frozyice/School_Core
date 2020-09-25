@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using School_Core.Querys;
+using School_Core.Queries;
 
 namespace School_Core.ViewModels
 {
@@ -57,7 +57,7 @@ namespace School_Core.ViewModels
                 //}
 
 
-                model.CounterViewModels.Add(new CounterViewModel {RowName = "Lectures", Count = _lectureQuery.GetLectures().ToList().Count()});
+                model.CounterViewModels.Add(new CounterViewModel {RowName = "Lectures", Count = _lectureQuery.GetAll().ToList().Count()});
 
                 model.CounterViewModels.Add(new CounterViewModel {RowName = "Students", Count = _studentQuery.GetStudents().ToList().Count()});
 

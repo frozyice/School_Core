@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Domain.Specifications;
-using School_Core.Domain.Models;
-using School_Core.Querys;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students.Specs;
+using School_Core.Queries;
+using School_Core.Specifications;
 
 namespace School_Core.ViewModels.Student
 {

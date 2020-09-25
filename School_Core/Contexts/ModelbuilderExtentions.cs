@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School_Core.Domain.Models;
 using System.Collections.Generic;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students;
+using School_Core.Domain.Models.Teachers;
 
 namespace School_Core.Contexts
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using School_Core.Domain.Models;
-using School_Core.Querys;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Queries;
 
 namespace School_Core.ViewModels.Home
 {
@@ -34,7 +34,7 @@ namespace School_Core.ViewModels.Home
             {
                 var homeViewModel = new HomeViewModel() {Labels = new List<string>() {"Open", "Closed", "Archived"}};
 
-                var lectures = _query.GetLectures();
+                var lectures = _query.GetAll();
 
                 var openLectureCount = lectures.Where(x => x.Status == LectureStatus.Open).Count();
 

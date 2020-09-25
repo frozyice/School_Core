@@ -12,7 +12,12 @@ namespace School_Core.Util
             _provider = provider;
         }
 
-        public bool Dispatch(ICommand command)
+        public Messages()
+        {
+            
+        }
+
+        public virtual bool Dispatch(ICommand command)
         {
             Type type = typeof(ICommandHandler<>);
             Type[] typeArgs = {command.GetType()};

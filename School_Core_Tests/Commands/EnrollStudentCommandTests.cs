@@ -5,9 +5,10 @@ using NUnit.Framework;
 using School_Core.Commands.Lecture;
 using School_Core.Contexts;
 using School_Core.Domain.Models;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students;
 
-namespace School_Core_Tests.Commands
+namespace TestingTests.Commands
 {
     public class EnrollStudentCommandTests
     {

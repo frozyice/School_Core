@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using School_Core.Domain.Models.Lectures.Specs;
 using School_Core.Domain.Models.Students;
-using School_Core.Domain.Models.Students.Specs;
+using School_Core.Domain.Models.Teachers;
 
-namespace School_Core.Domain.Models
+namespace School_Core.Domain.Models.Lectures
 {
     public class Lecture
     {
         public virtual Guid Id { get; private set; }
         public string Name { get; private set; }
-        public LectureStatus Status { get; private set; }
+        public virtual LectureStatus Status { get; private set; }
         public StudyField FieldOfStudy { get; private set; }
 
         public int EnrollableFromYear { get; private set; }
 
         //1:1
-        public Teacher Teacher { get; private set; }
+        public virtual Teacher Teacher { get; private set; }
 
         //M:M
         private List<Enrollment> _enrollments = new List<Enrollment>();
@@ -73,6 +74,11 @@ namespace School_Core.Domain.Models
             {
                 _enrollments.Add(new Enrollment(student.Id));
             }
+        }
+
+        public virtual void AssignTeacher(Teacher teacher)
+        {
+            Teacher = teacher;
         }
     }
 

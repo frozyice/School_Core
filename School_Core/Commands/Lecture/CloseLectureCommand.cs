@@ -1,6 +1,6 @@
 ﻿using School_Core.Contexts;
-using School_Core.Domain.Models;
 using System;
+using School_Core.Domain.Models.Lectures;
 
 namespace School_Core.Commands.Lecture
 {

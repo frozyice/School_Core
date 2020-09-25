@@ -2,7 +2,7 @@
 using School_Core.Contexts;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using School_Core.Domain.Models.Students.Specs;
+using School_Core.Domain.Models.Lectures.Specs;
 
 namespace School_Core.Commands.Lecture
 {

@@ -2,18 +2,18 @@
 using NUnit.Framework;
 using School_Core.Commands.Lecture;
 using School_Core.Contexts;
-using School_Core.Domain.Models;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students;
 
-namespace School_Core_Tests.Commands
+namespace TestingTests.Commands
 {
     public class ArchiveLectureCommandTests
     {
-        SchoolCoreDbContext _dbContextMock;
-        Lecture _lecture;
-        Guid _lectureId;
-        ArchiveLectureCommand.Handler _sut;
-        ArchiveLectureCommand _command;
+        private SchoolCoreDbContext _dbContextMock;
+        private Lecture _lecture;
+        private Guid _lectureId;
+        private ArchiveLectureCommand.Handler _sut;
+        private ArchiveLectureCommand _command;
 
         [SetUp]
         public void Setup()

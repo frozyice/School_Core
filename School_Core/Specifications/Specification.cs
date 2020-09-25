@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Domain.Specifications
+namespace School_Core.Specifications
 {
     public abstract class Specification<T> : ISpecification<T>, IEquatable<Specification<T>>
     {

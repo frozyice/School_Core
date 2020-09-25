@@ -1,10 +1,10 @@
-﻿using School_Core.Domain.Models;
-using School_Core.ViewModels.Teacher;
+﻿using School_Core.ViewModels.Teacher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students.Specs;
-using School_Core.Querys;
+using School_Core.Queries;
 
 namespace School_Core.ViewModels.Lecture
 {
@@ -18,7 +18,7 @@ namespace School_Core.ViewModels.Lecture
         public int CanTakeFromYear { get; set; }
 
         public TeacherDetailsViewModel Teacher { get; set; }
-        public string TeacherName => Teacher == null ? "none" : Teacher.Name;
+        public string TeacherName { get; set; }// => Teacher == null ? "none" : Teacher.Name;
         public int StudentCount { get; set; }
 
         public LectureStatus Status { get; set; }
@@ -45,7 +45,7 @@ namespace School_Core.ViewModels.Lecture
 
             public LectureDetailsViewModel Provide(Guid id)
             {
-                var lecture = _lectureQuery.GetLecture(id);
+                var lecture = _lectureQuery.Get(id);
                 var studentsNames = _studentQuery.GetStudents(new InLectureSpec(id)).Select(x => x.Name);
 
                 return new LectureDetailsViewModel()
@@ -54,7 +54,7 @@ namespace School_Core.ViewModels.Lecture
                     Name = lecture.Name,
                     FieldOfStudy = lecture.FieldOfStudy,
                     CanTakeFromYear = lecture.EnrollableFromYear,
-                    Teacher = lecture.Teacher != null ? _teacherDetailsProvider.Provide(lecture.Teacher.Id) : null,
+                    TeacherName = lecture.Teacher != null ? _teacherDetailsProvider.Provide(lecture.Teacher.Id).Name : "none",
                     StudentCount = lecture.Enrollments.Count,
                     StudentNamesInLecture = studentsNames,
                     Status = lecture.Status

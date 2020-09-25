@@ -1,6 +1,4 @@
-﻿using School_Core.Models;
-
-namespace School_Core.Domain.Models
+﻿namespace School_Core.Domain.Models.Teachers
 {
     public class Teacher : Person
     {
