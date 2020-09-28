@@ -47,7 +47,7 @@ namespace TestingTests.Controllers
             var teacher = new Teacher("name");
             var lectureId = Guid.NewGuid();
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lectureId};
-            
+
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
 
@@ -68,7 +68,7 @@ namespace TestingTests.Controllers
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
 
             //Act
-            var result = (NotFoundResult)_sut.AssignToLecture(viewModel);
+            var result = (NotFoundResult) _sut.AssignToLecture(viewModel);
 
             //Assert
             _messagesMock.Verify(x => x.Dispatch(It.Is<AssignTeacherToLectureCommand>(x => x.LectureId == lectureId && x.TeacherId == teacher.Id)), Times.Never);
@@ -81,10 +81,10 @@ namespace TestingTests.Controllers
             var lecture = new Lecture("name");
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacherId, LectureId = lecture.Id};
             _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
-            
+
             //Act
-            var result = (NotFoundResult)_sut.AssignToLecture(viewModel);
-            
+            var result = (NotFoundResult) _sut.AssignToLecture(viewModel);
+
             //Assert
             _messagesMock.Verify(x => x.Dispatch(It.Is<AssignTeacherToLectureCommand>(x => x.LectureId == lecture.Id && x.TeacherId == teacherId)), Times.Never);
         }
@@ -95,14 +95,102 @@ namespace TestingTests.Controllers
             var teacher = new Teacher("name");
             var lecture = new Lecture("name");
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
-            _lectureQueryMock.Setup(x => x.Get(viewModel.LectureId)).Returns(lecture);
+            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
-            
+
             //Act
             var result = (RedirectToActionResult) _sut.AssignToLecture(viewModel);
 
             //Assert
-            _messagesMock.Verify(x => x.Dispatch(It.Is<AssignTeacherToLectureCommand>(x=>x.LectureId == lecture.Id && x.TeacherId == teacher.Id)), Times.Once);
+            _messagesMock.Verify(x => x.Dispatch(It.Is<AssignTeacherToLectureCommand>(x => x.LectureId == lecture.Id && x.TeacherId == teacher.Id)), Times.Once);
+        }
+
+        [Test]
+        //ShouldAddTempInfo meetodi sisse 1. ei taha tulla
+        public void ShouldAddTempInfo_ver1()
+        {
+            var sut = new Mock<TeacherController>
+            (
+                _messagesMock.Object,
+                _teacherProviderMock.Object,
+                _teacherQueryMock.Object,
+                _viewmodelProviderMock.Object,
+                _lectureQueryMock.Object
+            ) {CallBase = true};
+
+            var teacher = new Teacher("name");
+            var lecture = new Lecture("name");
+            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+
+            var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
+            _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
+            var info = "smt";
+            sut.Setup(x => x.ShouldAddTempInfo(info)).Returns(!string.IsNullOrWhiteSpace(info));
+
+            //Act
+            var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
+
+            // Assert
+            sut.Verify(x => x.ShouldAddTempInfo(info), Times.Once);
+        }
+
+        [Test]
+        //ShouldAddTempInfo meetodi sisse 2. tuleme
+        public void ShouldAddTempInfo_ver2()
+        {
+            var sut = new Mock<TeacherController>
+            (
+                _messagesMock.Object,
+                _teacherProviderMock.Object,
+                _teacherQueryMock.Object,
+                _viewmodelProviderMock.Object,
+                _lectureQueryMock.Object
+            ) {CallBase = true};
+
+            var teacher = new Teacher("name");
+            var lecture = new Lecture("name");
+            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+
+            var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
+            _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
+            var info = "smt";
+
+            //Act
+            var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
+
+            // Assert
+            sut.Verify(x => x.ShouldAddTempInfo(info), Times.Once);
+        }
+
+        [Test]
+        //ShouldAddTempInfo meetodi sisse 3. testime selle otse 
+        public void ShouldAddTempInfo_ver3()
+        {
+            var sut = new Mock<TeacherController>
+            (
+                _messagesMock.Object,
+                _teacherProviderMock.Object,
+                _teacherQueryMock.Object,
+                _viewmodelProviderMock.Object,
+                _lectureQueryMock.Object
+            ) {CallBase = true};
+
+            var teacher = new Teacher("name");
+            var lecture = new Lecture("name");
+            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+
+            var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
+            _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
+            var info = "smt";
+
+            //Act
+            var result = sut.Object.ShouldAddTempInfo(info);
+
+            // Assert
+            sut.Verify(x => x.ShouldAddTempInfo(info), Times.Once);
         }
     }
 }

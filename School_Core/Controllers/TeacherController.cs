@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using School_Core.Commands.Teacher;
 using School_Core.Queries;
 using School_Core.Util;
 using School_Core.ViewModels.Teacher;
 
+[assembly:InternalsVisibleTo("School_Core_Tests")]
+[assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace School_Core.Controllers
 {
     public class TeacherController : Controller
@@ -31,7 +34,7 @@ namespace School_Core.Controllers
         }
 
         [HttpGet]
-        public IActionResult AssignToLecture(Guid teacherId)//, string info = "")
+        public IActionResult AssignToLecture(Guid teacherId, string info = "")
         {
             var teacher = _teacherQuery.Get(teacherId);
             if (teacher == null)
@@ -40,10 +43,10 @@ namespace School_Core.Controllers
             }
 
             var model = _teacherAssignToLectureProvider.Provide(teacher.Id);
-            // if (ShouldAddTempInfo(info)) // vaata kas saad testida, kui sa mockid terve controlleri #SEOTUD 
-            // {
-            //     model.TempDummyVal = "important thing can not do in provider for some stupid reason";
-            // }
+            if (ShouldAddTempInfo(info)) // vaata kas saad testida, kui sa mockid terve controlleri #SEOTUD 
+            {
+                model.TempDummyVal = "important thing can not do in provider for some stupid reason";
+            }
 
             return View(model);
         }
