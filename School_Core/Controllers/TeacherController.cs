@@ -58,7 +58,6 @@ namespace School_Core.Controllers
             // 3. testime selle otse 
             // ( 2 erinevat mokki ) 
         {
-            
             return !string.IsNullOrWhiteSpace(info);
         }
 
