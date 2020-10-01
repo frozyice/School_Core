@@ -107,11 +107,10 @@ namespace TestingTests.Controllers
         }
 
         //ShouldAddTempInfo meetodi sisse 1. ei taha tulla
-        [TestCase(null)]
-        [TestCase(" ")]
-        public void ShouldAddTempInfo_Does_Not_Set_TempDummyVal_When_Info_Is_NullOrWhiteSpace(string info)
+        [Test]
+        public void ShouldAddTempInfo_Does_Not_Set_TempDummyVal_When_Info_Is_NullOrWhiteSpace()
         {
-            var sut = new Mock<TeacherController>
+            var sutMock = new Mock<TeacherController>
             (
                 _messagesMock.Object,
                 _teacherProviderMock.Object,
@@ -120,28 +119,29 @@ namespace TestingTests.Controllers
                 _lectureQueryMock.Object
             ) {CallBase = true};
             
-            var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
             var teacher = new Teacher("name");
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            var viewmodel = new TeacherAssignToLectureViewModel();
+            _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewmodel);
             
-            _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(new TeacherAssignToLectureViewModel());
-            
-            sut.Setup(x => x.ShouldAddTempInfo(info)).Returns(false);
+            sutMock.Setup(x => x.ShouldAddTempInfo(null)).Returns(false);
 
             //Act
-            var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
+            var result = (ViewResult) sutMock.Object.AssignToLecture(teacher.Id, null);
 
             // Assert
             var model = (TeacherAssignToLectureViewModel) result.Model;
             model.TempDummyVal.Should().Be("missing");
+            model.Should().BeSameAs(viewmodel);
+            _viewmodelProviderMock.Verify(x => x.Provide(teacher.Id),Times.Once);
+
         }
 
         //ShouldAddTempInfo meetodi sisse 1. ei taha tulla
         [Test]
         public void ShouldAddTempInfo_Sets_TempDummyVal_When_Info_Is_Not_NullOrWhiteSpace()
         {
-            var sut = new Mock<TeacherController>
+            var sutMock = new Mock<TeacherController>
             (
                 _messagesMock.Object,
                 _teacherProviderMock.Object,
@@ -150,18 +150,16 @@ namespace TestingTests.Controllers
                 _lectureQueryMock.Object
             ) {CallBase = true};
             
-            var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
             var teacher = new Teacher("name");
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
             
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(new TeacherAssignToLectureViewModel());
 
             var info = "smt";
-            sut.Setup(x => x.ShouldAddTempInfo(info)).Returns(true);
+            sutMock.Setup(x => x.ShouldAddTempInfo(info)).Returns(true);
 
             //Act
-            var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
+            var result = (ViewResult) sutMock.Object.AssignToLecture(teacher.Id, info);
 
             // Assert
             var model = (TeacherAssignToLectureViewModel) result.Model;
@@ -173,7 +171,7 @@ namespace TestingTests.Controllers
         [TestCase(" ")]
         public void ShouldAddTempInfo_Sets_TempDummyVal_When_Info_Is_Not_NullOrWhiteSpace_ver2(string info)
         {
-            var sut = new Mock<TeacherController>
+            var sutMock = new Mock<TeacherController>
             (
                 _messagesMock.Object,
                 _teacherProviderMock.Object,
@@ -182,15 +180,13 @@ namespace TestingTests.Controllers
                 _lectureQueryMock.Object
             ) {CallBase = true};
             
-            var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
             var teacher = new Teacher("name");
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
             
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(new TeacherAssignToLectureViewModel());
 
             //Act
-            var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
+            var result = (ViewResult) sutMock.Object.AssignToLecture(teacher.Id, info);
 
             // Assert
             var model = (TeacherAssignToLectureViewModel) result.Model;
@@ -201,7 +197,7 @@ namespace TestingTests.Controllers
         [Test]
         public void ShouldAddTempInfo_Sets_TempDummyVal_When_Info_Is_Not_NullOrWhiteSpace_ver2()
         {
-            var sut = new Mock<TeacherController>
+            var sutMock = new Mock<TeacherController>
             (
                 _messagesMock.Object,
                 _teacherProviderMock.Object,
@@ -209,9 +205,7 @@ namespace TestingTests.Controllers
                 _viewmodelProviderMock.Object,
                 _lectureQueryMock.Object
             ) {CallBase = true};
-            
-            var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
+
             var teacher = new Teacher("name");
             _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
             
@@ -220,7 +214,7 @@ namespace TestingTests.Controllers
             var info = "smt";
 
             //Act
-            var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
+            var result = (ViewResult) sutMock.Object.AssignToLecture(teacher.Id, info);
 
             // Assert
             var model = (TeacherAssignToLectureViewModel) result.Model;
@@ -230,7 +224,7 @@ namespace TestingTests.Controllers
         //ShouldAddTempInfo meetodi sisse 3. testime selle otse 
         [TestCase(null)]
         [TestCase(" ")]
-        public void ShouldAddTempInfo_Returns_False_When_Info_Is_NullOrWhiteSpace(string info)
+        public void ShouldAddTempInfo_Returns_False(string info)
         {
             // Act
             var result = _sut.ShouldAddTempInfo(info);
@@ -241,7 +235,7 @@ namespace TestingTests.Controllers
 
         //ShouldAddTempInfo meetodi sisse 3. testime selle otse 
         [Test]
-        public void ShouldAddTempInfo_Returns_True_When_Info_Is_Not_NullOrWhiteSpace()
+        public void ShouldAddTempInfo_Returns_True()
         {
             // Act
             var result = _sut.ShouldAddTempInfo("smt");
