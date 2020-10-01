@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using School_Core.Commands.Teacher;
+using School_Core.Commands.Teachers;
 using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Teachers;
@@ -36,7 +36,7 @@ namespace TestingTests.Commands
             var lectureMockId = Guid.NewGuid();
             var command = new AssignTeacherToLectureCommand() {LectureId = lectureMockId, TeacherId = teacher.Id};
 
-            _teacherQuery.Setup(x => x.Get(It.Is<Guid>(x => x == teacher.Id))).Returns(teacher);
+            _teacherQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Teacher>>(x => x.Id == teacher.Id))).Returns(teacher);
 
             //Act
             var result = _sut.Handle(command);
@@ -54,7 +54,7 @@ namespace TestingTests.Commands
             var lectureMockId = Guid.NewGuid();
             var command = new AssignTeacherToLectureCommand() {LectureId = lectureMockId, TeacherId = teacher.Id};
 
-            _lectureQuery.Setup(x => x.Get(It.Is<Guid>(x => x == teacher.Id))).Returns(lectureMock.Object);
+            _lectureQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Lecture>>(x => x.Id == lectureMockId))).Returns(lectureMock.Object);
 
             //Act
             var result = _sut.Handle(command);
@@ -70,14 +70,16 @@ namespace TestingTests.Commands
             var teacher = new Teacher("name");
             var lectureMock = new Mock<Lecture>();
             var lectureMockId = Guid.NewGuid();
-            var command = new AssignTeacherToLectureCommand() {LectureId = lectureMockId, TeacherId = teacher.Id};
 
-            _teacherQuery.Setup(x => x.Get(It.Is<Guid>(x => x == teacher.Id))).Returns(teacher);
-            _lectureQuery.Setup(x => x.Get(It.Is<Guid>(x => x == lectureMockId))).Returns(lectureMock.Object);
-            _lectureQuery.Setup(x => x.GetAll(It.IsAny<Specification<Lecture>>())).Returns(new List<Lecture>() {lectureMock.Object});
+            var command = new AssignTeacherToLectureCommand() {LectureId = lectureMockId, TeacherId = teacher.Id};
+            //
+            _teacherQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Teacher>>(x => x.Id == teacher.Id))).Returns(teacher); 
+            _lectureQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Lecture>>(x => x.Id == lectureMockId))).Returns(lectureMock.Object);
+            _lectureQuery.Setup(x => x.GetAllBySpec(It.IsAny<Specification<Lecture>>())).Returns(new List<Lecture>() {lectureMock.Object});
             lectureMock.Setup(x => x.Status).Returns(LectureStatus.Archived);
 
             //Act
+            var c = command;
             var result = _sut.Handle(command);
 
             //Assert
@@ -93,9 +95,9 @@ namespace TestingTests.Commands
             var lectureMockId = Guid.NewGuid();
             var command = new AssignTeacherToLectureCommand() {LectureId = lectureMockId, TeacherId = teacher.Id};
 
-            _teacherQuery.Setup(x => x.Get(It.Is<Guid>(x => x == teacher.Id))).Returns(teacher);
-            _lectureQuery.Setup(x => x.Get(It.Is<Guid>(x => x == lectureMockId))).Returns(lectureMock.Object);
-            _lectureQuery.Setup(x => x.GetAll(It.IsAny<Specification<Lecture>>())).Returns(new List<Lecture>() {lectureMock.Object});
+            _teacherQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Teacher>>(x => x.Id == teacher.Id))).Returns(teacher);
+            _lectureQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Lecture>>(x => x.Id == lectureMockId))).Returns(lectureMock.Object);
+            _lectureQuery.Setup(x => x.GetAllBySpec(It.IsAny<Specification<Lecture>>())).Returns(new List<Lecture>() {lectureMock.Object});
             // lectureMock.Setup(x => x.Id).Returns(lectureMockId);
 
             //Act
@@ -116,9 +118,9 @@ namespace TestingTests.Commands
             var lectureMockId = Guid.NewGuid();
             var command = new AssignTeacherToLectureCommand() {LectureId = lectureMockId, TeacherId = teacher.Id};
 
-            _teacherQuery.Setup(x => x.Get(It.Is<Guid>(x => x == command.TeacherId))).Returns(teacher);
-            _lectureQuery.Setup(x => x.Get(It.Is<Guid>(x => x == command.LectureId))).Returns(lectureMock.Object);
-            _lectureQuery.Setup(x => x.GetAll(It.IsAny<Specification<Lecture>>())).Returns(new List<Lecture>() {});
+            _teacherQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Teacher>>(x => x.Id == teacher.Id))).Returns(teacher);
+            _lectureQuery.Setup(x => x.GetSingleOrDefault(It.Is<HasIdSpec<Lecture>>(x => x.Id == lectureMockId))).Returns(lectureMock.Object);
+            _lectureQuery.Setup(x => x.GetAllBySpec(It.IsAny<Specification<Lecture>>())).Returns(new List<Lecture>() {});
             lectureMock.Setup(x => x.Status).Returns(lectureStatus);
             
             //Act

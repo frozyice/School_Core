@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using School_Core.Commands.Lecture;
+using School_Core.Commands.Lectures;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Queries;
+using School_Core.Specifications;
 using School_Core.Util;
-using School_Core.ViewModels.Lecture;
+using School_Core.ViewModels.Lectures;
 
 namespace School_Core.Controllers
 {
@@ -15,11 +17,15 @@ namespace School_Core.Controllers
         private readonly ILectureQuery _lectureQuery;
         private readonly LectureDetailsViewModel.IProvider _lectureDetailsProvider;
 
-        public LectureController(Messages messages, EnrollStudentViewModel.IProvider LectureAddStudentProvider, LectureDetailsViewModel.IProvider lectureDetailProvider,
-            LectureListViewModel.IProvider lectureListProvider, ILectureQuery lectureQuery)
+        public LectureController(
+            Messages messages,
+            EnrollStudentViewModel.IProvider lectureAddStudentProvider,
+            LectureDetailsViewModel.IProvider lectureDetailProvider,
+            LectureListViewModel.IProvider lectureListProvider,
+            ILectureQuery lectureQuery) 
         {
             _messages = messages;
-            _lectureAddStudentProvider = LectureAddStudentProvider;
+            _lectureAddStudentProvider = lectureAddStudentProvider;
             _lectureListProvider = lectureListProvider;
             _lectureQuery = lectureQuery;
             _lectureDetailsProvider = lectureDetailProvider;
@@ -32,7 +38,7 @@ namespace School_Core.Controllers
 
         public IActionResult CloseLecture(Guid id)
         {
-            var lecture = _lectureQuery.Get(id);
+            var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture == null)
             {
                 return NotFound();
@@ -46,7 +52,7 @@ namespace School_Core.Controllers
 
         public IActionResult ArchiveLecture(Guid id)
         {
-            var lecture = _lectureQuery.Get(id);
+            var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture == null)
             {
                 return NotFound();
@@ -60,7 +66,7 @@ namespace School_Core.Controllers
 
         public IActionResult Details(Guid id)
         {
-            var lecture = _lectureQuery.Get(id);
+            var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture == null)
             {
                 return NotFound();
@@ -71,7 +77,7 @@ namespace School_Core.Controllers
 
         public IActionResult EnrollStudent(Guid id)
         {
-            var lecture = _lectureQuery.Get(id);
+            var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture == null)
             {
                 return NotFound();
@@ -84,17 +90,17 @@ namespace School_Core.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EnrollStudent(EnrollStudentViewModel enrollStudentViewModel)
         {
-            var lecture = _lectureQuery.Get(enrollStudentViewModel.LectureId);
+            var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(enrollStudentViewModel.LectureId));
             if (lecture == null)
             {
-                throw new ArgumentException(); // või peaks olema NotFound ikka ? 
+                throw new ArgumentException();
             }
 
             var command = new EnrollStudentCommand(enrollStudentViewModel.LectureId, enrollStudentViewModel.StudentName);
             var isSuccess = _messages.Dispatch(command);
             if (isSuccess == false)
             {
-                // võiks veateade olla, kas commandist võiks juba Result tulla näiteks 
+                //todo võiks veateade olla, kas commandist võiks juba Result tulla näiteks 
             }
 
             return RedirectToAction(nameof(Details), new {Id = enrollStudentViewModel.LectureId});

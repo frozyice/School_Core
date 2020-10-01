@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures.Specs;
 using School_Core.Queries;
+using School_Core.Specifications;
 
-
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class StudentNotEnrolledViewModel
     {
@@ -32,8 +32,8 @@ namespace School_Core.ViewModels.Lecture
 
             public IEnumerable<StudentNotEnrolledViewModel> Provide(Guid lectureId)
             {
-                var students = _studentQuery.GetStudents();
-                var lecture = _lectureQuery.Get(lectureId);
+                var students = _studentQuery.GetAll();
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Domain.Models.Lectures.Lecture>(lectureId));
                 var viewModels = new List<StudentNotEnrolledViewModel>();
                 if (lecture.Enrollments == null)
                 {

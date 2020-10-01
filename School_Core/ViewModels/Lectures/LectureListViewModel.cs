@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class LectureListViewModel
     {

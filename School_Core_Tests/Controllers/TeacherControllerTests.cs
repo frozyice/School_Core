@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using School_Core.Commands.Teacher;
+using School_Core.Commands.Teachers;
 using School_Core.Controllers;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
+using School_Core.Specifications;
 using School_Core.Util;
-using School_Core.ViewModels.Teacher;
+using School_Core.ViewModels.Teachers;
 
 namespace TestingTests.Controllers
 {
@@ -49,7 +50,7 @@ namespace TestingTests.Controllers
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lectureId};
 
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
 
             //Act
             var result = (ViewResult) _sut.AssignToLecture(teacher.Id);
@@ -65,7 +66,7 @@ namespace TestingTests.Controllers
             var teacher = new Teacher("name");
             var lectureId = Guid.NewGuid();
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lectureId};
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
 
             //Act
             var result = (NotFoundResult) _sut.AssignToLecture(viewModel);
@@ -80,7 +81,7 @@ namespace TestingTests.Controllers
             var teacherId = Guid.NewGuid();
             var lecture = new Lecture("name");
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacherId, LectureId = lecture.Id};
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
+            _lectureQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id))).Returns(lecture);
 
             //Act
             var result = (NotFoundResult) _sut.AssignToLecture(viewModel);
@@ -95,8 +96,8 @@ namespace TestingTests.Controllers
             var teacher = new Teacher("name");
             var lecture = new Lecture("name");
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _lectureQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id))).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
 
             //Act
             var result = (RedirectToActionResult) _sut.AssignToLecture(viewModel);
@@ -120,8 +121,8 @@ namespace TestingTests.Controllers
 
             var teacher = new Teacher("name");
             var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _lectureQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id))).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
 
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
@@ -150,8 +151,8 @@ namespace TestingTests.Controllers
 
             var teacher = new Teacher("name");
             var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _lectureQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id))).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
 
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);
@@ -179,8 +180,8 @@ namespace TestingTests.Controllers
 
             var teacher = new Teacher("name");
             var lecture = new Lecture("name");
-            _lectureQueryMock.Setup(x => x.Get(lecture.Id)).Returns(lecture);
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _lectureQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id))).Returns(lecture);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
 
             var viewModel = new TeacherAssignToLectureViewModel() {TeacherId = teacher.Id, LectureId = lecture.Id};
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewModel);

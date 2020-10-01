@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace School_Core.ViewModels.Teacher
+namespace School_Core.ViewModels.Teachers
 {
     public class TeacherListViewModel
     {

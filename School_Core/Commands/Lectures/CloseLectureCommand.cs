@@ -1,8 +1,10 @@
-﻿using School_Core.Contexts;
-using System;
+﻿using System;
+using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
+using School_Core.Queries;
+using School_Core.Specifications;
 
-namespace School_Core.Commands.Lecture
+namespace School_Core.Commands.Lectures
 {
     public class CloseLectureCommand : ICommand
     {
@@ -16,17 +18,19 @@ namespace School_Core.Commands.Lecture
         public class Handler : ICommandHandler<CloseLectureCommand>
         {
             private readonly SchoolCoreDbContext _dbContext;
+            private readonly ILectureQuery _lectureQuery;
 
-            public Handler(SchoolCoreDbContext dbContext)
+            public Handler(SchoolCoreDbContext dbContext, ILectureQuery lectureQuery)
             {
                 _dbContext = dbContext;
+                _lectureQuery = lectureQuery;
             }
 
-            //todo: kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
+            // kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
             // kui on mingi põhjus et me ei saa valideerimist teha domeenis siis paneme Commandi 
             public bool Handle(CloseLectureCommand command)
             {
-                var lecture = _dbContext.Lectures.Find(command.Id);
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.Id));
                 if (lecture == null)
                 {
                     return false;

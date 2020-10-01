@@ -4,9 +4,11 @@ using System.Linq;
 using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Lectures.Specs;
+using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
+using School_Core.Specifications;
 
-namespace School_Core.Commands.Teacher
+namespace School_Core.Commands.Teachers
 {
     public class AssignTeacherToLectureCommand : ICommand
     {
@@ -28,16 +30,16 @@ namespace School_Core.Commands.Teacher
 
             public bool Handle(AssignTeacherToLectureCommand command)
             {
-                var lecture = _lectureQuery.Get(command.LectureId);
-                var teacher = _teacherQuery.Get(command.TeacherId);
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.LectureId));
+                var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(command.TeacherId));
 
                 if (lecture == null || teacher == null)
                 {
                     return false;
                 }
-                
-                var hasTeacherLectures = _lectureQuery.GetAll(new LecturesWithTeacherIdsSpec(new List<Guid>(){command.TeacherId})).Any();
 
+                var hasTeacherLectures = _lectureQuery.GetAllBySpec(new LecturesWithTeacherIdsSpec(new List<Guid>(){command.TeacherId})).Any();
+                
                 if (lecture.Status != LectureStatus.Archived && !hasTeacherLectures)
                 {
                     lecture.AssignTeacher(teacher);

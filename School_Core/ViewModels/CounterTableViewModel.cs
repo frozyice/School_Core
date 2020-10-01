@@ -19,7 +19,6 @@ namespace School_Core.ViewModels
         public interface IProvider
         {
             CounterTableViewModel GetViewModel(string borderColor, bool shouldAddTeachers = true);
-            //CounterTableViewModel GetViewModelForStudent(string borderColor, string title);
         }
 
         public class Provider : IProvider
@@ -40,26 +39,12 @@ namespace School_Core.ViewModels
             {
                 var model = new CounterTableViewModel
                 {
-                    BorderColor = borderColor, PageTitle = "Counter" // vaatame pärast 
+                    BorderColor = borderColor, PageTitle = "Counter"
                 };
-
-
-                //var allCountables  =  smts smt();
-
-                //foreach (var a in allCountables)
-                //{
-                //    model.CounterViewModels.Add(new CounterViewModel
-                //    {
-
-                //        Count = meetod,
-                //        RowName = a.name
-                //    });
-                //}
-
 
                 model.CounterViewModels.Add(new CounterViewModel {RowName = "Lectures", Count = _lectureQuery.GetAll().ToList().Count()});
 
-                model.CounterViewModels.Add(new CounterViewModel {RowName = "Students", Count = _studentQuery.GetStudents().ToList().Count()});
+                model.CounterViewModels.Add(new CounterViewModel {RowName = "Students", Count = _studentQuery.GetAll().ToList().Count()});
 
                 if (shouldAddTeachers)
                 {

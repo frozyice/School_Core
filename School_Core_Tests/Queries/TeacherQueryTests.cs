@@ -1,8 +1,9 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using School_Core.Contexts;
-using School_Core.Queries;
-using FluentAssertions;
 using School_Core.Domain.Models.Teachers;
+using School_Core.Queries;
+using School_Core.Specifications;
 using TestingTests.Commands;
 
 namespace TestingTests.Queries
@@ -58,7 +59,7 @@ namespace TestingTests.Queries
             _dbContextInMemory.SaveChanges();
 
             //Act
-            var result = _sut.Get(teacher.Id);
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id));
 
             //Assert
             result.Should().Be(teacher);
@@ -70,7 +71,7 @@ namespace TestingTests.Queries
             var teacher = new Teacher("name");
 
             //Act
-            var result = _sut.Get(teacher.Id);
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id));
 
             //Assert
             result.Should().BeNull();

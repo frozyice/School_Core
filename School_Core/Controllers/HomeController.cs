@@ -5,7 +5,7 @@ using School_Core.ViewModels.Home;
 
 namespace School_Core.Controllers
 {
-    public class HomeController : Controller // see on chart.js kasutamiseks, hetkel kontrolleri nimi vajaks muutmist ja chart üldisesse komponenti tõstmist 
+    public class HomeController : Controller //todo see on chart.js kasutamiseks, hetkel kontrolleri nimi vajaks muutmist ja chart üldisesse komponenti tõstmist 
     {
         private readonly HomeViewModel.IProvider _provider;
 

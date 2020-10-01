@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students;
 using School_Core.Domain.Models.Teachers;
@@ -18,10 +18,19 @@ namespace School_Core.Contexts
 
         private static List<Student> students = new List<Student>()
         {
-            new Student("Angus", 1), new Student("Kane", 1, StudyField.Law), new Student("Lian", 2, StudyField.Law), new Student("Alissa", 2),
+            new Student("Angus", 1),
+            new Student("Kane", 1, StudyField.Law),
+            new Student("Lian", 2, StudyField.Law), 
+            new Student("Alissa", 2),
         };
 
-        private static List<Teacher> teachers = new List<Teacher>() {new Teacher("Freestone"), new Teacher("Richmont"), new Teacher("Laker"), new Teacher("McCarroll")};
+        private static List<Teacher> teachers = new List<Teacher>()
+        {
+            new Teacher("Freestone"), 
+            new Teacher("Richmont"), 
+            new Teacher("Laker"), 
+            new Teacher("McCarroll")
+        };
 
         public static List<Lecture> GetLectures()
         {
@@ -41,9 +50,7 @@ namespace School_Core.Contexts
         public static void Seed(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Lecture>().HasData(GetLectures());
-
             modelBuilder.Entity<Teacher>().HasData(GetTeachers());
-
             modelBuilder.Entity<Student>().HasData(GetStudents());
         }
     }

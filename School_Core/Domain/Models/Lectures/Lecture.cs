@@ -7,10 +7,8 @@ using School_Core.Domain.Models.Teachers;
 
 namespace School_Core.Domain.Models.Lectures
 {
-    public class Lecture
+    public class Lecture : Entity 
     {
-        public virtual Guid Id { get; private set; }
-        public string Name { get; private set; }
         public virtual LectureStatus Status { get; private set; }
         public StudyField FieldOfStudy { get; private set; }
 
@@ -27,10 +25,8 @@ namespace School_Core.Domain.Models.Lectures
         {
         }
 
-        public Lecture(string name, int enrollableFromYear = 1, StudyField fieldOfStudy = StudyField.None)
+        public Lecture(string name, int enrollableFromYear = 1, StudyField fieldOfStudy = StudyField.None) : base (name)
         {
-            Id = Guid.NewGuid();
-            Name = name;
             EnrollableFromYear = enrollableFromYear;
             FieldOfStudy = fieldOfStudy;
             Status = LectureStatus.Open; //todo: default: closed, lecture has teacher ? open
@@ -44,6 +40,14 @@ namespace School_Core.Domain.Models.Lectures
             }
         }
 
+        public void ArchiveLecture()
+        {
+            if (CanArchive())
+            {
+                Status = LectureStatus.Archived;
+            }
+        }
+        
         public bool CanArchive()
         {
             if (_enrollments.Count == 0)
@@ -54,17 +58,9 @@ namespace School_Core.Domain.Models.Lectures
             return _enrollments.All(x => x.Grade != Grade.None);
         }
 
-        public void ArchiveLecture()
-        {
-            if (CanArchive())
-            {
-                Status = LectureStatus.Archived;
-            }
-        }
-
         public void EnrollStudent(Student student)
         {
-            if (student.Id == Guid.Empty) // kontroll ainult selleks et saaks testimist harjutada. 
+            if (student.Id == Guid.Empty)
             {
                 throw new ArgumentException($"{student.Id} :  is not valid {nameof(student.Id)}");
             }

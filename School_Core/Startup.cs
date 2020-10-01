@@ -1,20 +1,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using School_Core.ViewModels.Student;
-using School_Core.ViewModels.Lecture;
-using School_Core.ViewModels.Teacher;
-using School_Core.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using School_Core.Commands;
+using School_Core.Commands.Lectures;
+using School_Core.Commands.Teachers;
 using School_Core.Contexts;
-using School_Core.Commands.Lecture;
-using School_Core.Commands.Teacher;
 using School_Core.Queries;
 using School_Core.Util;
+using School_Core.ViewModels;
 using School_Core.ViewModels.Home;
+using School_Core.ViewModels.Lectures;
+using School_Core.ViewModels.Students;
+using School_Core.ViewModels.Teachers;
 
 namespace School_Core
 {

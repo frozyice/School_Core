@@ -7,7 +7,6 @@ namespace School_Core.Domain.Models
         public Guid Id { get; private set; }
         public Guid LectureId { get; private set; }
         public Guid StudentId { get; private set; }
-
         public Grade Grade { get; private set; }
 
         public Enrollment(Guid studentId, Grade grade = Grade.None)

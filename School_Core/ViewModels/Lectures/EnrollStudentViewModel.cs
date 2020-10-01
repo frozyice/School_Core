@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class EnrollStudentViewModel
     {
@@ -36,12 +36,12 @@ namespace School_Core.ViewModels.Lecture
 
             public EnrollStudentViewModel Provide(Guid id)
             {
-                var lectureAddStudentViewModel = new EnrollStudentViewModel() {LectureId = id, StudentsNotEnrolled = _provider.Provide(id)};
-                // var lecture = _lectureRepository.GetLecture(id);
-                // lectureAddStudentViewModel.Id = id;
-                // lectureAddStudentViewModel.Name = lecture.Name;
-
-
+                var lectureAddStudentViewModel = new EnrollStudentViewModel()
+                {
+                    LectureId = id,
+                    StudentsNotEnrolled = _provider.Provide(id)
+                };
+                
                 return lectureAddStudentViewModel;
             }
         }

@@ -4,7 +4,7 @@ using School_Core.Domain.Models.Students.Specs;
 using School_Core.Queries;
 using School_Core.Specifications;
 
-namespace School_Core.ViewModels.Student
+namespace School_Core.ViewModels.Students
 {
     public class StudentViewModel
     {
@@ -19,11 +19,11 @@ namespace School_Core.ViewModels.Student
 
         public class Provider : IProvider
         {
-            private readonly IStudentQuery _query;
+            private readonly IStudentQuery _studentQuery;
 
-            public Provider(IStudentQuery query)
+            public Provider(IStudentQuery studentQuery)
             {
-                _query = query;
+                _studentQuery = studentQuery;
             }
 
             public IEnumerable<StudentViewModel> Provide(bool filterFirstYearStudents, bool filterLawStudents)
@@ -46,7 +46,7 @@ namespace School_Core.ViewModels.Student
                     }
                 }
 
-                var students = _query.GetStudents(spec);
+                var students = _studentQuery.GetAllBySpec(spec);
                 var studentViewModels = new List<StudentViewModel>();
                 foreach (var student in students)
                 {

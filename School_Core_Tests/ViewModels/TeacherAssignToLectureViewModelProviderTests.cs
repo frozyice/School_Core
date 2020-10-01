@@ -5,8 +5,8 @@ using Moq;
 using NUnit.Framework;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Teachers;
-using School_Core.ViewModels.Lecture;
-using School_Core.ViewModels.Teacher;
+using School_Core.ViewModels.Lectures;
+using School_Core.ViewModels.Teachers;
 
 namespace TestingTests.ViewModels
 {

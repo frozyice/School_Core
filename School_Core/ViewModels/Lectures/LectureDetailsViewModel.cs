@@ -1,12 +1,13 @@
-﻿using School_Core.ViewModels.Teacher;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students.Specs;
 using School_Core.Queries;
+using School_Core.Specifications;
+using School_Core.ViewModels.Teachers;
 
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class LectureDetailsViewModel
     {
@@ -18,7 +19,7 @@ namespace School_Core.ViewModels.Lecture
         public int CanTakeFromYear { get; set; }
 
         public TeacherDetailsViewModel Teacher { get; set; }
-        public string TeacherName { get; set; }// => Teacher == null ? "none" : Teacher.Name;
+        public string TeacherName { get; set; }
         public int StudentCount { get; set; }
 
         public LectureStatus Status { get; set; }
@@ -45,8 +46,8 @@ namespace School_Core.ViewModels.Lecture
 
             public LectureDetailsViewModel Provide(Guid id)
             {
-                var lecture = _lectureQuery.Get(id);
-                var studentsNames = _studentQuery.GetStudents(new InLectureSpec(id)).Select(x => x.Name);
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
+                var studentsNames = _studentQuery.GetAllBySpec(new InLectureSpec(id)).Select(x => x.Name);
 
                 return new LectureDetailsViewModel()
                 {

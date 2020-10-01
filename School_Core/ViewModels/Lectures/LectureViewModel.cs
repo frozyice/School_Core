@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Queries;
 
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class LectureViewModel
     {

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using School_Core.Contexts;
 using School_Core.Domain.Models.Teachers;
+using School_Core.Specifications;
 
 namespace School_Core.Queries
 {
     public interface ITeacherQuery
     {
         IReadOnlyList<Teacher> GetAll();
-        Teacher Get(Guid id);
+        IReadOnlyList<Teacher> GetAllBySpec(ISpecification<Teacher> spec);
+        Teacher GetSingleOrDefault(ISpecification<Teacher> spec);
     }
 
     public class TeacherQuery : ITeacherQuery
@@ -21,14 +22,21 @@ namespace School_Core.Queries
             _dbContext = dbContext;
         }
 
-        public IReadOnlyList<Teacher> GetAll() // pole specki varianti veel sisse jõudnud tuua 
+        public IReadOnlyList<Teacher> GetAll()
         {
             return _dbContext.Teachers.ToList();
         }
 
-        public Teacher Get(Guid id)
+        public IReadOnlyList<Teacher> GetAllBySpec(ISpecification<Teacher> spec)
         {
-            return _dbContext.Teachers.Find(id);
+            var expression = spec.SatisfyEntitiesFrom(_dbContext.Teachers);
+            return expression.ToList();
         }
+
+        public Teacher GetSingleOrDefault(ISpecification<Teacher> spec)
+        {
+            return GetAllBySpec(spec).SingleOrDefault();
+        }
+        
     }
 }

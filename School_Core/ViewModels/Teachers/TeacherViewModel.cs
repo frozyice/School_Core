@@ -4,7 +4,7 @@ using System.Linq;
 using School_Core.Domain.Models.Lectures.Specs;
 using School_Core.Queries;
 
-namespace School_Core.ViewModels.Teacher
+namespace School_Core.ViewModels.Teachers
 {
     public class TeacherViewModel
     {
@@ -32,10 +32,8 @@ namespace School_Core.ViewModels.Teacher
             {
                 var teachers = _teacherQuery.GetAll();
                 var teacherLectures =
-                    _lectureQuery.GetAll(
-                        new LecturesWithTeacherIdsSpec(teachers.Select(x =>
-                            x.Id))); // Kuna me ei taha, et teacher näeks kollektsiooni Lecture-st. ( meie DDD lähenemine ), kuid võiksime ka kollektsiooni lisada ( readonly )  
-
+                    _lectureQuery.GetAllBySpec(new LecturesWithTeacherIdsSpec(teachers.Select(x => x.Id))); 
+                
                 foreach (var teacher in teachers)
                 {
                     yield return new TeacherViewModel

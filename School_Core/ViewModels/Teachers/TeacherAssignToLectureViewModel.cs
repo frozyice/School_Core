@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using School_Core.ViewModels.Lecture;
+using School_Core.ViewModels.Lectures;
 
-namespace School_Core.ViewModels.Teacher
+namespace School_Core.ViewModels.Teachers
 {
     public class TeacherAssignToLectureViewModel
     {

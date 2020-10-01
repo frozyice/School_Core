@@ -13,8 +13,7 @@ namespace School_Core.Domain.Models.Students.Specs
         }
 
         public Guid Id { get; }
-
-
+        
         internal override Expression<Func<Student, bool>> Predicate => s => s.Enrollments.Any(x => x.LectureId == Id);
     }
 }

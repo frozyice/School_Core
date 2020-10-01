@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace School_Core.ViewModels.Student
+namespace School_Core.ViewModels.Students
 {
     public class StudentAddNewViewModel
     {
