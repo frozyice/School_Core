@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Lectures.Specs;
+using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
 
 namespace School_Core.ViewModels.Teachers
@@ -19,10 +21,10 @@ namespace School_Core.ViewModels.Teachers
 
         public class Provider : IProvider
         {
-            private readonly ILectureQuery _lectureQuery;
-            private readonly ITeacherQuery _teacherQuery;
+            private readonly IQuery<Lecture> _lectureQuery;
+            private readonly IQuery<Teacher> _teacherQuery;
 
-            public Provider(ILectureQuery lectureQuery, ITeacherQuery teacherQuery)
+            public Provider(IQuery<Lecture> lectureQuery, IQuery<Teacher> teacherQuery)
             {
                 _lectureQuery = lectureQuery;
                 _teacherQuery = teacherQuery;
@@ -32,7 +34,7 @@ namespace School_Core.ViewModels.Teachers
             {
                 var teachers = _teacherQuery.GetAll();
                 var teacherLectures =
-                    _lectureQuery.GetAllBySpec(new LecturesWithTeacherIdsSpec(teachers.Select(x => x.Id))); 
+                    _lectureQuery.GetAll(new LecturesWithTeacherIdsSpec(teachers.Select(x => x.Id))); 
                 
                 foreach (var teacher in teachers)
                 {

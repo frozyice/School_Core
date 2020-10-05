@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using FluentAssertions;
+using NUnit.Framework;
 using School_Core.Commands.Lectures;
 using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
@@ -28,23 +30,16 @@ namespace TestingTests.Commands
         }
 
         [Test]
-        public void Handle_Returns_False_When_Lecture_Is_Null()
+        public void Handle_Throws_Exception_When_Lecture_Is_Null()
         {
             var lecture = new Lecture("name");
             var command = new ArchiveLectureCommand(lecture.Id);
-            
+
             //Act
-            var result = _sut.Handle(command);
+            Action result = () => _sut.Handle(command);
 
             //Assert
-            Lecture resultLecture;
-            using (var context = DbContextFactory.GetInMemoryDbContext())
-            {
-                resultLecture = context.Lectures.Find(lecture.Id);
-            }
-
-            Assert.That(result, Is.False);
-            Assert.That(resultLecture, Is.Null);
+            result.Should().Throw<ArgumentException>().WithMessage(nameof(command.Id));
         }
 
         [Test]

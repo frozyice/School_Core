@@ -43,6 +43,8 @@ namespace TestingTests.Queries
 
             //Assert
             result.Should().Contain(lecture);
+            result.Should().Contain(lecture2);
+            result.Count.Should().Be(2);
         }
 
         [Test]
@@ -54,35 +56,9 @@ namespace TestingTests.Queries
             //Assert
             result.Should().BeEmpty();
         }
-
+        
         [Test]
-        public void GetSingleOrDefault_Returns_Lecture_When_Lecture_Exists()
-        {
-            var lecture = new Lecture("name");
-            _dbContextInMemory.Add(lecture);
-            _dbContextInMemory.SaveChanges();
-
-            //Act
-            var result = _sut.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id));
-
-            //Assert
-            result.Should().Be(lecture);
-        }
-
-        [Test]
-        public void Get_Returns_Null_When_Lecture_Does_Not_Exists()
-        {
-            var lecture = new Lecture("name");
-
-            //Act
-            var result = _sut.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id));
-
-            //Assert
-            result.Should().BeNull();
-        }
-
-        [Test]
-        public void GetAllBySpec_Returns_Lectures_When_Spec_Is_Passed()
+        public void GetAll_Returns_Lectures_When_Spec_Is_Passed()
         {
             var specMock = new Mock<ISpecification<Lecture>>();
             var expectedLectures = new Lecture[2].AsQueryable();
@@ -90,10 +66,35 @@ namespace TestingTests.Queries
             specMock.Setup(x => x.SatisfyEntitiesFrom(It.IsAny<IQueryable<Lecture>>())).Returns(expectedLectures);
 
             //Act
-            var result = _sut.GetAllBySpec(specMock.Object);
+            var result = _sut.GetAll(specMock.Object);
 
             //Assert
              Assert.That(result,Is.EqualTo(expectedLectures));
+        }
+        [Test]
+        public void GetSingleOrDefault_Returns_Lecture_When_Lecture_Exists()
+        {
+            var lecture = new Lecture("name");
+            _dbContextInMemory.Add(lecture);
+            _dbContextInMemory.SaveChanges();
+        
+            //Act
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id));
+        
+            //Assert
+            result.Should().Be(lecture);
+        }
+        
+        [Test]
+        public void GetSingleOrDefault_Returns_Null_When_Lecture_Does_Not_Exists()
+        {
+            var lecture = new Lecture("name");
+        
+            //Act
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id));
+        
+            //Assert
+            result.Should().BeNull();
         }
 
     }

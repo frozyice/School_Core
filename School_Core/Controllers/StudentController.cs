@@ -28,12 +28,6 @@ namespace School_Core.Controllers
         public IActionResult RegisterNew(StudentAddNewViewModel studentAddNewViewModel)
         {
             throw new NotImplementedException();
-            if (!ModelState.IsValid)
-            {
-                return View(studentAddNewViewModel);
-            }
-
-            return Redirect("List");
         }
 
         public IActionResult EditInfo()

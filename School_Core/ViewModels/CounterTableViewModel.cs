@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Domain.Models.Students;
+using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
 
 namespace School_Core.ViewModels
@@ -23,11 +26,11 @@ namespace School_Core.ViewModels
 
         public class Provider : IProvider
         {
-            private readonly ILectureQuery _lectureQuery;
-            private readonly ITeacherQuery _teacherQuery;
-            private readonly IStudentQuery _studentQuery;
+            private readonly IQuery<Lecture> _lectureQuery;
+            private readonly IQuery<Teacher> _teacherQuery;
+            private readonly IQuery<Student> _studentQuery;
 
-            public Provider(ILectureQuery lectureQuery, ITeacherQuery teacherQuery, IStudentQuery studentQuery)
+            public Provider(IQuery<Lecture> lectureQuery, IQuery<Teacher> teacherQuery, IQuery<Student> studentQuery)
             {
                 _lectureQuery = lectureQuery;
                 _teacherQuery = teacherQuery;

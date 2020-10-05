@@ -58,23 +58,23 @@ namespace School_Core.Domain.Models.Lectures.Specs
             FieldOfStudy = fieldOfStudy;
         }
 
-        public override Specification<Lecture> Specification => new IsWithFieldOfStudySpec(FieldOfStudy) || new IsFieldOfStudyNoneSpec();
+        public override Specification<Lecture> Specification => new IsWithFieldOfStudySpec(FieldOfStudy) || new IsEnrollableWithAnyFieldOfStudySpec();
     }
 
     public class IsWithFieldOfStudySpec : Specification<Lecture>
     {
-        public StudyField LectureFieldOfStudy { get; }
+        public StudyField FieldOfStudy { get; }
 
         public IsWithFieldOfStudySpec(StudyField fieldOfStudy)
         {
-            LectureFieldOfStudy = fieldOfStudy;
+            FieldOfStudy = fieldOfStudy;
         }
 
-        internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == LectureFieldOfStudy;
+        internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == FieldOfStudy;
     }
 
-    public class IsFieldOfStudyNoneSpec : Specification<Lecture>
+    public class IsEnrollableWithAnyFieldOfStudySpec : WrappedSpecification<Lecture>
     {
-        internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == StudyField.None;
+        public override Specification<Lecture> Specification => new IsWithFieldOfStudySpec(StudyField.None);
     }
 }

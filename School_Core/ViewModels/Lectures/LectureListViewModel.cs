@@ -26,7 +26,7 @@ namespace School_Core.ViewModels.Lectures
 
             public LectureListViewModel Provide()
             {
-                return new LectureListViewModel() {LectureViewModels = _lectureProvider.Provide(), HeadingTitle = _headingTitle, HeadingColor = _headingColor};
+                return new LectureListViewModel {LectureViewModels = _lectureProvider.Provide(), HeadingTitle = _headingTitle, HeadingColor = _headingColor};
             }
         }
     }

@@ -17,16 +17,16 @@ namespace School_Core.Controllers
     {
         private readonly Messages _messages;
         private readonly TeacherListViewModel.IProvider _teacherProvider;
-        private readonly ITeacherQuery _teacherQuery;
+        private readonly IQuery<Teacher> _teacherQuery;
         private readonly TeacherAssignToLectureViewModel.IProvider _teacherAssignToLectureProvider;
-        private readonly ILectureQuery _lectureQuery;
+        private readonly IQuery<Lecture> _lectureQuery;
 
         public TeacherController(
             Messages messages, 
             TeacherListViewModel.IProvider teacherProvider, 
-            ITeacherQuery teacherQuery,
+            IQuery<Teacher> teacherQuery,
             TeacherAssignToLectureViewModel.IProvider teacherAssignToLectureProvider, 
-            ILectureQuery lectureQuery)
+            IQuery<Lecture> lectureQuery)
         {
             _messages = messages;
             _teacherProvider = teacherProvider;
@@ -44,10 +44,7 @@ namespace School_Core.Controllers
         public IActionResult AssignToLecture(Guid teacherId, string info = "")
         {
             var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(teacherId));
-            if (teacher == null)
-            {
-                return NotFound();
-            }
+            if (teacher is null) return NotFound();
 
             var model = _teacherAssignToLectureProvider.Provide(teacher.Id);
             if (ShouldAddTempInfo(info))
@@ -68,19 +65,18 @@ namespace School_Core.Controllers
         public IActionResult AssignToLecture(TeacherAssignToLectureViewModel viewModel)
         {
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(viewModel.LectureId));
+            if (lecture is null) return NotFound();
+            
             var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(viewModel.TeacherId));
-            if (lecture == null || teacher == null)
-            {
-                return NotFound();
-            }
+            if (teacher is null) return NotFound();
+            
             
             var command = new AssignTeacherToLectureCommand()
             {
                 TeacherId = teacher.Id,
                 LectureId = lecture.Id,
             };
-            
-            
+
             _messages.Dispatch(command);
             return RedirectToAction(nameof(List));
         }

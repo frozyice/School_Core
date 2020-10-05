@@ -19,9 +19,9 @@ namespace School_Core.ViewModels.Lectures
 
         public class Provider : IProvider
         {
-            private readonly ILectureQuery _query;
+            private readonly IQuery<Lecture> _query;
 
-            public Provider(ILectureQuery query)
+            public Provider(IQuery<Lecture> query)
             {
                 _query = query;
             }
@@ -32,7 +32,12 @@ namespace School_Core.ViewModels.Lectures
                 var lectureViewModels = new List<LectureViewModel>();
                 foreach (var lecture in lectures)
                 {
-                    lectureViewModels.Add(new LectureViewModel() {Id = lecture.Id, Name = lecture.Name, Status = lecture.Status});
+                    lectureViewModels.Add(new LectureViewModel
+                    {
+                        Id = lecture.Id, 
+                        Name = lecture.Name,
+                        Status = lecture.Status
+                    });
                 }
 
                 return lectureViewModels;

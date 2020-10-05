@@ -52,10 +52,11 @@ namespace TestingTests.Queries
         }
 
         [Test]
-        public void Get_Returns_Teacher_When_Teacher_Exists()
+        public void GetSingleOrDefault_Returns_Teacher_When_Teacher_Exists()
         {
             var teacher = new Teacher("name");
-            _dbContextInMemory.Add(teacher);
+            var teacher2 = new Teacher("name");
+            _dbContextInMemory.AddRange(teacher, teacher2);
             _dbContextInMemory.SaveChanges();
 
             //Act
@@ -66,7 +67,7 @@ namespace TestingTests.Queries
         }
 
         [Test]
-        public void Get_Returns_Null_When_Teacher_Does_Not_Exists()
+        public void GetSingleOrDefault_Returns_Null_When_Teacher_Does_Not_Exists()
         {
             var teacher = new Teacher("name");
 

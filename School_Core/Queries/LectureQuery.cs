@@ -7,14 +7,7 @@ using School_Core.Specifications;
 
 namespace School_Core.Queries
 {
-    public interface ILectureQuery
-    {
-        IReadOnlyList<Lecture> GetAll();
-        IReadOnlyList<Lecture> GetAllBySpec(ISpecification<Lecture> spec);
-        Lecture GetSingleOrDefault(ISpecification<Lecture> spec);
-    }
-
-    public class LectureQuery : ILectureQuery
+    public class LectureQuery : IQuery<Lecture>
     {
         private readonly SchoolCoreDbContext _dbContext;
 
@@ -23,28 +16,24 @@ namespace School_Core.Queries
             _dbContext = dbContext;
         }
 
-        public IReadOnlyList<Lecture> GetAll()
+        public IReadOnlyList<Lecture> GetAll(ISpecification<Lecture> spec = null)
         {
-            var lectures = _dbContext.Lectures
-                .Include(x => x.Enrollments)
-                .Include(x => x.Teacher);
-
-            return lectures.ToList();
+            spec = spec ?? new MatchAllSpecification<Lecture>();
+            return GetBySpec(spec).ToList();
         }
 
-        public IReadOnlyList<Lecture> GetAllBySpec(ISpecification<Lecture> spec)
+        private IQueryable<Lecture> GetBySpec(ISpecification<Lecture> spec)
         {
             var lectures = _dbContext.Lectures
                 .Include(x => x.Enrollments)
                 .Include(x => x.Teacher);
 
-            var expression = spec.SatisfyEntitiesFrom(lectures);
-            return expression.ToList();
+            return spec.SatisfyEntitiesFrom(lectures);
         }
 
         public Lecture GetSingleOrDefault(ISpecification<Lecture> spec)
         {
-            return GetAllBySpec(spec).SingleOrDefault();
+            return GetBySpec(spec).SingleOrDefault();
         }
     }
 }

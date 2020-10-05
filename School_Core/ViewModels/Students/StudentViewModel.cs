@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using School_Core.Domain.Models.Lectures;
+using School_Core.Domain.Models.Students;
 using School_Core.Domain.Models.Students.Specs;
 using School_Core.Queries;
 using School_Core.Specifications;
@@ -19,9 +20,9 @@ namespace School_Core.ViewModels.Students
 
         public class Provider : IProvider
         {
-            private readonly IStudentQuery _studentQuery;
+            private readonly IQuery<Student> _studentQuery;
 
-            public Provider(IStudentQuery studentQuery)
+            public Provider(IQuery<Student> studentQuery)
             {
                 _studentQuery = studentQuery;
             }
@@ -46,11 +47,16 @@ namespace School_Core.ViewModels.Students
                     }
                 }
 
-                var students = _studentQuery.GetAllBySpec(spec);
+                var students = _studentQuery.GetAll(spec);
                 var studentViewModels = new List<StudentViewModel>();
                 foreach (var student in students)
                 {
-                    studentViewModels.Add(new StudentViewModel() {Name = student.Name, YearOfStudy = student.YearOfStudy, FieldOfStudy = student.FieldOfStudy});
+                    studentViewModels.Add(new StudentViewModel
+                    {
+                        Name = student.Name, 
+                        YearOfStudy = student.YearOfStudy,
+                        FieldOfStudy = student.FieldOfStudy
+                    });
                 }
 
                 return studentViewModels;

@@ -28,7 +28,7 @@ namespace School_Core.ViewModels.Students
 
             public StudentListViewModel Provide(bool filterFirstYearStudents, bool filterLawStudents)
             {
-                var studentListViewModel = new StudentListViewModel()
+                var studentListViewModel = new StudentListViewModel
                 {
                     HeadingColor = _headingColor, HeadingTitle = _headingTitle, StudentViewModels = _provider.Provide(filterFirstYearStudents, filterLawStudents)
                 };

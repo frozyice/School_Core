@@ -27,6 +27,7 @@ namespace School_Core.Domain.Models.Lectures
 
         public Lecture(string name, int enrollableFromYear = 1, StudyField fieldOfStudy = StudyField.None) : base (name)
         {
+            //todo valideerimine
             EnrollableFromYear = enrollableFromYear;
             FieldOfStudy = fieldOfStudy;
             Status = LectureStatus.Open; //todo: default: closed, lecture has teacher ? open

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using School_Core.Commands.Lectures;
@@ -57,21 +58,18 @@ namespace TestingTests.Commands
         }
 
         [Test]
-        public void Handle_Returns_False_When_LectureIsNotInDatabase()
+        public void Handle_Throws_ArgumentException_When_LectureIsNotInDatabase()
         {
             _dbContextMock.Add(new Lecture("uus "));
             
             var lecture = new Lecture("name");
             var command = new CloseLectureCommand(lecture.Id);
-
-
+            
             //Act
-            var result = _sut.Handle(command);
+            Action result = () => _sut.Handle(command);
 
             //Assert
-            var lectures = _dbContextMock.Lectures.ToList();
-            Assert.That(result, Is.False);
-            Assert.That(lectures.Count, Is.EqualTo(0));
+            result.Should().Throw<ArgumentException>().WithMessage(nameof(command.Id));
         }
 
         [Test]

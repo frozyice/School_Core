@@ -7,14 +7,7 @@ using School_Core.Specifications;
 
 namespace School_Core.Queries
 {
-    public interface IStudentQuery
-    {
-        IReadOnlyList<Student> GetAll();
-        IReadOnlyList<Student> GetAllBySpec(ISpecification<Student> spec);
-        Student GetSingleOrDefault(ISpecification<Student> spec);
-    }
-
-    public class StudentQuery : IStudentQuery
+    public class StudentQuery : IQuery<Student>
     {
         private readonly SchoolCoreDbContext _dbContext;
 
@@ -23,22 +16,21 @@ namespace School_Core.Queries
             _dbContext = dbContext;
         }
 
-        public IReadOnlyList<Student> GetAll()
+        public IReadOnlyList<Student> GetAll(ISpecification<Student> spec = null)
+        {
+            spec = spec ?? new MatchAllSpecification<Student>();
+            return GetBySpec(spec).ToList();
+        }
+        
+       private IQueryable<Student> GetBySpec(ISpecification<Student> spec)
         {
             var students = _dbContext.Students.Include(x => x.Enrollments);
-            return students.ToList();
+            return spec.SatisfyEntitiesFrom(students);
         }
 
-        public IReadOnlyList<Student> GetAllBySpec(ISpecification<Student> spec)
+       public Student GetSingleOrDefault(ISpecification<Student> spec)
         {
-            var students = _dbContext.Students.Include(x => x.Enrollments);
-            var expression = spec.SatisfyEntitiesFrom(students);
-            return expression.ToList();
-        }
-
-        public Student GetSingleOrDefault(ISpecification<Student> spec)
-        {
-            return GetAllBySpec(spec).SingleOrDefault();
+            return GetBySpec(spec).SingleOrDefault();
         }
     }
 }

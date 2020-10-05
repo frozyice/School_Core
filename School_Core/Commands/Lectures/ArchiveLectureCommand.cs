@@ -18,9 +18,9 @@ namespace School_Core.Commands.Lectures
         public class Handler : ICommandHandler<ArchiveLectureCommand>
         {
             private readonly SchoolCoreDbContext _dbContext;
-            private readonly ILectureQuery _lectureQuery;
+            private readonly IQuery<Lecture> _lectureQuery;
 
-            public Handler(SchoolCoreDbContext dbContext, ILectureQuery lectureQuery)
+            public Handler(SchoolCoreDbContext dbContext, IQuery<Lecture> lectureQuery)
             {
                 _dbContext = dbContext;
                 _lectureQuery = lectureQuery;
@@ -29,10 +29,7 @@ namespace School_Core.Commands.Lectures
             public bool Handle(ArchiveLectureCommand command)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.Id));
-                if (lecture == null)
-                {
-                    return false;
-                }
+                if (lecture is null) throw new ArgumentException(nameof(command.Id));
 
                 if (lecture.CanArchive())
                 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using School_Core.Domain.Models.Lectures;
+using School_Core.Domain.Models.Students;
 using School_Core.Domain.Models.Students.Specs;
 using School_Core.Queries;
 using School_Core.Specifications;
@@ -34,10 +35,10 @@ namespace School_Core.ViewModels.Lectures
         public class Provider : IProvider
         {
             private readonly TeacherDetailsViewModel.IProvider _teacherDetailsProvider;
-            private readonly ILectureQuery _lectureQuery;
-            private readonly IStudentQuery _studentQuery;
+            private readonly IQuery<Lecture> _lectureQuery;
+            private readonly IQuery<Student> _studentQuery;
 
-            public Provider(TeacherDetailsViewModel.IProvider teacherDetailsProvider, ILectureQuery lectureQuery, IStudentQuery studentQuery)
+            public Provider(TeacherDetailsViewModel.IProvider teacherDetailsProvider, IQuery<Lecture> lectureQuery, IQuery<Student> studentQuery)
             {
                 _teacherDetailsProvider = teacherDetailsProvider;
                 _lectureQuery = lectureQuery;
@@ -47,15 +48,17 @@ namespace School_Core.ViewModels.Lectures
             public LectureDetailsViewModel Provide(Guid id)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
-                var studentsNames = _studentQuery.GetAllBySpec(new InLectureSpec(id)).Select(x => x.Name);
+                if (lecture is null) throw new ArgumentException(nameof(id));
+                
+                var studentsNames = _studentQuery.GetAll(new InLectureSpec(id)).Select(x => x.Name);
 
-                return new LectureDetailsViewModel()
+                return new LectureDetailsViewModel
                 {
                     Id = lecture.Id,
                     Name = lecture.Name,
                     FieldOfStudy = lecture.FieldOfStudy,
                     CanTakeFromYear = lecture.EnrollableFromYear,
-                    TeacherName = lecture.Teacher != null ? _teacherDetailsProvider.Provide(lecture.Teacher.Id).Name : "none",
+                    TeacherName = lecture.Teacher?.Name ?? "none",
                     StudentCount = lecture.Enrollments.Count,
                     StudentNamesInLecture = studentsNames,
                     Status = lecture.Status

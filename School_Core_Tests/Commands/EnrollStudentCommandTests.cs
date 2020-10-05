@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 using School_Core.Commands.Lectures;
 using School_Core.Contexts;
@@ -34,7 +36,7 @@ namespace TestingTests.Commands
 
 
         [Test]
-        public void Handle_Returns_False_When_Lecture_Is_Null()
+        public void Handle_Throws_ArgumentException_When_Lecture_Is_Null()
         {
             var lecture = new Lecture("name");
             var student = new Student("name");
@@ -44,14 +46,14 @@ namespace TestingTests.Commands
             _dbContextMock.SaveChanges();
 
             //Act
-            var result = _sut.Handle(command);
+            Action result = () => _sut.Handle(command);
 
             //Assert
-            Assert.That(result, Is.False);
+            result.Should().Throw<ArgumentException>().WithMessage(nameof(command.LectureId));
         }
 
         [Test]
-        public void Handle_Returns_False_When_Student_Is_Null()
+        public void Handle_Throws_ArgumentException_When_Student_Is_Null()
         {
             var lecture = new Lecture("name");
             var student = new Student("name");
@@ -61,10 +63,10 @@ namespace TestingTests.Commands
             _dbContextMock.SaveChanges();
 
             //Act
-            var result = _sut.Handle(command);
+            Action result = () => _sut.Handle(command);
 
             //Assert
-            Assert.That(result, Is.False);
+            result.Should().Throw<ArgumentException>().WithMessage(nameof(command.StudentName));
         }
 
         [Test]
@@ -83,7 +85,7 @@ namespace TestingTests.Commands
             var result = _sut.Handle(command);
 
             //Assert
-            List<Enrollment> enrollments = new List<Enrollment>();
+            var enrollments = new List<Enrollment>();
             using (var context = DbContextFactory.GetInMemoryDbContext())
             {
                 enrollments = context.Enrollments.Where(e => e.LectureId == lecture.Id).ToList(); //.Lectures.Where(l => l.Id == lecture.Id).Include(x => x.Enrollments).ToList();
@@ -100,6 +102,9 @@ namespace TestingTests.Commands
         {
             var student = new Student("name", studentYearOfStudy, studentStudyField);
             var lecture = new Lecture("name", 2, StudyField.Law);
+            _dbContextMock.AddRange(student, lecture);
+            _dbContextMock.SaveChanges();
+            
             var command = new EnrollStudentCommand(lecture.Id, student.Name);
 
             //Act

@@ -16,9 +16,9 @@ namespace School_Core.ViewModels.Teachers
 
         public class Provider : IProvider
         {
-            private readonly ITeacherQuery _teacherQuery;
+            private readonly IQuery<Teacher> _teacherQuery;
 
-            public Provider(ITeacherQuery teacherQuery)
+            public Provider(IQuery<Teacher> teacherQuery)
             {
                 _teacherQuery = teacherQuery;
             }
@@ -31,7 +31,7 @@ namespace School_Core.ViewModels.Teachers
                     return null;
                 }
 
-                return new TeacherDetailsViewModel()
+                return new TeacherDetailsViewModel
                 {
                     Name = teacher.Name
                 };

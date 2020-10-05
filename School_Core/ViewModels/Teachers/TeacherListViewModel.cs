@@ -28,7 +28,7 @@ namespace School_Core.ViewModels.Teachers
 
             public TeacherListViewModel Provide()
             {
-                var teacherListViewModel = new TeacherListViewModel()
+                var teacherListViewModel = new TeacherListViewModel
                 {
                     HeadingColor = _headingColor,
                     HeadingTitle = _headingTitle,

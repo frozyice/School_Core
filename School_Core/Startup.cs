@@ -8,6 +8,9 @@ using School_Core.Commands;
 using School_Core.Commands.Lectures;
 using School_Core.Commands.Teachers;
 using School_Core.Contexts;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Domain.Models.Students;
+using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
 using School_Core.Util;
 using School_Core.ViewModels;
@@ -37,9 +40,9 @@ namespace School_Core
             services.AddTransient<ICommandHandler<AssignTeacherToLectureCommand>, AssignTeacherToLectureCommand.Handler>();
 
             //Querys
-            services.AddTransient<ILectureQuery, LectureQuery>();
-            services.AddTransient<IStudentQuery, StudentQuery>();
-            services.AddTransient<ITeacherQuery, TeacherQuery>();
+            services.AddTransient<IQuery<Lecture>, LectureQuery>();
+            services.AddTransient<IQuery<Student>, StudentQuery>();
+            services.AddTransient<IQuery<Teacher>, TeacherQuery>();
 
             //ViewModelProviders
             services.AddTransient<StudentViewModel.IProvider, StudentViewModel.Provider>();
