@@ -152,7 +152,7 @@ namespace TestingTests.Controllers
             //Act
             var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
 
-            // Assert
+            //Assert
             sut.Verify(x => x.ShouldAddTempInfo(info), Times.Once);
         }
 
@@ -185,7 +185,7 @@ namespace TestingTests.Controllers
             //Act
             var result = (ViewResult) sut.Object.AssignToLecture(teacher.Id, info);
 
-            // Assert
+            //Assert
             sut.Verify(x => x.ShouldAddTempInfo(info), Times.Once);
         }
 
@@ -218,7 +218,7 @@ namespace TestingTests.Controllers
             //Act
             var result = sut.Object.ShouldAddTempInfo(info);
 
-            // Assert
+            //Assert
             sut.Verify(x => x.ShouldAddTempInfo(info), Times.Once);
         }
     }
