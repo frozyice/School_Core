@@ -137,7 +137,8 @@ namespace TestingTests.Controllers
             ) {CallBase = true};
             
             var teacher = new Teacher("name");
-            _teacherQueryMock.Setup(x => x.Get(teacher.Id)).Returns(teacher);
+            _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
+            
             var viewmodel = new TeacherAssignToLectureViewModel();
             _viewmodelProviderMock.Setup(x => x.Provide(teacher.Id)).Returns(viewmodel);
             
