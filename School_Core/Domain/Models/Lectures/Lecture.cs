@@ -67,7 +67,7 @@ namespace School_Core.Domain.Models.Lectures
             }
 
             var canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(this);
-            if (Status == LectureStatus.Open && canEnroll)
+            if (canEnroll)
             {
                 _enrollments.Add(new Enrollment(student.Id));
             }
