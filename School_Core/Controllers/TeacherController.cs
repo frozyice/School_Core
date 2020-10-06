@@ -57,7 +57,6 @@ namespace School_Core.Controllers
 
         internal virtual bool ShouldAddTempInfo(string info)
         {
-            
             return !string.IsNullOrWhiteSpace(info);
         }
 
