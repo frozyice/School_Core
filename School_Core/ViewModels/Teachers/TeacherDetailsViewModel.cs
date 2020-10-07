@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Linq;
+using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
+using School_Core.Specifications;
 
-namespace School_Core.ViewModels.Teacher
+namespace School_Core.ViewModels.Teachers
 {
     public class TeacherDetailsViewModel
     {
@@ -15,22 +16,25 @@ namespace School_Core.ViewModels.Teacher
 
         public class Provider : IProvider
         {
-            private readonly ITeacherQuery _query;
+            private readonly IQuery<Teacher> _teacherQuery;
 
-            public Provider(ITeacherQuery query)
+            public Provider(IQuery<Teacher> teacherQuery)
             {
-                _query = query;
+                _teacherQuery = teacherQuery;
             }
 
             public TeacherDetailsViewModel Provide(Guid id)
             {
-                var teacher = _query.GetAll().FirstOrDefault(x => x.Id == id); // todo peaks spec olema ja query täiendus
+                var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(id));
                 if (teacher == null)
                 {
                     return null;
                 }
 
-                return new TeacherDetailsViewModel() {Name = teacher.Name};
+                return new TeacherDetailsViewModel
+                {
+                    Name = teacher.Name
+                };
             }
         }
     }

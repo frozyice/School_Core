@@ -3,7 +3,7 @@ using School_Core.Domain.Models.Lectures;
 
 namespace School_Core.Domain.Models.Students
 {
-    public class Student : Person
+    public class Student : Entity
     {
         public int YearOfStudy { get; private set; }
         public StudyField FieldOfStudy { get; private set; }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using School_Core.ViewModels.Lecture;
+using School_Core.Domain.Models.Teachers;
+using School_Core.Queries;
+using School_Core.Specifications;
+using School_Core.ViewModels.Lectures;
 
-namespace School_Core.ViewModels.Teacher
+namespace School_Core.ViewModels.Teachers
 {
     public class TeacherAssignToLectureViewModel
     {
@@ -18,14 +21,19 @@ namespace School_Core.ViewModels.Teacher
         public class Provider : IProvider
         {
             private readonly LectureViewModel.IProvider _lectureProvider;
+            private readonly IQuery<Teacher> _teacherQuery;
 
-            public Provider(LectureViewModel.IProvider lectureProvider)
+            public Provider(LectureViewModel.IProvider lectureProvider, IQuery<Teacher> teacherQuery)
             {
                 _lectureProvider = lectureProvider;
+                _teacherQuery = teacherQuery;
             }
             public TeacherAssignToLectureViewModel Provide(Guid teacherId)
             {
-                return new TeacherAssignToLectureViewModel()
+                var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(teacherId));
+                if (teacher is null) throw new ArgumentException(nameof(teacherId));
+                
+                return new TeacherAssignToLectureViewModel
                 {
                     TeacherId = teacherId,
                     Lectures = _lectureProvider.Provide() 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace School_Core.ViewModels.Teacher
+namespace School_Core.ViewModels.Teachers
 {
     public class TeacherListViewModel
     {
@@ -28,7 +28,7 @@ namespace School_Core.ViewModels.Teacher
 
             public TeacherListViewModel Provide()
             {
-                var teacherListViewModel = new TeacherListViewModel()
+                var teacherListViewModel = new TeacherListViewModel
                 {
                     HeadingColor = _headingColor,
                     HeadingTitle = _headingTitle,

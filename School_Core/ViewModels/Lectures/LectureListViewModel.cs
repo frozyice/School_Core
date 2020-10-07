@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class LectureListViewModel
     {
@@ -26,7 +26,7 @@ namespace School_Core.ViewModels.Lecture
 
             public LectureListViewModel Provide()
             {
-                return new LectureListViewModel() {LectureViewModels = _lectureProvider.Provide(), HeadingTitle = _headingTitle, HeadingColor = _headingColor};
+                return new LectureListViewModel {LectureViewModels = _lectureProvider.Provide(), HeadingTitle = _headingTitle, HeadingColor = _headingColor};
             }
         }
     }

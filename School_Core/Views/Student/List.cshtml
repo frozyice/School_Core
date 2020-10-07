@@ -1,4 +1,4 @@
-﻿@model School_Core.ViewModels.Student.StudentListViewModel
+﻿@model School_Core.ViewModels.Students.StudentListViewModel
 @{
     ViewData["Title"] = @Model.HeadingTitle;
 }
@@ -22,7 +22,6 @@
                 {
                     <tr>
                         <td>
-                            @*@Html.ActionLink(@item.Name, "Details", "Student", new { id = item.Id }, null)*@
                             @student.Name
                         </td>
                         <td>

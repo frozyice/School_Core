@@ -23,16 +23,24 @@ namespace School_Core.ViewModels.Home
 
         public class Provider : IProvider
         {
-            private readonly ILectureQuery _query;
+            private readonly IQuery<Lecture> _query;
 
-            public Provider(ILectureQuery query)
+            public Provider(IQuery<Lecture> query)
             {
                 _query = query;
             }
 
             public HomeViewModel Provide()
             {
-                var homeViewModel = new HomeViewModel() {Labels = new List<string>() {"Open", "Closed", "Archived"}};
+                var homeViewModel = new HomeViewModel
+                {
+                    Labels = new List<string>
+                    {
+                        "Open",
+                        "Closed", 
+                        "Archived"
+                    }
+                };
 
                 var lectures = _query.GetAll();
 

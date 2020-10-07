@@ -1,4 +1,4 @@
-﻿@model School_Core.ViewModels.Teacher.TeacherListViewModel
+﻿@model School_Core.ViewModels.Teachers.TeacherListViewModel
 
 @{
     ViewData["Title"] = "View";
@@ -22,7 +22,6 @@
                 {
                     <tr>
                         <td>
-                            @*@Html.ActionLink(teacher.Name, "Details", "Teacher", new { id = teacher.Id })*@
                             @teacher.Name
                         </td>
                         <td>

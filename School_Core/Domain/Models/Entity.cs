@@ -2,18 +2,18 @@
 
 namespace School_Core.Domain.Models
 {
-    public class Person
+    public class Entity
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public Person(string name)
+        public Entity(string name)
         {
             Id = Guid.NewGuid();
             Name = name;
         }
 
-        protected Person()
+        protected Entity()
         {
         }
     }

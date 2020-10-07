@@ -1,7 +1,10 @@
-﻿using School_Core.Contexts;
-using System;
+﻿using System;
+using School_Core.Contexts;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Queries;
+using School_Core.Specifications;
 
-namespace School_Core.Commands.Lecture
+namespace School_Core.Commands.Lectures
 {
     public class ArchiveLectureCommand : ICommand
     {
@@ -15,19 +18,18 @@ namespace School_Core.Commands.Lecture
         public class Handler : ICommandHandler<ArchiveLectureCommand>
         {
             private readonly SchoolCoreDbContext _dbContext;
+            private readonly IQuery<Lecture> _lectureQuery;
 
-            public Handler(SchoolCoreDbContext dbContext)
+            public Handler(SchoolCoreDbContext dbContext, IQuery<Lecture> lectureQuery)
             {
                 _dbContext = dbContext;
+                _lectureQuery = lectureQuery;
             }
 
             public bool Handle(ArchiveLectureCommand command)
             {
-                var lecture = _dbContext.Lectures.Find(command.Id);
-                if (lecture == null)
-                {
-                    return false;
-                }
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.Id));
+                if (lecture is null) throw new ArgumentException(nameof(command.Id));
 
                 if (lecture.CanArchive())
                 {

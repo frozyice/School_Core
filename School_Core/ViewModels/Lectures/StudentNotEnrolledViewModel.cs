@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using School_Core.Contexts;
+using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Lectures.Specs;
+using School_Core.Domain.Models.Students;
 using School_Core.Queries;
+using School_Core.Specifications;
 
-
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class StudentNotEnrolledViewModel
     {
@@ -19,34 +20,32 @@ namespace School_Core.ViewModels.Lecture
 
         public class Provider : IProvider
         {
-            private readonly IStudentQuery _studentQuery;
-            private readonly SchoolCoreDbContext _context;
-            private readonly ILectureQuery _lectureQuery;
+            private readonly IQuery<Student> _studentQuery;
+            private readonly IQuery<Lecture> _lectureQuery;
 
-            public Provider(ILectureQuery lectureQuery, IStudentQuery studentQuery, SchoolCoreDbContext context)
+            public Provider(IQuery<Lecture> lectureQuery, IQuery<Student> studentQuery)
             {
                 _studentQuery = studentQuery;
-                _context = context;
                 _lectureQuery = lectureQuery;
             }
 
             public IEnumerable<StudentNotEnrolledViewModel> Provide(Guid lectureId)
             {
-                var students = _studentQuery.GetStudents();
-                var lecture = _lectureQuery.Get(lectureId);
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Domain.Models.Lectures.Lecture>(lectureId));
                 var viewModels = new List<StudentNotEnrolledViewModel>();
                 if (lecture.Enrollments == null)
                 {
                     return viewModels;
                 }
+                var students = _studentQuery.GetAll();
+                //todo mingi parem lahendus olema kui et me küsimse välja kõik studentid. speckiga või kuidagi tuleb sed ahendada
 
                 foreach (var student in students)
                 {
                     var viewmodel = new StudentNotEnrolledViewModel();
                     viewmodel.Name = student.Name;
 
-                    //var enrollment = lecture.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
-                    viewmodel.canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture); //enrollment == null ? false : true;
+                    viewmodel.canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture);
                     viewModels.Add(viewmodel);
                 }
 

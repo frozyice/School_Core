@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Queries;
+using School_Core.Specifications;
 
-namespace School_Core.ViewModels.Lecture
+namespace School_Core.ViewModels.Lectures
 {
     public class EnrollStudentViewModel
     {
@@ -17,8 +20,6 @@ namespace School_Core.ViewModels.Lecture
         [DisplayName("Student name")]
         public string StudentName { get; set; }
 
-        public List<string> Errors { get; set; }
-
         public interface IProvider
         {
             public EnrollStudentViewModel Provide(Guid id);
@@ -27,21 +28,26 @@ namespace School_Core.ViewModels.Lecture
         public class Provider : IProvider
         {
             private readonly StudentNotEnrolledViewModel.IProvider _provider;
+            private readonly IQuery<Lecture> _lectureQuery;
 
 
-            public Provider(StudentNotEnrolledViewModel.IProvider provider)
+            public Provider(StudentNotEnrolledViewModel.IProvider provider, IQuery<Lecture> lectureQuery)
             {
                 _provider = provider;
+                _lectureQuery = lectureQuery;
             }
 
             public EnrollStudentViewModel Provide(Guid id)
             {
-                var lectureAddStudentViewModel = new EnrollStudentViewModel() {LectureId = id, StudentsNotEnrolled = _provider.Provide(id)};
-                // var lecture = _lectureRepository.GetLecture(id);
-                // lectureAddStudentViewModel.Id = id;
-                // lectureAddStudentViewModel.Name = lecture.Name;
-
-
+                var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
+                if (lecture is null) throw new ArgumentException(nameof(id));
+                
+                var lectureAddStudentViewModel = new EnrollStudentViewModel
+                {
+                    LectureId = id,
+                    StudentsNotEnrolled = _provider.Provide(id)
+                };
+                
                 return lectureAddStudentViewModel;
             }
         }

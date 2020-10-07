@@ -30,7 +30,7 @@ namespace TestingTests.Queries
 
 
         [Test]
-        public void GetAll_Returns_Teachers_When_Teachers_Exists()
+        public void GetAll_Returns_Lectures_When_Teachers_Exists()
         {
             var lecture = new Lecture("name");
             var lecture2 = new Lecture("name");
@@ -43,10 +43,12 @@ namespace TestingTests.Queries
 
             //Assert
             result.Should().Contain(lecture);
+            result.Should().Contain(lecture2);
+            result.Count.Should().Be(2);
         }
 
         [Test]
-        public void GetAll_Returns_Empty_List_When_Teachers_Does_Not_Exist()
+        public void GetAll_Returns_Empty_List_When_Lectures_Does_Not_Exist()
         {
             //Act
             var result = _sut.GetAll();
@@ -54,43 +56,11 @@ namespace TestingTests.Queries
             //Assert
             result.Should().BeEmpty();
         }
-
+        
         [Test]
-        public void Get_Returns_Teacher_When_Teacher_Exists()
+        public void GetAll_Returns_Lectures_When_Spec_Is_Passed()
         {
-            var lecture = new Lecture("name");
-            _dbContextInMemory.Add(lecture);
-            _dbContextInMemory.SaveChanges();
-
-            //Act
-            var result = _sut.Get(lecture.Id);
-
-            //Assert
-            result.Should().Be(lecture);
-        }
-
-        [Test]
-        public void Get_Returns_Null_When_Teacher_Does_Not_Exists()
-        {
-            var lecture = new Lecture("name");
-
-            //Act
-            var result = _sut.Get(lecture.Id);
-
-            //Assert
-            result.Should().BeNull();
-        }
-
-        [Test]
-        public void GetAll_Returns_Teachers_When_Spec_Is_Passed()
-        {
-            // var lecture = new Lecture("name");
-            // var lectures = new List<Lecture>() {lecture};
-            
             var specMock = new Mock<ISpecification<Lecture>>();
-            
-            // var specMock2 = new Mock<Specification<Lecture>>();
-
             var expectedLectures = new Lecture[2].AsQueryable();
             
             specMock.Setup(x => x.SatisfyEntitiesFrom(It.IsAny<IQueryable<Lecture>>())).Returns(expectedLectures);
@@ -100,6 +70,31 @@ namespace TestingTests.Queries
 
             //Assert
              Assert.That(result,Is.EqualTo(expectedLectures));
+        }
+        [Test]
+        public void GetSingleOrDefault_Returns_Lecture_When_Lecture_Exists()
+        {
+            var lecture = new Lecture("name");
+            _dbContextInMemory.Add(lecture);
+            _dbContextInMemory.SaveChanges();
+        
+            //Act
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id));
+        
+            //Assert
+            result.Should().Be(lecture);
+        }
+        
+        [Test]
+        public void GetSingleOrDefault_Returns_Null_When_Lecture_Does_Not_Exists()
+        {
+            var lecture = new Lecture("name");
+        
+            //Act
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id));
+        
+            //Assert
+            result.Should().BeNull();
         }
 
     }

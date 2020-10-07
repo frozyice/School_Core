@@ -1,5 +1,5 @@
-﻿using School_Core.Commands;
-using System;
+﻿using System;
+using School_Core.Commands;
 
 namespace School_Core.Util
 {
@@ -12,9 +12,8 @@ namespace School_Core.Util
             _provider = provider;
         }
 
-        public Messages()
+        protected Messages()
         {
-            
         }
 
         public virtual bool Dispatch(ICommand command)
@@ -28,17 +27,5 @@ namespace School_Core.Util
 
             return result;
         }
-
-        //public T Dispatch<T>(IQuery<T> query)
-        //{
-        //    Type type = typeof(IQueryHandler<,>);
-        //    Type[] typeArgs = { query.GetType(), typeof(T) };
-        //    Type handlerType = type.MakeGenericType(typeArgs);
-
-        //    dynamic handler = _provider.GetService(handlerType);
-        //    T result = handler.Handle((dynamic)query);
-
-        //    return result;
-        //}
     }
 }

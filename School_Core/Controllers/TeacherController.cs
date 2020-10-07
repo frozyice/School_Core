@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
-using School_Core.Commands.Teacher;
+using School_Core.Commands.Teachers;
+using School_Core.Domain.Models.Lectures;
+using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
+using School_Core.Specifications;
 using School_Core.Util;
-using School_Core.ViewModels.Teacher;
+using School_Core.ViewModels.Teachers;
 
 [assembly:InternalsVisibleTo("School_Core_Tests")]
 [assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
@@ -14,12 +17,16 @@ namespace School_Core.Controllers
     {
         private readonly Messages _messages;
         private readonly TeacherListViewModel.IProvider _teacherProvider;
-        private readonly ITeacherQuery _teacherQuery;
+        private readonly IQuery<Teacher> _teacherQuery;
         private readonly TeacherAssignToLectureViewModel.IProvider _teacherAssignToLectureProvider;
-        private readonly ILectureQuery _lectureQuery;
+        private readonly IQuery<Lecture> _lectureQuery;
 
-        public TeacherController(Messages messages, TeacherListViewModel.IProvider teacherProvider, ITeacherQuery teacherQuery,
-            TeacherAssignToLectureViewModel.IProvider teacherAssignToLectureProvider, ILectureQuery lectureQuery)
+        public TeacherController(
+            Messages messages, 
+            TeacherListViewModel.IProvider teacherProvider, 
+            IQuery<Teacher> teacherQuery,
+            TeacherAssignToLectureViewModel.IProvider teacherAssignToLectureProvider, 
+            IQuery<Lecture> lectureQuery)
         {
             _messages = messages;
             _teacherProvider = teacherProvider;
@@ -36,14 +43,11 @@ namespace School_Core.Controllers
         [HttpGet]
         public IActionResult AssignToLecture(Guid teacherId, string info = "")
         {
-            var teacher = _teacherQuery.Get(teacherId);
-            if (teacher == null)
-            {
-                return NotFound();
-            }
+            var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(teacherId));
+            if (teacher is null) return NotFound();
 
             var model = _teacherAssignToLectureProvider.Provide(teacher.Id);
-            if (ShouldAddTempInfo(info)) // vaata kas saad testida, kui sa mockid terve controlleri #SEOTUD 
+            if (ShouldAddTempInfo(info))
             {
                 model.TempDummyVal = "important thing can not do in provider for some stupid reason";
             }
@@ -51,12 +55,7 @@ namespace School_Core.Controllers
             return View(model);
         }
 
-        internal virtual bool ShouldAddTempInfo(string info) 
-            // #SEOTUD siia meetodi sisse
-            // 1. ei taha tulla
-            // 2. tuleme
-            // 3. testime selle otse 
-            // ( 2 erinevat mokki ) 
+        internal virtual bool ShouldAddTempInfo(string info)
         {
             return !string.IsNullOrWhiteSpace(info);
         }
@@ -64,20 +63,19 @@ namespace School_Core.Controllers
         [HttpPost]
         public IActionResult AssignToLecture(TeacherAssignToLectureViewModel viewModel)
         {
-            var lecture = _lectureQuery.Get(viewModel.LectureId);
-            var teacher = _teacherQuery.Get(viewModel.TeacherId);
-            if (lecture == null || teacher == null)
-            {
-                return NotFound();
-            }
+            var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(viewModel.LectureId));
+            if (lecture is null) return NotFound();
+            
+            var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(viewModel.TeacherId));
+            if (teacher is null) return NotFound();
+            
             
             var command = new AssignTeacherToLectureCommand()
             {
                 TeacherId = teacher.Id,
                 LectureId = lecture.Id,
             };
-            
-            
+
             _messages.Dispatch(command);
             return RedirectToAction(nameof(List));
         }

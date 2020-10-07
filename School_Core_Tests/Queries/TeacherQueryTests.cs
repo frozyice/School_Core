@@ -1,8 +1,9 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using School_Core.Contexts;
-using School_Core.Queries;
-using FluentAssertions;
 using School_Core.Domain.Models.Teachers;
+using School_Core.Queries;
+using School_Core.Specifications;
 using TestingTests.Commands;
 
 namespace TestingTests.Queries
@@ -51,26 +52,27 @@ namespace TestingTests.Queries
         }
 
         [Test]
-        public void Get_Returns_Teacher_When_Teacher_Exists()
+        public void GetSingleOrDefault_Returns_Teacher_When_Teacher_Exists()
         {
             var teacher = new Teacher("name");
-            _dbContextInMemory.Add(teacher);
+            var teacher2 = new Teacher("name");
+            _dbContextInMemory.AddRange(teacher, teacher2);
             _dbContextInMemory.SaveChanges();
 
             //Act
-            var result = _sut.Get(teacher.Id);
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id));
 
             //Assert
             result.Should().Be(teacher);
         }
 
         [Test]
-        public void Get_Returns_Null_When_Teacher_Does_Not_Exists()
+        public void GetSingleOrDefault_Returns_Null_When_Teacher_Does_Not_Exists()
         {
             var teacher = new Teacher("name");
 
             //Act
-            var result = _sut.Get(teacher.Id);
+            var result = _sut.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id));
 
             //Assert
             result.Should().BeNull();

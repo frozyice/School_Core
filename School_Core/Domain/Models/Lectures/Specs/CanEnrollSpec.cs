@@ -6,64 +6,6 @@ using School_Core.Specifications;
 
 namespace School_Core.Domain.Models.Lectures.Specs
 {
-    // public class IsWithFieldOfStudy<TEntity> : IsWithFieldOfStudyAbstract<TEntity> where TEntity : Lecture//, Student
-    // {
-    //
-    //     public StudyField LectureFieldOfStudy { get; }
-    //
-    //     public IsWithFieldOfStudy(StudyField lectureFieldOfStudy)
-    //     {
-    //         LectureFieldOfStudy = lectureFieldOfStudy;
-    //     }
-    //     internal override Expression<Func<TEntity, bool>> Predicate => x => x.FieldOfStudy == LectureFieldOfStudy;
-    // }
-    //
-    // public abstract class IsWithFieldOfStudyAbstract <TEntity> : Specification<TEntity>//, Student
-    // {
-    //     private Expression<Func<TEntity, bool>> Predicate { get; }
-    // }
-
-    public class IsWithFieldOfStudySpec : Specification<Lecture>
-    {
-        public StudyField LectureFieldOfStudy { get; }
-
-        public IsWithFieldOfStudySpec(StudyField fieldOfStudy)
-        {
-            LectureFieldOfStudy = fieldOfStudy;
-        }
-
-        internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == LectureFieldOfStudy;
-    }
-
-    public class IsFieldOfStudyNoneSpec : Specification<Lecture>
-    {
-        internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == StudyField.None;
-    }
-
-    public class HasYearOfStudyToEnrollSpec : Specification<Lecture>
-    {
-        public int YearOfStudy { get; }
-
-        public HasYearOfStudyToEnrollSpec(int yearOfStudy)
-        {
-            YearOfStudy = yearOfStudy;
-        }
-
-        internal override Expression<Func<Lecture, bool>> Predicate => x => x.EnrollableFromYear <= YearOfStudy;
-    }
-
-    public class HasExistingEnrollmentSpec : Specification<Lecture>
-    {
-        public Guid StudentId { get; }
-
-        public HasExistingEnrollmentSpec(Guid studentId)
-        {
-            StudentId = studentId;
-        }
-
-        internal override Expression<Func<Lecture, bool>> Predicate => x => x.Enrollments.Any(x => x.StudentId == StudentId);
-    }
-
     public class CanEnrollSpec : WrappedSpecification<Lecture>
     {
         public Guid StudentId { get; }
@@ -78,7 +20,68 @@ namespace School_Core.Domain.Models.Lectures.Specs
         }
 
         public override Specification<Lecture> Specification =>
-            new HasExistingEnrollmentSpec(StudentId).Negate() && new HasYearOfStudyToEnrollSpec(YearOfStudy) &&
-            (new IsWithFieldOfStudySpec(FieldOfStudy) || new IsFieldOfStudyNoneSpec());
+            new HasExistingEnrollmentSpec(StudentId).Negate() &&
+            new HasYearOfStudyToEnrollSpec(YearOfStudy) &&
+            new HasOpenLectureStatus() &&
+            new HasFieldOfStudyToEnrollSpec(FieldOfStudy);
+    }
+    
+
+    public class HasExistingEnrollmentSpec : Specification<Lecture>
+    {
+        public Guid StudentId { get; }
+
+        public HasExistingEnrollmentSpec(Guid studentId)
+        {
+            StudentId = studentId;
+        }
+
+        internal override Expression<Func<Lecture, bool>> Predicate => x => x.Enrollments.Any(x => x.StudentId == StudentId);
+    }
+
+    public class HasYearOfStudyToEnrollSpec : Specification<Lecture>
+    {
+        public int YearOfStudy { get; }
+
+        public HasYearOfStudyToEnrollSpec(int yearOfStudy)
+        {
+            YearOfStudy = yearOfStudy;
+        }
+
+        internal override Expression<Func<Lecture, bool>> Predicate => x => x.EnrollableFromYear <= YearOfStudy;
+    }
+    
+    public class HasOpenLectureStatus : Specification<Lecture>
+    {
+        internal override Expression<Func<Lecture, bool>> Predicate => x => x.Status == LectureStatus.Open;
+    }
+
+    public class HasFieldOfStudyToEnrollSpec : WrappedSpecification<Lecture>
+    {
+        public StudyField FieldOfStudy { get; }
+
+        public HasFieldOfStudyToEnrollSpec(StudyField fieldOfStudy)
+        {
+            FieldOfStudy = fieldOfStudy;
+        }
+
+        public override Specification<Lecture> Specification => new IsWithFieldOfStudySpec(FieldOfStudy) || new IsEnrollableWithAnyFieldOfStudySpec();
+    }
+
+    public class IsWithFieldOfStudySpec : Specification<Lecture>
+    {
+        public StudyField FieldOfStudy { get; }
+
+        public IsWithFieldOfStudySpec(StudyField fieldOfStudy)
+        {
+            FieldOfStudy = fieldOfStudy;
+        }
+
+        internal override Expression<Func<Lecture, bool>> Predicate => x => x.FieldOfStudy == FieldOfStudy;
+    }
+
+    public class IsEnrollableWithAnyFieldOfStudySpec : WrappedSpecification<Lecture>
+    {
+        public override Specification<Lecture> Specification => new IsWithFieldOfStudySpec(StudyField.None);
     }
 }

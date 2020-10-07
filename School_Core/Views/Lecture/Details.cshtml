@@ -1,5 +1,5 @@
 ﻿@using School_Core.Domain.Models.Lectures
-@model School_Core.ViewModels.Lecture.LectureDetailsViewModel
+@model School_Core.ViewModels.Lectures.LectureDetailsViewModel
 
 @if (Model.Status == LectureStatus.Open)
 {
@@ -68,7 +68,3 @@ else
 </table>
 
 <a class="btn btn-outline-primary" asp-controller="Lecture" asp-action="EnrollStudent" asp-route-id="@Model.Id">Enroll Students</a>
-
-
-@*<a class="btn btn-primary" asp-controller="Lecture" asp-action="AddStudent" asp-route-id="@Model.Id">Add Student</a>
-    <a class="btn btn-primary" asp-controller="Lecture" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>*@

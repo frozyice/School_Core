@@ -1,4 +1,4 @@
-﻿@model School_Core.ViewModels.Teacher.TeacherAssignToLectureViewModel
+﻿@model School_Core.ViewModels.Teachers.TeacherAssignToLectureViewModel
 
 <div class="container">
     <div class="row">
@@ -25,7 +25,6 @@
                                 <input type="hidden" asp-for="TeacherId">
 
                         <button class="btn btn-outline-primary" type="submit">Assign</button>
-                                @* <a class="btn btn-outline-primary" asp-controller="Teacher" asp-action="AssignToLecture" asp-route-id="@lecture.Id">Assign</a> *@
                             </form>
                         </td>
                     </tr>

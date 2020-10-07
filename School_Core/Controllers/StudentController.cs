@@ -1,19 +1,16 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using School_Core.Queries;
-using School_Core.ViewModels.Student;
+using School_Core.ViewModels.Students;
 
 namespace School_Core.Controllers
 {
     public class StudentController : Controller
     {
         private readonly StudentListViewModel.IProvider _studentProvider;
-        private readonly IStudentQuery _studentQuery;
 
-        public StudentController(StudentListViewModel.IProvider studentProvider, IStudentQuery studentQuery)
+        public StudentController(StudentListViewModel.IProvider studentProvider)
         {
             _studentProvider = studentProvider;
-            _studentQuery = studentQuery;
         }
 
         public IActionResult List(bool filterFirstYearStudents, bool filterLawStudents)
@@ -30,13 +27,7 @@ namespace School_Core.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RegisterNew(StudentAddNewViewModel studentAddNewViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(studentAddNewViewModel);
-            }
-
             throw new NotImplementedException();
-            return Redirect("List");
         }
 
         public IActionResult EditInfo()
