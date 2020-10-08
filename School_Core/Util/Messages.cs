@@ -23,6 +23,10 @@ namespace School_Core.Util
             Type handlerType = type.MakeGenericType(typeArgs);
 
             dynamic handler = _provider.GetService(handlerType);
+            if (handler is null)
+            {
+                throw new ArgumentException($"{handlerType} is a unregistered service.");
+            }
             dynamic result = handler.Handle((dynamic) command);
 
             return result;

@@ -9,7 +9,7 @@ using School_Core.Specifications;
 using School_Core.Util;
 using School_Core.ViewModels.Teachers;
 
-[assembly:InternalsVisibleTo("School_Core_Tests")]
+[assembly:InternalsVisibleTo("School_Core.Tests")]
 [assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace School_Core.Controllers
 {

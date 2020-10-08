@@ -33,7 +33,7 @@ namespace School_Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Commands
+            //Command Handlers
             services.AddTransient<ICommandHandler<CloseLectureCommand>, CloseLectureCommand.Handler>();
             services.AddTransient<ICommandHandler<ArchiveLectureCommand>, ArchiveLectureCommand.Handler>();
             services.AddTransient<ICommandHandler<EnrollStudentCommand>, EnrollStudentCommand.Handler>();
