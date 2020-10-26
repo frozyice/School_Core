@@ -3,6 +3,7 @@ using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Queries;
 using School_Core.Specifications;
+using School_Core.Util;
 
 namespace School_Core.Commands.Lectures
 {
@@ -26,19 +27,24 @@ namespace School_Core.Commands.Lectures
                 _lectureQuery = lectureQuery;
             }
 
-            public bool Handle(ArchiveLectureCommand command)
+            public Result Handle(ArchiveLectureCommand command)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.Id));
                 if (lecture is null) throw new ArgumentException(nameof(command.Id));
 
-                if (lecture.CanArchive())
+                if (lecture.Status == LectureStatus.Archived)
                 {
-                    lecture.ArchiveLecture();
-                    _dbContext.SaveChanges();
-                    return true;
+                    return Result.Fail("alert","Can not archive, lecture is already archived.");
                 }
 
-                return false;
+                if (lecture.HasUnGradedStudents())
+                {
+                    return Result.Fail("alert","Can not archive, lecture is ungraded for student or students.");
+                }
+
+                lecture.ArchiveLecture();
+                _dbContext.SaveChanges();
+                return Result.Success();
             }
         }
     }

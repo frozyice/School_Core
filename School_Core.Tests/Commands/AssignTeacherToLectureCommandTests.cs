@@ -88,7 +88,7 @@ namespace TestingTests.Commands
 
             //Assert
             lectureMock.Verify(x => x.AssignTeacher(It.IsAny<Teacher>()), Times.Never);
-            result.Should().BeFalse();
+            result.isSuccess.Should().BeFalse();
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace TestingTests.Commands
             var result = _sut.Handle(command);
             
             //Assert
-            result.Should().BeTrue();
+            result.isSuccess.Should().BeTrue();
             lectureMock.Verify(x => x.AssignTeacher(It.Is<Teacher>(x => x.Id == teacher.Id)), Times.Once);
         }
     }

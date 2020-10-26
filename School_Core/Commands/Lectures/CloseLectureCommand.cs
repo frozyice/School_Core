@@ -3,6 +3,7 @@ using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Queries;
 using School_Core.Specifications;
+using School_Core.Util;
 
 namespace School_Core.Commands.Lectures
 {
@@ -26,21 +27,24 @@ namespace School_Core.Commands.Lectures
                 _lectureQuery = lectureQuery;
             }
 
-            // kui me tahame midagi kasutajale tagastada siis kontroll controlleri 
-            // kui on mingi põhjus et me ei saa valideerimist teha domeenis siis paneme Commandi 
-            public bool Handle(CloseLectureCommand command)
+            public Result Handle(CloseLectureCommand command)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.Id));
                 if (lecture is null) throw new ArgumentException(nameof(command.Id));
 
-                if (lecture.Status == LectureStatus.Open)
+                if (lecture.Status == LectureStatus.Closed)
                 {
-                    lecture.CloseLecture();
-                    _dbContext.SaveChanges();
-                    return true;
+                    return Result.Fail("alert","Can not close, lecture is already closed.");
                 }
 
-                return false;
+                if (lecture.Status == LectureStatus.Archived)
+                {
+                    return Result.Fail("alert","Can not close, lecture is archived.");
+                }
+
+                lecture.CloseLecture();
+                _dbContext.SaveChanges();
+                return Result.Success();
             }
         }
     }

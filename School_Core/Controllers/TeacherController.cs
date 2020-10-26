@@ -9,8 +9,9 @@ using School_Core.Specifications;
 using School_Core.Util;
 using School_Core.ViewModels.Teachers;
 
-[assembly:InternalsVisibleTo("School_Core.Tests")]
-[assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
+[assembly: InternalsVisibleTo("School_Core.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+
 namespace School_Core.Controllers
 {
     public class TeacherController : Controller
@@ -22,10 +23,10 @@ namespace School_Core.Controllers
         private readonly IQuery<Lecture> _lectureQuery;
 
         public TeacherController(
-            Messages messages, 
-            TeacherListViewModel.IProvider teacherProvider, 
+            Messages messages,
+            TeacherListViewModel.IProvider teacherProvider,
             IQuery<Teacher> teacherQuery,
-            TeacherAssignToLectureViewModel.IProvider teacherAssignToLectureProvider, 
+            TeacherAssignToLectureViewModel.IProvider teacherAssignToLectureProvider,
             IQuery<Lecture> lectureQuery)
         {
             _messages = messages;
@@ -35,9 +36,16 @@ namespace School_Core.Controllers
             _lectureQuery = lectureQuery;
         }
 
+        [ImportModelState]
         public IActionResult List()
         {
-            return View(_teacherProvider.Provide());
+            var isRedirectedWithSuccess = false;
+            if (TempData.ContainsKey("redirectWithSuccess"))
+            {
+                isRedirectedWithSuccess = (bool) TempData["redirectWithSuccess"];
+            }
+            var model = _teacherProvider.Provide(isRedirectedWithSuccess);
+            return View(model);
         }
 
         [HttpGet]
@@ -60,23 +68,27 @@ namespace School_Core.Controllers
             return !string.IsNullOrWhiteSpace(info);
         }
 
+        [ExportModelState]
         [HttpPost]
         public IActionResult AssignToLecture(TeacherAssignToLectureViewModel viewModel)
         {
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(viewModel.LectureId));
             if (lecture is null) return NotFound();
-            
+
             var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(viewModel.TeacherId));
             if (teacher is null) return NotFound();
-            
-            
-            var command = new AssignTeacherToLectureCommand()
-            {
-                TeacherId = teacher.Id,
-                LectureId = lecture.Id,
-            };
 
-            _messages.Dispatch(command);
+
+            var command = new AssignTeacherToLectureCommand() {TeacherId = teacher.Id, LectureId = lecture.Id,};
+
+            var result = _messages.Dispatch(command);
+            if (!result.isSuccess)
+            {
+                result.Errors.ForEach(x=>ModelState.AddModelError(x.Key,x.Error));
+                return RedirectToAction(nameof(List));
+            }
+            
+            TempData.Add("redirectWithSuccess", true);
             return RedirectToAction(nameof(List));
         }
     }

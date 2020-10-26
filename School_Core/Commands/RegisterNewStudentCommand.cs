@@ -1,4 +1,5 @@
 ﻿using School_Core.Contexts;
+using School_Core.Util;
 
 namespace School_Core.Commands
 {
@@ -25,12 +26,12 @@ namespace School_Core.Commands
             _dbContext = dbContext;
         }
 
-        public bool Handle(RegisterNewStudentCommand command)
+        public Result Handle(RegisterNewStudentCommand command)
         {
             //var student = new Student(command.Name, command.YearOfStudy, command.IsLawStudent);
             //_dbContext.Add(student);
             //_dbContext.SaveChanges();
-            return true;
+            return Result.Success();
         }
     }
 }

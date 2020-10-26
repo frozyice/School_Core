@@ -16,7 +16,23 @@ namespace School_Core.Util
         {
         }
 
-        public virtual bool Dispatch(ICommand command)
+        // public virtual bool Dispatch(ICommand command)
+        // {
+        //     Type type = typeof(ICommandHandler<>);
+        //     Type[] typeArgs = {command.GetType()};
+        //     Type handlerType = type.MakeGenericType(typeArgs);
+        //
+        //     dynamic handler = _provider.GetService(handlerType);
+        //     if (handler is null)
+        //     {
+        //         throw new ArgumentException($"{handlerType} is a unregistered service.");
+        //     }
+        //     dynamic result = handler.Handle((dynamic) command);
+        //
+        //     return result;
+        // }
+        //
+        public virtual Result Dispatch(ICommand command)
         {
             Type type = typeof(ICommandHandler<>);
             Type[] typeArgs = {command.GetType()};

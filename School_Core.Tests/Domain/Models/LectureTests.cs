@@ -84,20 +84,20 @@ namespace TestingTests.Domain.Models
         }
 
         [Test]
-        public void CanArchive_Returns_False_When_There_Are_Enrolments_With_GradeNone()
+        public void HasUnGradedStudents_Returns_True_When_There_Are_Enrolments_With_GradeNone()
         {
             var student = new Student("name");
             _sut.EnrollStudent(student);
 
             //Act
-            var result = _sut.CanArchive();
+            var result = _sut.HasUnGradedStudents();
 
             //Assert
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.True);
         }
 
         [Test]
-        public void CanArchive_Returns_True_When_There_Are_No_Enrolments_With_Grade_None()
+        public void HasUnGradedStudents_Returns_False_When_There_Are_No_Enrolments_With_GradeNone()
         {
             var sut = new Mock<Lecture>();
             var enrollments = new List<Enrollment>()
@@ -113,10 +113,10 @@ namespace TestingTests.Domain.Models
             sut.Setup(x => x.Enrollments).Returns(enrollments);
 
             //Act
-            var result = sut.Object.CanArchive();
+            var result = sut.Object.HasUnGradedStudents();
 
             //Assert
-            Assert.That(result, Is.True);
+            Assert.That(result, Is.False);
         }
 
         [Test]

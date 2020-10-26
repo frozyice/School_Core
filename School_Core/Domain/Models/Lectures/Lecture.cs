@@ -43,20 +43,20 @@ namespace School_Core.Domain.Models.Lectures
 
         public void ArchiveLecture()
         {
-            if (CanArchive())
+            if (!HasUnGradedStudents())
             {
                 Status = LectureStatus.Archived;
             }
         }
         
-        public bool CanArchive()
+        public bool HasUnGradedStudents()
         {
             if (_enrollments.Count == 0)
             {
-                return true;
+                return false;
             }
 
-            return _enrollments.All(x => x.Grade != Grade.None);
+            return _enrollments.All(x => x.Grade == Grade.None);
         }
 
         public void EnrollStudent(Student student)
