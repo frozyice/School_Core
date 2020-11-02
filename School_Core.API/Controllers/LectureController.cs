@@ -59,6 +59,7 @@ namespace School_Core.API.Controllers
         [HttpPut("{id}/status/archive")]
         public IActionResult ArchiveLecture(Guid id)
         {
+            
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture is null)
             {
@@ -69,8 +70,25 @@ namespace School_Core.API.Controllers
             var result = _messages.Dispatch(command);
             if (!result.isSuccess)
             {
-                return NotFound();
+                result.Errors.ForEach(x=>ModelState.AddModelError(x.Key,x.Error));
+                return ValidationProblem();
             }
+            // if (!isArchived)
+            // {
+            //     
+            //     // ModelState.AddModelError("key","error");
+            //     // ModelState.AddModelError("anotherKey","error");
+            //     var key = "key";
+            //     var error = "error";
+            //     var dic = new Dictionary<string,string>();
+            //     dic.Add(key,error);
+            //     dic.Add("onekey","anothererror");
+            //     Validator.AddModelError(ModelState, dic);
+            //     return ValidationProblem();
+            //     return NotFound();
+            //
+            //       
+            // }
 
             return Ok();
         }
