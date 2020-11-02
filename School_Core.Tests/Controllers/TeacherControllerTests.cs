@@ -1,8 +1,10 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using NUnit.Framework;
+using School_Core.Commands;
 using School_Core.Commands.Teachers;
 using School_Core.Controllers;
 using School_Core.Domain.Models.Lectures;
@@ -85,7 +87,7 @@ namespace TestingTests.Controllers
         }
 
         [Test]
-        public void AssignToLecture_PostMethod_Returns__NotFound_When_Teacher_Is_Not_Found()
+        public void AssignToLecture_PostMethod_Returns_NotFound_When_Teacher_Is_Not_Found()
         {
             var teacherId = Guid.NewGuid();
             var lecture = new Lecture("name");
@@ -115,12 +117,20 @@ namespace TestingTests.Controllers
             };
             _lectureQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Lecture>(lecture.Id))).Returns(lecture);
             _teacherQueryMock.Setup(x => x.GetSingleOrDefault(new HasIdSpec<Teacher>(teacher.Id))).Returns(teacher);
+            var commandResult = Result.Success();
+            _messagesMock.Setup(x => x.Dispatch(It.IsAny<ICommand>())).Returns(commandResult);
+            
+            var tempDataMock = new Mock<ITempDataDictionary>();
+            _sut.TempData = tempDataMock.Object;
 
             //Act
             var result = (RedirectToActionResult) _sut.AssignToLecture(viewModel);
+            
 
             //Assert
             _messagesMock.Verify(x => x.Dispatch(It.Is<AssignTeacherToLectureCommand>(x => x.LectureId == lecture.Id && x.TeacherId == teacher.Id)), Times.Once);
+            tempDataMock.Verify(x=> x.Add("redirectWithSuccess", true));
+            result.ActionName.Should().Be(nameof(_sut.List));
         }
 
         //ShouldAddTempInfo meetodi sisse 1. ei taha tulla

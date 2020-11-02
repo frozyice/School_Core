@@ -56,7 +56,7 @@ namespace TestingTests.Commands
 
             //Assert
             result.isSuccess.Should().BeFalse();
-            result.Errors.Should().Contain(x => x.Key == "");
+            result.Errors.Should().Contain(x => x.Key == "alert");
             result.Errors.Should().Contain(x => x.Error == "Can not archive, lecture is already archived.");
         }
 
@@ -85,6 +85,8 @@ namespace TestingTests.Commands
 
             Assert.That(result.isSuccess, Is.False);
             Assert.That(resultLecture.Status, Is.EqualTo(LectureStatus.Open));
+            result.Errors.Should().Contain(x => x.Key == "alert");
+            result.Errors.Should().Contain(x => x.Error == "Can not archive, lecture is ungraded for student or students.");
         }
         
         [Test]

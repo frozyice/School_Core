@@ -89,6 +89,8 @@ namespace TestingTests.Commands
             //Assert
             lectureMock.Verify(x => x.AssignTeacher(It.IsAny<Teacher>()), Times.Never);
             result.isSuccess.Should().BeFalse();
+            result.Errors.Should().Contain(x => x.Key == "alert");
+            result.Errors.Should().Contain(x => x.Error == "Can not assign, lecture is archived.");
         }
 
         [Test]
@@ -111,6 +113,8 @@ namespace TestingTests.Commands
             // result.Should().BeFalse();
             teacher.Should().Be(teacher);
             lectureMock.Verify(x => x.AssignTeacher(It.IsAny<Teacher>()), Times.Never);
+            result.Errors.Should().Contain(x => x.Key == "alert");
+            result.Errors.Should().Contain(x => x.Error == "Can not assign, teacher has assigned to a lecture.");
         }
 
         [TestCase(LectureStatus.Open)]

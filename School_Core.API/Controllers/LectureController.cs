@@ -47,9 +47,9 @@ namespace School_Core.API.Controllers
             }
             
             var command = new CloseLectureCommand(id);
-            var isClosed = _messages.Dispatch(command);
+            var result = _messages.Dispatch(command);
 
-            if (!isClosed)
+            if (!result.isSuccess)
             {
                 return NotFound();
             } 
@@ -66,8 +66,8 @@ namespace School_Core.API.Controllers
             }
             
             var command = new ArchiveLectureCommand(id);
-            var isArchived = _messages.Dispatch(command);
-            if (!isArchived)
+            var result = _messages.Dispatch(command);
+            if (!result.isSuccess)
             {
                 return NotFound();
             }

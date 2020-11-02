@@ -21,9 +21,6 @@ namespace TestingTests.Commands
             _dbContextMock = DbContextFactory.GetInMemoryDbContext();
             _lectureQuery = new LectureQuery(_dbContextMock);
             _sut = new CloseLectureCommand.Handler(_dbContextMock, _lectureQuery);
-            
-            var lecture = new Lecture("name");
-            var command = new CloseLectureCommand(lecture.Id);
         }
 
         [TearDown]
@@ -32,39 +29,14 @@ namespace TestingTests.Commands
             _dbContextMock.Database.EnsureDeleted();
         }
 
-
-        [Test]
-        public void Handle_Returns_True_When_StatusIsOpen()
-        {
-            var lecture = new Lecture("name");
-            _dbContextMock.Add(lecture);
-            _dbContextMock.SaveChanges();
-            
-            var command = new CloseLectureCommand(lecture.Id);
-
-            //Act
-            var result = _sut.Handle(command);
-
-
-            //Assert
-            Lecture resultLecture;
-            using (var context = DbContextFactory.GetInMemoryDbContext())
-            {
-                resultLecture = context.Lectures.Find(lecture.Id);
-            }
-
-            Assert.That(result, Is.True);
-            Assert.That(resultLecture.Status, Is.EqualTo(LectureStatus.Closed));
-        }
-
         [Test]
         public void Handle_Throws_ArgumentException_When_LectureIsNotInDatabase()
         {
             _dbContextMock.Add(new Lecture("uus "));
-            
+
             var lecture = new Lecture("name");
             var command = new CloseLectureCommand(lecture.Id);
-            
+
             //Act
             Action result = () => _sut.Handle(command);
 
@@ -73,7 +45,7 @@ namespace TestingTests.Commands
         }
 
         [Test]
-        public void Handle_Returns_False_When_LectureStatusIsClosed()
+        public void Handle_Returns_ResultFail_When_LectureStatusIsClosed()
         {
             var lecture = new Lecture("name");
             lecture.CloseLecture();
@@ -92,12 +64,16 @@ namespace TestingTests.Commands
                 lectureResult = context.Lectures.Find(lecture.Id);
             }
 
-            Assert.That(result, Is.False);
+            Assert.That(result.isSuccess, Is.False);
             Assert.That(lectureResult.Status, Is.EqualTo(LectureStatus.Closed));
+            result.Errors.Should().Contain(x => x.Key == "alert");
+            result.Errors.Should().Contain(x => x.Error == "Can not close, lecture is already closed.");
+
+
         }
 
         [Test]
-        public void Handle_Returns_False_When_LectureStatusIsArchived()
+        public void Handle_Returns_ResultFail_When_LectureStatusIsArchived()
         {
             var lecture = new Lecture("name");
             lecture.ArchiveLecture();
@@ -116,8 +92,34 @@ namespace TestingTests.Commands
                 lectureResult = context.Lectures.Find(lecture.Id);
             }
 
-            Assert.That(result, Is.False);
+            Assert.That(result.isSuccess, Is.False);
             Assert.That(lectureResult.Status, Is.EqualTo(LectureStatus.Archived));
+            result.Errors.Should().Contain(x => x.Key == "alert");
+            result.Errors.Should().Contain(x => x.Error == "Can not close, lecture is archived.");
+        }
+        
+        [Test]
+        public void Handle_Returns_ResultSuccess_When_StatusIsOpen()
+        {
+            var lecture = new Lecture("name");
+            _dbContextMock.Add(lecture);
+            _dbContextMock.SaveChanges();
+            
+            var command = new CloseLectureCommand(lecture.Id);
+
+            //Act
+            var result = _sut.Handle(command);
+
+
+            //Assert
+            Lecture resultLecture;
+            using (var context = DbContextFactory.GetInMemoryDbContext())
+            {
+                resultLecture = context.Lectures.Find(lecture.Id);
+            }
+
+            Assert.That(result.isSuccess, Is.True);
+            Assert.That(resultLecture.Status, Is.EqualTo(LectureStatus.Closed));
         }
     }
 
