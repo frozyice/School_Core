@@ -63,14 +63,14 @@ namespace School_Core.API.Controllers
             var medicalsGetDtos = new List<MedicalGetDto>();
             foreach (var medical in medicals)
             {
-                var sickLeaveGetDto = new MedicalGetDto()
+                var medicalGetDto = new MedicalGetDto()
                 {
                     Id = medical.Id,
                     StudentId = medical.StudentId, 
                     Active = medical.DateTo is null ? "Yes" : "No",
                     Reason = medical.Reason
                 };
-                medicalsGetDtos.Add(sickLeaveGetDto);
+                medicalsGetDtos.Add(medicalGetDto);
             }
             return Ok(medicalsGetDtos);
         }
@@ -84,20 +84,19 @@ namespace School_Core.API.Controllers
             return CreatedAtAction(nameof(GetMedical), new {id = medical.Id}, medicalPostDto);
         }
         
-        // [HttpPut("{id}")]
-        // public IActionResult UpdateMedical(int id, SickLeaveGetDto sickLeaveGetDto)
-        // {
-        //     var medical = MedicalData.Current.Dtos.FirstOrDefault(x => x.Id == id);
-        //     if (medical == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     MedicalData.Current.Dtos.Remove(medical);
-        //     medical = sickLeaveGetDto;
-        //     MedicalData.Current.Dtos.Add(medical);
-        //     return NoContent();
-        // }
+        [HttpPut("{id}")]
+        public IActionResult UpdateMedical(Guid id, MedicalPutDto medicalPutDto)
+        {
+            var medical = _dbContext.Medicals.FirstOrDefault(x => x.Id == id);
+            if (medical == null)
+            {
+                return NotFound();
+            }
+
+            medical.ChangeReason(medicalPutDto.Reason);
+            _dbContext.SaveChanges();
+            return NoContent();
+        }
         //
         // [HttpDelete("{id}")]
         // public IActionResult RemoveMedical(int id)

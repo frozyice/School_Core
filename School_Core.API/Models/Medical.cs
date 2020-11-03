@@ -25,6 +25,10 @@ namespace School_Core.API.Models
             Reason = reason;
             DateFrom = DateTime.Now;
         }
-        
+
+        public void ChangeReason(string reason)
+        {
+            Reason = reason;
+        }
     }
 }
