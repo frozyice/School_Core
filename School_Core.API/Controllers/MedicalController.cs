@@ -97,14 +97,20 @@ namespace School_Core.API.Controllers
             _dbContext.SaveChanges();
             return NoContent();
         }
-        //
-        // [HttpDelete("{id}")]
-        // public IActionResult RemoveMedical(int id)
-        // {
-        //     var medical = MedicalData.Current.Dtos.FirstOrDefault(x => x.Id == id);
-        //     MedicalData.Current.Dtos.Remove(medical);
-        //     return NoContent();
-        // }
+        
+        [HttpDelete("{id}")]
+        public IActionResult CloseMedical(Guid id)
+        {
+            var medical = _dbContext.Medicals.Find(id);
+            if (medical is null)
+            {
+                return BadRequest();
+            }
+
+            medical.Close();
+            _dbContext.SaveChanges();
+            return NoContent();
+        }
 
     }
 }

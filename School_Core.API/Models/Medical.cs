@@ -30,5 +30,10 @@ namespace School_Core.API.Models
         {
             Reason = reason;
         }
+
+        public void Close()
+        {
+            DateTo = DateTime.Now;
+        }
     }
 }
