@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using School_Core.API.Contexts;
 using School_Core.API.DTOs;
+using School_Core.API.Models;
 
 namespace School_Core.API.Controllers
 {
@@ -74,14 +75,15 @@ namespace School_Core.API.Controllers
             return Ok(medicalsGetDtos);
         }
         
-        // [HttpPost]
-        // public IActionResult AddMedical(SickLeaveGetDto sickLeaveGetDto)
-        // {
-        //     var data = MedicalData.Current.Dtos;
-        //     data.Add(sickLeaveGetDto);
-        //     return CreatedAtAction(nameof(GetMedical), new {id = sickLeaveGetDto.Id}, sickLeaveGetDto);
-        // }
-        //
+        [HttpPost("student/{studentId}")]
+        public IActionResult AddMedical(Guid studentId, MedicalPostDto medicalPostDto)
+        {
+            var medical = new Medical(studentId, medicalPostDto.Reason);
+            _dbContext.Add(medical);
+            _dbContext.SaveChanges();
+            return CreatedAtAction(nameof(GetMedical), new {id = medical.Id}, medicalPostDto);
+        }
+        
         // [HttpPut("{id}")]
         // public IActionResult UpdateMedical(int id, SickLeaveGetDto sickLeaveGetDto)
         // {
