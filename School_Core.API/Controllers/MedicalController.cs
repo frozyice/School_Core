@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using School_Core.API.Contexts;
@@ -20,31 +21,59 @@ namespace School_Core.API.Controllers
         [HttpGet]
         public IActionResult GetMedicals()
         {
-            var sickLeaves = _dbContext.SickLeaves.ToList();
-            var sickLeaveGetDtos = new List<SickLeaveGetDto>();
-            foreach (var sickLeave in sickLeaves)
+            var medicals = _dbContext.Medicals.ToList();
+            var medicalsGetDtos = new List<MedicalGetDto>();
+            foreach (var medical in medicals)
             {
-                var sickLeaveGetDto = new SickLeaveGetDto()
+                var sickLeaveGetDto = new MedicalGetDto()
                 {
-                    Id = sickLeave.Id,
-                    StudentId = sickLeave.Id, 
-                    Active = sickLeave.DateTo is null ? "Yes" : "No",
-                    Reason = sickLeave.Reason
+                    Id = medical.Id,
+                    StudentId = medical.StudentId, 
+                    Active = medical.DateTo is null ? "Yes" : "No",
+                    Reason = medical.Reason
                 };
-                sickLeaveGetDtos.Add(sickLeaveGetDto);
+                medicalsGetDtos.Add(sickLeaveGetDto);
             }
-            return Ok(sickLeaveGetDtos);
+            return Ok(medicalsGetDtos);
         }
 
-        // [HttpGet("{id}", Name = "GetMedical")]
-        // public IActionResult GetMedical(int id)
-        // {
-        //     var medical = MedicalData.Current.Dtos.FirstOrDefault(x => x.Id == id);
-        //     if (medical is null)
-        //         return NotFound();
-        //     return Ok(medical);
-        // }
-        //
+        [HttpGet("{id}")]
+        public IActionResult GetMedical(Guid id)
+        {
+            var medical = _dbContext.Medicals.Find(id);
+            if (medical is null)
+            {
+                return NotFound();
+            }
+            var sickLeaveGetDto = new MedicalGetDto()
+            {
+                Id = medical.Id,
+                StudentId = medical.StudentId, 
+                Active = medical.DateTo is null ? "Yes" : "No",
+                Reason = medical.Reason
+            };
+            return Ok(sickLeaveGetDto);
+        }
+        
+        [HttpGet("student/{studentId}")]
+        public IActionResult GetStudentMedicals(Guid studentId)
+        {
+            var medicals = _dbContext.Medicals.Where(x=>x.StudentId == studentId).ToList();
+            var medicalsGetDtos = new List<MedicalGetDto>();
+            foreach (var medical in medicals)
+            {
+                var sickLeaveGetDto = new MedicalGetDto()
+                {
+                    Id = medical.Id,
+                    StudentId = medical.StudentId, 
+                    Active = medical.DateTo is null ? "Yes" : "No",
+                    Reason = medical.Reason
+                };
+                medicalsGetDtos.Add(sickLeaveGetDto);
+            }
+            return Ok(medicalsGetDtos);
+        }
+        
         // [HttpPost]
         // public IActionResult AddMedical(SickLeaveGetDto sickLeaveGetDto)
         // {

@@ -6,7 +6,7 @@ namespace School_Core.API.Contexts
 {
     public class SchoolMedicalDbContext : DbContext
     {
-        public DbSet<SickLeave> SickLeaves { get; set; }
+        public DbSet<Medical> Medicals { get; set; }
 
         public SchoolMedicalDbContext(DbContextOptions<SchoolMedicalDbContext> options) : base(options)
         {
@@ -18,10 +18,11 @@ namespace School_Core.API.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SickLeave>().HasData(
-                new SickLeave(Guid.NewGuid(), Guid.NewGuid(), "DummyReason1"),
-                new SickLeave(Guid.NewGuid(), Guid.NewGuid(), "DummyReason2"),
-                new SickLeave(Guid.NewGuid(),Guid.NewGuid(), "DummyReason3")
+            var studentId = Guid.NewGuid();
+            modelBuilder.Entity<Medical>().HasData(
+                new Medical(Guid.NewGuid(), Guid.NewGuid(), "DummyReason1"),
+                new Medical(Guid.NewGuid(), studentId, "DummyReason2"),
+                new Medical(Guid.NewGuid(), studentId, "DummyReason3")
             );
         }
     }

@@ -2,7 +2,7 @@
 
 namespace School_Core.API.Models
 {
-    public class SickLeave
+    public class Medical
     {
         public Guid Id { get; private set; }
         public Guid StudentId { get; private set; }
@@ -10,7 +10,7 @@ namespace School_Core.API.Models
         public DateTime? DateTo { get; private set; }
         public string Reason { get; private set; }
 
-        public SickLeave(Guid studentId, string reason)
+        public Medical(Guid studentId, string reason)
         {
             Id = new Guid();
             StudentId = studentId;
@@ -18,7 +18,7 @@ namespace School_Core.API.Models
             DateFrom = DateTime.Now;
         }
         
-        public SickLeave(Guid id, Guid studentId, string reason)
+        public Medical(Guid id, Guid studentId, string reason)
         {
             Id = id;
             StudentId = studentId;

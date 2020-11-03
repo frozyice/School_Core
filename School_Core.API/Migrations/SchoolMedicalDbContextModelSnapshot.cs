@@ -19,7 +19,7 @@ namespace School_Core.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("School_Core.API.Models.SickLeave", b =>
+            modelBuilder.Entity("School_Core.API.Models.Medical", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,29 +39,29 @@ namespace School_Core.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SickLeaves");
+                    b.ToTable("Medicals");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("eb7bde3e-1c7e-4a71-bd02-3903be8f9ea2"),
-                            DateFrom = new DateTime(2020, 11, 3, 12, 53, 18, 202, DateTimeKind.Local).AddTicks(3797),
+                            Id = new Guid("9d97c884-5ae3-4c01-b93c-2e2c9eb3543a"),
+                            DateFrom = new DateTime(2020, 11, 3, 13, 16, 54, 442, DateTimeKind.Local).AddTicks(5770),
                             Reason = "DummyReason1",
-                            StudentId = new Guid("90a4faf7-33d9-4bf5-8584-1f92e80db0cb")
+                            StudentId = new Guid("1e60a216-d15d-4ff0-bf3f-efc4b8a04a1d")
                         },
                         new
                         {
-                            Id = new Guid("4ccdc39b-c060-428e-9d4c-cb6b4834ed10"),
-                            DateFrom = new DateTime(2020, 11, 3, 12, 53, 18, 204, DateTimeKind.Local).AddTicks(9926),
+                            Id = new Guid("1dfa57eb-bad1-41e3-8dc4-d518da954daf"),
+                            DateFrom = new DateTime(2020, 11, 3, 13, 16, 54, 445, DateTimeKind.Local).AddTicks(5105),
                             Reason = "DummyReason2",
-                            StudentId = new Guid("b92bef62-3853-4b21-a6f4-c6f11bf91a9b")
+                            StudentId = new Guid("666e70e0-7537-42d7-b587-0ad3e2ccce24")
                         },
                         new
                         {
-                            Id = new Guid("cceba541-85c9-4f3f-97c4-c9629e1e0200"),
-                            DateFrom = new DateTime(2020, 11, 3, 12, 53, 18, 204, DateTimeKind.Local).AddTicks(9968),
+                            Id = new Guid("664c3e04-9bda-43b8-80e9-492a4eda7ed3"),
+                            DateFrom = new DateTime(2020, 11, 3, 13, 16, 54, 445, DateTimeKind.Local).AddTicks(5181),
                             Reason = "DummyReason3",
-                            StudentId = new Guid("3f413ea5-a53f-472b-85da-a0d2c0afca6c")
+                            StudentId = new Guid("666e70e0-7537-42d7-b587-0ad3e2ccce24")
                         });
                 });
 #pragma warning restore 612, 618
