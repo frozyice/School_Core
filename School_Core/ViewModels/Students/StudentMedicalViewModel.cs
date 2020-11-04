@@ -11,6 +11,7 @@ namespace School_Core.ViewModels.Students
     {
         public string StudentName { get; set; }
         public List<MedicalGetDto> Medicals { get; set; } = new List<MedicalGetDto>();
+        public MedicalPostDto PostDto { get; set; } = new MedicalPostDto();
         
         public interface IProvider
         {
@@ -31,13 +32,18 @@ namespace School_Core.ViewModels.Students
                 var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
                 if (student is null)
                 {
-                    throw new ArgumentException(nameof(student));
+                    throw new ArgumentException(nameof(studentId));
                 }
                 
                 return new StudentMedicalViewModel
                 {
                     StudentName = student.Name,
-                    Medicals = medicals
+                    Medicals = medicals,
+                    PostDto = new MedicalPostDto
+                    {
+                        Reason = null,
+                        StudentId = student.Id
+                    }
                 };
             }
         }

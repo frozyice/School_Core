@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -40,8 +41,8 @@ namespace School_Core.Controllers
             }
             
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync("https://localhost:3001/api/medical");
-            
+            var response = await httpClient.GetAsync($"https://localhost:3001/api/medical/student/{student.Id}");
+
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var medicals = JsonConvert.DeserializeObject<List<MedicalGetDto>>(content);
@@ -51,10 +52,19 @@ namespace School_Core.Controllers
             //GET
         }
 
-        public async Task<IActionResult> AddMedical()
+        [HttpPost]
+        public async Task<IActionResult> AddMedical(StudentMedicalViewModel viewModel)
         {
-            throw new NotImplementedException();
-            //POST
+            var httpClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:3001/api/medical/student/{viewModel.PostDto.StudentId}");
+            var serialisedContent = JsonConvert.SerializeObject(viewModel.PostDto);
+            request.Content = new StringContent(serialisedContent);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var responce = await httpClient.SendAsync(request);
+            responce.EnsureSuccessStatusCode();
+            
+            return RedirectToAction(nameof(Medical), new {studentId = viewModel.PostDto.StudentId});
         }
 
         public async Task<IActionResult> EditMedicalReason()

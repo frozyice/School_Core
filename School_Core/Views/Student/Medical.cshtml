@@ -16,8 +16,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                 @foreach (var medical in Model.Medicals)
-                 {
+                @foreach (var medical in Model.Medicals)
+                {
                     <tr>
                         <td>
                             @medical.Reason
@@ -33,14 +33,24 @@
                         </td>
 
                     </tr>
-                } 
+                }
                 </tbody>
             </table>
 
         </div>
     </div>
-    <div style="margin-top:20px">
 
-        <a class="btn btn-outline-primary" asp-controller="Student" asp-action="AddMedical">Add New Medical</a>
+    <div class="col-md-6">
+        <form asp-action="AddMedical" method="post">
+        <div style="margin-top:20px" class="form-group">
+            <input asp-for="PostDto.StudentId" type="hidden">
+
+            <label asp-for="PostDto.Reason"></label>
+            <input asp-for="PostDto.Reason" class="form-control">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-primary form-control" >Add New Medical</button>
+        </div>
+        </form>
     </div>
 </div>
