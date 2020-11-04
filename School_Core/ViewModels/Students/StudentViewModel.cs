@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Students;
 using School_Core.Domain.Models.Students.Specs;
@@ -9,6 +10,7 @@ namespace School_Core.ViewModels.Students
 {
     public class StudentViewModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public int YearOfStudy { get; set; }
         public StudyField FieldOfStudy { get; set; }
@@ -53,6 +55,7 @@ namespace School_Core.ViewModels.Students
                 {
                     studentViewModels.Add(new StudentViewModel
                     {
+                        Id = student.Id,
                         Name = student.Name, 
                         YearOfStudy = student.YearOfStudy,
                         FieldOfStudy = student.FieldOfStudy

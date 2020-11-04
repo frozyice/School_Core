@@ -47,6 +47,7 @@ namespace School_Core
             //ViewModelProviders
             services.AddTransient<StudentViewModel.IProvider, StudentViewModel.Provider>();
             services.AddTransient<StudentListViewModel.IProvider, StudentListViewModel.Provider>();
+            services.AddTransient<StudentMedicalViewModel.IProvider, StudentMedicalViewModel.Provider>();
 
             services.AddTransient<TeacherViewModel.IProvider, TeacherViewModel.Provider>();
             services.AddTransient<TeacherListViewModel.IProvider, TeacherListViewModel.Provider>();
