@@ -6,6 +6,7 @@ using School_Core.Domain.Models.Students;
 using School_Core.Queries;
 using School_Core.Specifications;
 using School_Core.Util;
+using School_Core.Util.ModelState;
 using School_Core.ViewModels.Lectures;
 
 namespace School_Core.Controllers

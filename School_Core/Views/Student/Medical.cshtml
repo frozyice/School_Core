@@ -1,0 +1,45 @@
+﻿
+<h1>Model.StudentName</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Reason</th>
+                    <th>Active</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+@*                 @foreach (var medical in Model.StudentViewModels) *@
+@*                 { *@
+                    <tr>
+                        <td>
+                            medical.Reason
+                        </td>
+                        <td>
+                            medical.Active
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditMedicalReason">Edit Reason</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-danger" asp-controller="Student" asp-action="MarkMedicalNotActive">Mark As Not Active</a>
+                        </td>
+
+                    </tr>
+                @* } *@
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div style="margin-top:20px">
+
+        <a class="btn btn-outline-primary" asp-controller="Student" asp-action="AddMedical">Add New Medical</a>
+    </div>
+</div>

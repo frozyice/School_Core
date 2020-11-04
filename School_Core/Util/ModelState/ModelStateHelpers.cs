@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
-namespace School_Core.Util
+namespace School_Core.Util.ModelState
 {
     public static class ModelStateHelpers
     {

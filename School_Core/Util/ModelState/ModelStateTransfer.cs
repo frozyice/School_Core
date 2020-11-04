@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 
 //https://andrewlock.net/post-redirect-get-using-tempdata-in-asp-net-core/
-namespace School_Core.Util
+namespace School_Core.Util.ModelState
 {
     public abstract class ModelStateTransfer : ActionFilterAttribute
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using School_Core.ViewModels.Students;
 
@@ -18,21 +19,30 @@ namespace School_Core.Controllers
             return View(_studentProvider.Provide(filterFirstYearStudents, filterLawStudents));
         }
 
-        public IActionResult RegisterNew()
+        [HttpGet]
+        public async Task<IActionResult> Medical()
         {
             return View();
+            //GET
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult RegisterNew(StudentAddNewViewModel studentAddNewViewModel)
+        public async Task<IActionResult> AddMedical()
         {
             throw new NotImplementedException();
+            //POST
         }
 
-        public IActionResult EditInfo()
+        public async Task<IActionResult> EditMedicalReason()
         {
             throw new NotImplementedException();
+            //PUT
+        }
+
+        public async Task<IActionResult> MarkMedicalNotActive()
+        {
+            throw new NotImplementedException();
+            //DELETE
         }
     }
+    
 }

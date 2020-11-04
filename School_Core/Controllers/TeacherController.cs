@@ -7,6 +7,7 @@ using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
 using School_Core.Specifications;
 using School_Core.Util;
+using School_Core.Util.ModelState;
 using School_Core.ViewModels.Teachers;
 
 [assembly: InternalsVisibleTo("School_Core.Tests")]

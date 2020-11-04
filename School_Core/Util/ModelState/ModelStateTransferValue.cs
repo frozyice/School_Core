@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace School_Core.Util
+namespace School_Core.Util.ModelState
 {
     public class ModelStateTransferValue
     {
