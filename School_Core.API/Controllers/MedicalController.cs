@@ -25,19 +25,19 @@ namespace School_Core.API.Controllers
         public async Task<IActionResult> GetMedicals()
         {
             var medicals = await _dbContext.Medicals.ToListAsync();
-            var medicalsGetDtos = new List<MedicalGetDto>();
+            var medicalReadDtos = new List<MedicalReadDto>();
             foreach (var medical in medicals)
             {
-                var medicalGetDto = new MedicalGetDto()
+                var medicalReadDto = new MedicalReadDto()
                 {
                     Id = medical.Id,
                     StudentId = medical.StudentId, 
                     Active = medical.DateTo is null ? "Yes" : "No",
                     Reason = medical.Reason
                 };
-                medicalsGetDtos.Add(medicalGetDto);
+                medicalReadDtos.Add(medicalReadDto);
             }
-            return Ok(medicalsGetDtos);
+            return Ok(medicalReadDtos);
         }
 
         [HttpGet("{id}")]
@@ -48,46 +48,46 @@ namespace School_Core.API.Controllers
             {
                 return NotFound();
             }
-            var medicalGetDto = new MedicalGetDto()
+            var medicalReadDto = new MedicalReadDto()
             {
                 Id = medical.Id,
                 StudentId = medical.StudentId, 
                 Active = medical.DateTo is null ? "Yes" : "No",
                 Reason = medical.Reason
             };
-            return Ok(medicalGetDto);
+            return Ok(medicalReadDto);
         }
         
         [HttpGet("student/{studentId}")]
         public async Task<IActionResult> GetStudentMedicals(Guid studentId)
         {
             var medicals = await _dbContext.Medicals.Where(x=>x.StudentId == studentId).ToListAsync();
-            var medicalsGetDtos = new List<MedicalGetDto>();
+            var medicalReadDtos = new List<MedicalReadDto>();
             foreach (var medical in medicals)
             {
-                var medicalGetDto = new MedicalGetDto()
+                var medicalReadDto = new MedicalReadDto()
                 {
                     Id = medical.Id,
                     StudentId = medical.StudentId, 
                     Active = medical.DateTo is null ? "Yes" : "No",
                     Reason = medical.Reason
                 };
-                medicalsGetDtos.Add(medicalGetDto);
+                medicalReadDtos.Add(medicalReadDto);
             }
-            return Ok(medicalsGetDtos);
+            return Ok(medicalReadDtos);
         }
         
         [HttpPost("student/{studentId}")]
-        public async Task<IActionResult> AddMedical(Guid studentId, MedicalPostDto medicalPostDto)
+        public async Task<IActionResult> AddMedical(Guid studentId, MedicalWriteDto medicalWriteDto)
         {
-            var medical = new Medical(studentId, medicalPostDto.Reason);
+            var medical = new Medical(studentId, medicalWriteDto.Reason);
             await _dbContext.AddAsync(medical);
             await _dbContext.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetMedical), new {id = medical.Id}, medicalPostDto);
+            return CreatedAtAction(nameof(GetMedical), new {id = medical.Id}, medicalWriteDto);
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMedical(Guid id, MedicalPutDto medicalPutDto)
+        public async Task<IActionResult> UpdateMedical(Guid id, MedicalWriteDto medicalWriteDto)
         {
             var medical = await _dbContext.Medicals.FirstOrDefaultAsync(x => x.Id == id);
             if (medical == null)
@@ -95,7 +95,7 @@ namespace School_Core.API.Controllers
                 return NotFound();
             }
 
-            medical.ChangeReason(medicalPutDto.Reason);
+            medical.ChangeReason(medicalWriteDto.Reason);
             await  _dbContext.SaveChangesAsync();
             return NoContent();
         }
@@ -106,7 +106,7 @@ namespace School_Core.API.Controllers
             var medical = await _dbContext.Medicals.FindAsync(id);
             if (medical is null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             medical.Close();
