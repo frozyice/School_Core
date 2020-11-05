@@ -39,7 +39,7 @@ namespace School_Core
             services.AddTransient<ICommandHandler<EnrollStudentCommand>, EnrollStudentCommand.Handler>();
             services.AddTransient<ICommandHandler<AssignTeacherToLectureCommand>, AssignTeacherToLectureCommand.Handler>();
 
-            //Querys
+            //Queries
             services.AddTransient<IQuery<Lecture>, LectureQuery>();
             services.AddTransient<IQuery<Student>, StudentQuery>();
             services.AddTransient<IQuery<Teacher>, TeacherQuery>();
@@ -64,15 +64,10 @@ namespace School_Core
             services.AddTransient<CounterTableViewModel.IProvider, CounterTableViewModel.Provider>();
 
             services.AddTransient<HomeViewModel.IProvider, HomeViewModel.Provider>();
-
-            //DbContext
+            
             services.AddDbContext<SchoolCoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolDbConnection")));
-            //services.AddScoped(_ => new SchoolCoreDbContext(Configuration.GetConnectionString("SchoolDbConnection")));
-
-            //Util
             services.AddTransient<Messages>();
-
-            //MVC
+            services.AddHttpClient<IDefaultHttpClient, DefaultHttpClient>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
