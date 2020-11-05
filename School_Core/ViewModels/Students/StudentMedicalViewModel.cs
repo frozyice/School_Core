@@ -10,12 +10,13 @@ namespace School_Core.ViewModels.Students
     public class StudentMedicalViewModel
     {
         public string StudentName { get; set; }
-        public List<MedicalGetDto> Medicals { get; set; } = new List<MedicalGetDto>();
-        public MedicalPostDto PostDto { get; set; } = new MedicalPostDto();
-        
+        public Guid StudentId { get; set; }
+        public List<MedicalReadDto> Medicals { get; set; } = new List<MedicalReadDto>();
+        public MedicalWriteDto WriteDto { get; set; } = new MedicalWriteDto();
+
         public interface IProvider
         {
-            StudentMedicalViewModel Provide(Guid studentId, List<MedicalGetDto> medicals);
+            StudentMedicalViewModel Provide(Guid studentId, List<MedicalReadDto> medicals);
         }
         
         public class Provider : IProvider
@@ -27,7 +28,7 @@ namespace School_Core.ViewModels.Students
                 _query = query;
             }
             
-            public StudentMedicalViewModel Provide(Guid studentId,List<MedicalGetDto> medicals)
+            public StudentMedicalViewModel Provide(Guid studentId,List<MedicalReadDto> medicals)
             {
                 var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
                 if (student is null)
@@ -38,11 +39,11 @@ namespace School_Core.ViewModels.Students
                 return new StudentMedicalViewModel
                 {
                     StudentName = student.Name,
+                    StudentId = student.Id,
                     Medicals = medicals,
-                    PostDto = new MedicalPostDto
+                    WriteDto = new MedicalWriteDto
                     {
                         Reason = null,
-                        StudentId = student.Id
                     }
                 };
             }

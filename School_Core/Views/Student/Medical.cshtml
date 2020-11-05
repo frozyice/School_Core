@@ -1,4 +1,5 @@
-﻿@model School_Core.ViewModels.Students.StudentMedicalViewModel
+﻿@using School_Core.API.DTOs
+@model School_Core.ViewModels.Students.StudentMedicalViewModel
 
 <h1>@Model.StudentName</h1>
 
@@ -26,10 +27,26 @@
                             @medical.Active
                         </td>
                         <td>
-                            <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditMedicalReason">Edit Reason</a>
+                            @{
+                                var medicalId = @medical.Id;
+                                var updateMedical = new MedicalWriteDto
+                                {
+                                    Reason = medical.Reason
+                                };
+                            }
+                            <form method="post" asp-action="EditMedicalReason">
+                                <input asp-for="@medicalId" type="hidden">
+                                <input asp-for="StudentId" type="hidden">
+                                <input asp-for="@updateMedical.Reason" type="hidden">
+                                <button class="btn btn-outline-primary" type="submit">Edit Reason</button>
+                            </form>
                         </td>
                         <td>
-                            <a class="btn btn-outline-danger" asp-controller="Student" asp-action="MarkMedicalNotActive">Mark As Not Active</a>
+                            <form method="post" asp-action="MarkMedicalNotActive">
+                                <input asp-for="@medicalId" type="hidden">
+                                <input asp-for="StudentId" type="hidden">
+                                <button class="btn btn-outline-danger" type="submit">Mark As Not Active</button>
+                            </form>
                         </td>
 
                     </tr>
@@ -42,15 +59,15 @@
 
     <div class="col-md-6">
         <form asp-action="AddMedical" method="post">
-        <div style="margin-top:20px" class="form-group">
-            <input asp-for="PostDto.StudentId" type="hidden">
+            <div style="margin-top:20px" class="form-group">
+                <input asp-for="StudentId" type="hidden">
 
-            <label asp-for="PostDto.Reason"></label>
-            <input asp-for="PostDto.Reason" class="form-control">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-outline-primary form-control" >Add New Medical</button>
-        </div>
+                <label asp-for="WriteDto.Reason"></label>
+                <input asp-for="WriteDto.Reason" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary form-control">Add New Medical</button>
+            </div>
         </form>
     </div>
 </div>

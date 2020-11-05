@@ -39,45 +39,61 @@ namespace School_Core.Controllers
             {
                 return NotFound();
             }
-            
+
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync($"https://localhost:3001/api/medical/student/{student.Id}");
 
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            var medicals = JsonConvert.DeserializeObject<List<MedicalGetDto>>(content);
+            var medicals = JsonConvert.DeserializeObject<List<MedicalReadDto>>(content);
 
             var model = _medicalViewModelProvider.Provide(student.Id, medicals);
             return View(model);
-            //GET
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMedical(StudentMedicalViewModel viewModel)
+        public async Task<IActionResult> AddMedical(Guid studentId, MedicalWriteDto writeDto)
         {
             var httpClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:3001/api/medical/student/{viewModel.PostDto.StudentId}");
-            var serialisedContent = JsonConvert.SerializeObject(viewModel.PostDto);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:3001/api/medical/student/{studentId}");
+            var serialisedContent = JsonConvert.SerializeObject(writeDto);
+            request.Content = new StringContent(serialisedContent);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            return RedirectToAction(nameof(Medical), new {studentId});
+        }
+
+        [HttpPost]
+        //PUT
+        public async Task<IActionResult> EditMedicalReason(Guid medicalId, Guid studentId, MedicalWriteDto updateMedical)
+        {
+            updateMedical.Reason = updateMedical.Reason + "*";
+            var serialisedContent = JsonConvert.SerializeObject(updateMedical);
+            var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:3001/api/medical/{medicalId}");
+            var httpClient = new HttpClient();
             request.Content = new StringContent(serialisedContent);
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var responce = await httpClient.SendAsync(request);
             responce.EnsureSuccessStatusCode();
             
-            return RedirectToAction(nameof(Medical), new {studentId = viewModel.PostDto.StudentId});
+            return RedirectToAction(nameof(Medical), new {studentId});
         }
 
-        public async Task<IActionResult> EditMedicalReason()
+        [HttpPost]
+        //DELETE
+        public async Task<IActionResult> MarkMedicalNotActive(Guid medicalId, Guid studentId)
         {
-            throw new NotImplementedException();
-            //PUT
-        }
+            var httpClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"https://localhost:3001/api/medical/{medicalId}");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        public async Task<IActionResult> MarkMedicalNotActive()
-        {
-            throw new NotImplementedException();
-            //DELETE
+            var response = await httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            return RedirectToAction(nameof(Medical), new {studentId});
         }
     }
-    
 }
