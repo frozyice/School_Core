@@ -39,10 +39,10 @@ namespace School_Core.Controllers
             var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
             if (student is null)
             {
-                return NotFound();
+                throw new ArgumentException(nameof(studentId));
             }
             var response = await _httpClient.GetAsync($"medical/student/{student.Id}");
-
+            
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var medicals = JsonConvert.DeserializeObject<List<MedicalReadDto>>(content);
@@ -54,31 +54,49 @@ namespace School_Core.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMedical(Guid studentId, MedicalWriteDto writeDto)
         {
-            var response = await _httpClient.PostAsync($"medical/student/{studentId}", writeDto);
+            var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
+            if (student is null)
+            {
+                throw new ArgumentException(nameof(studentId));
+            }
+            
+            var response = await _httpClient.PostAsync($"medical/student/{student.Id}", writeDto);
             response.EnsureSuccessStatusCode();
             
-            return RedirectToAction(nameof(Medical), new {studentId});
+            return RedirectToAction(nameof(Medical), new {student.Id});
         }
 
         [HttpPost]
         //PUT
         public async Task<IActionResult> EditMedicalReason(Guid medicalId, Guid studentId, MedicalWriteDto updateMedical)
         {
+            var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
+            if (student is null)
+            {
+                throw new ArgumentException(nameof(studentId));
+            }
+            
             updateMedical.Reason = updateMedical.Reason + "*";
             var response = await _httpClient.PutAsync($"medical/{medicalId}", updateMedical);
             response.EnsureSuccessStatusCode();
             
-            return RedirectToAction(nameof(Medical), new {studentId});
+            return RedirectToAction(nameof(Medical), new {student.Id});
         }
 
         [HttpPost]
         //DELETE
         public async Task<IActionResult> MarkMedicalNotActive(Guid medicalId, Guid studentId)
         {
+            var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
+            if (student is null)
+            {
+                throw new ArgumentException(nameof(studentId));
+            }
+            
             var response = await _httpClient.DeleteAsync($"medical/{medicalId}");
             response.EnsureSuccessStatusCode();
             
-            return RedirectToAction(nameof(Medical), new {studentId});
+            return RedirectToAction(nameof(Medical), new {student.Id});
         }
     }
 }
