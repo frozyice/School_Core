@@ -3,6 +3,26 @@
 
 <h1>@Model.StudentName</h1>
 
+@if (Model.IsRedirectedWithSuccess)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Succsess!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (!ViewContext.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Failed!</strong> <span asp-validation-for="alert"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <div class="container">
     <div class="row">
         <div class="col">

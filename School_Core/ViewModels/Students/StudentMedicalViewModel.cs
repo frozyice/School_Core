@@ -9,6 +9,8 @@ namespace School_Core.ViewModels.Students
 {
     public class StudentMedicalViewModel
     {
+        public object alert;
+        public bool IsRedirectedWithSuccess { get; set; }
         public string StudentName { get; set; }
         public Guid StudentId { get; set; }
         public List<MedicalReadDto> Medicals { get; set; } = new List<MedicalReadDto>();
@@ -16,7 +18,7 @@ namespace School_Core.ViewModels.Students
 
         public interface IProvider
         {
-            StudentMedicalViewModel Provide(Guid studentId, List<MedicalReadDto> medicals);
+            StudentMedicalViewModel Provide(Guid studentId, List<MedicalReadDto> medicals, bool isRedirectedWithSuccess);
         }
         
         public class Provider : IProvider
@@ -28,7 +30,7 @@ namespace School_Core.ViewModels.Students
                 _query = query;
             }
             
-            public StudentMedicalViewModel Provide(Guid studentId,List<MedicalReadDto> medicals)
+            public StudentMedicalViewModel Provide(Guid studentId, List<MedicalReadDto> medicals, bool isRedirectedWithSuccess)
             {
                 var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
                 if (student is null)
@@ -38,6 +40,7 @@ namespace School_Core.ViewModels.Students
                 
                 return new StudentMedicalViewModel
                 {
+                    IsRedirectedWithSuccess = isRedirectedWithSuccess,
                     StudentName = student.Name,
                     StudentId = student.Id,
                     Medicals = medicals,

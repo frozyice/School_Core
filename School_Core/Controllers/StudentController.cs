@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using School_Core.Domain.Models.Students;
 using School_Core.Queries;
 using School_Core.Specifications;
 using School_Core.Util;
+using School_Core.Util.ModelState;
 using School_Core.ViewModels.Students;
 
 namespace School_Core.Controllers
@@ -34,6 +36,7 @@ namespace School_Core.Controllers
         }
 
         [HttpGet]
+        [ImportModelState]
         public async Task<IActionResult> Medical(Guid studentId)
         {
             var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
@@ -41,17 +44,27 @@ namespace School_Core.Controllers
             {
                 throw new ArgumentException(nameof(studentId));
             }
+
             var response = await _httpClient.GetAsync($"medical/student/{student.Id}");
-            
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("alert", "Request failed successfully!");
+                return View(_medicalViewModelProvider.Provide(student.Id, new List<MedicalReadDto>(), false));
+            }
             var content = await response.Content.ReadAsStringAsync();
             var medicals = JsonConvert.DeserializeObject<List<MedicalReadDto>>(content);
-
-            var model = _medicalViewModelProvider.Provide(student.Id, medicals);
+            var isRedirectedWithSuccess = false;
+            if (TempData.ContainsKey("redirectWithSuccess"))
+            {
+                isRedirectedWithSuccess = (bool) TempData["redirectWithSuccess"];
+            }
+            var model = _medicalViewModelProvider.Provide(student.Id, medicals, isRedirectedWithSuccess);
             return View(model);
         }
 
         [HttpPost]
+        [ExportModelState]
         public async Task<IActionResult> AddMedical(Guid studentId, MedicalWriteDto writeDto)
         {
             var student = _query.GetSingleOrDefault(new HasIdSpec<Student>(studentId));
@@ -61,12 +74,18 @@ namespace School_Core.Controllers
             }
             
             var response = await _httpClient.PostAsync($"medical/student/{student.Id}", writeDto);
-            response.EnsureSuccessStatusCode();
-            
-            return RedirectToAction(nameof(Medical), new {student.Id});
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("alert", "Request failed successfully!");
+                return RedirectToAction(nameof(Medical), new {studentId = student.Id});
+            }
+            TempData.Add("redirectWithSuccess", true);
+            return RedirectToAction(nameof(Medical), new {studentId = student.Id});
         }
 
         [HttpPost]
+        [ExportModelState]
         //PUT
         public async Task<IActionResult> EditMedicalReason(Guid medicalId, Guid studentId, MedicalWriteDto updateMedical)
         {
@@ -78,12 +97,22 @@ namespace School_Core.Controllers
             
             updateMedical.Reason = updateMedical.Reason + "*";
             var response = await _httpClient.PutAsync($"medical/{medicalId}", updateMedical);
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new ArgumentException(nameof(medicalId));
+            }
             
-            return RedirectToAction(nameof(Medical), new {student.Id});
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("alert", "Request failed successfully!");
+                return RedirectToAction(nameof(Medical), new {studentId = student.Id});
+            }
+            TempData.Add("redirectWithSuccess", true);
+            return RedirectToAction(nameof(Medical), new {studentId = student.Id});
         }
 
         [HttpPost]
+        [ExportModelState]
         //DELETE
         public async Task<IActionResult> MarkMedicalNotActive(Guid medicalId, Guid studentId)
         {
@@ -94,9 +123,18 @@ namespace School_Core.Controllers
             }
             
             var response = await _httpClient.DeleteAsync($"medical/{medicalId}");
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new ArgumentException(nameof(medicalId));
+            }
             
-            return RedirectToAction(nameof(Medical), new {student.Id});
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("alert", "Request failed successfully!");
+                return RedirectToAction(nameof(Medical), new {studentId = student.Id});
+            }
+            TempData.Add("redirectWithSuccess", true);
+            return RedirectToAction(nameof(Medical), new {studentId = student.Id});
         }
     }
 }
