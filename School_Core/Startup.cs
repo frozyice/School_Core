@@ -67,7 +67,7 @@ namespace School_Core
             
             services.AddDbContext<SchoolCoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolDbConnection")));
             services.AddTransient<Messages>();
-            services.AddHttpClient<IDefaultHttpClient, DefaultHttpClient>();
+            services.AddHttpClient<IMedicalHttpClient, MedicalHttpClient>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 

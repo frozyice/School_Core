@@ -23,7 +23,7 @@ namespace TestingTests.Controllers
     public class StudentControllerTests
     {
         private Mock<IQuery<Student>> _queryMock;
-        private Mock<IDefaultHttpClient> _httpClientMock;
+        private Mock<IMedicalHttpClient> _httpClientMock;
         private Mock<StudentListViewModel.IProvider> _studentListViewModelProviderMock;
         private Mock<StudentMedicalViewModel.IProvider> _medicalViewModelProviderMock;
         private StudentController _sut;
@@ -32,7 +32,7 @@ namespace TestingTests.Controllers
         public void Setup()
         {
             _queryMock = new Mock<IQuery<Student>>();
-            _httpClientMock = new Mock<IDefaultHttpClient>();
+            _httpClientMock = new Mock<IMedicalHttpClient>();
             _studentListViewModelProviderMock = new Mock<StudentListViewModel.IProvider>();
             _medicalViewModelProviderMock = new Mock<StudentMedicalViewModel.IProvider>();
             _sut = new StudentController

@@ -17,11 +17,11 @@ namespace School_Core.Controllers
     public class StudentController : Controller
     {
         private readonly IQuery<Student> _query;
-        private readonly IDefaultHttpClient _httpClient;
+        private readonly IMedicalHttpClient _httpClient;
         private readonly StudentListViewModel.IProvider _studentListViewmodelProvider;
         private readonly StudentMedicalViewModel.IProvider _medicalViewModelProvider;
 
-        public StudentController(IQuery<Student> query, IDefaultHttpClient httpClient, StudentListViewModel.IProvider studentListViewmodelProvider,
+        public StudentController(IQuery<Student> query, IMedicalHttpClient httpClient, StudentListViewModel.IProvider studentListViewmodelProvider,
             StudentMedicalViewModel.IProvider medicalViewModelProvider)
         {
             _query = query;

@@ -9,7 +9,7 @@ using School_Core.API.DTOs;
 
 namespace School_Core.Util
 {
-    public interface IDefaultHttpClient
+    public interface IMedicalHttpClient
     {
         public HttpClient Client { get; }
         public Task<HttpResponseMessage> GetAsync(string requestUri);
@@ -18,11 +18,11 @@ namespace School_Core.Util
         public Task<HttpResponseMessage> DeleteAsync(string requestUri);
     }
 
-    public class DefaultHttpClient : IDefaultHttpClient
+    public class MedicalHttpClient : IMedicalHttpClient
     {
         public HttpClient Client { get; }
 
-        public DefaultHttpClient(HttpClient client)
+        public MedicalHttpClient(HttpClient client)
         {
             client.BaseAddress = new Uri("https://localhost:3001/api/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
