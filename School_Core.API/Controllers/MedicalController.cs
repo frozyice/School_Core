@@ -11,7 +11,7 @@ using School_Core.API.Models;
 namespace School_Core.API.Controllers
 {
     [ApiController]
-    [Route("api/medical")]
+    [Route("medical")]
     public class MedicalController : ControllerBase
     {
         private readonly SchoolMedicalDbContext _dbContext;

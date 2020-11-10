@@ -24,7 +24,7 @@ namespace School_Core.Util
 
         public MedicalHttpClient(HttpClient client)
         {
-            client.BaseAddress = new Uri("https://localhost:3001/api/");
+            client.BaseAddress = new Uri("https://localhost:3001/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             Client = client;
         }
