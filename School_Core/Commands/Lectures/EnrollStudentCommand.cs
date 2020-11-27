@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using School_Core.Contexts;
 using School_Core.Domain.Models.Lectures;
 using School_Core.Domain.Models.Lectures.Specs;
 using School_Core.Domain.Models.Students;
 using School_Core.Queries;
 using School_Core.Specifications;
+using School_Core.Util;
 
 namespace School_Core.Commands.Lectures
 {
@@ -32,7 +34,7 @@ namespace School_Core.Commands.Lectures
                 _studentQuery = studentQuery;
             }
 
-            public bool Handle(EnrollStudentCommand command)
+            public Result Handle(EnrollStudentCommand command)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.LectureId));
                 if (lecture is null) throw new ArgumentException(nameof(command.LectureId));
@@ -40,15 +42,41 @@ namespace School_Core.Commands.Lectures
                 var student = _studentQuery.GetSingleOrDefault(new HasNameSpec<Student>(command.StudentName));
                 if (student is null) throw new ArgumentException(nameof(command.StudentName));
 
-                var canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture);
-                if (canEnroll)
+                var hasOpenLectureStatus = new HasOpenLectureStatusSpec().IsSatisfiedBy(lecture);
+                if (!hasOpenLectureStatus)
                 {
-                    lecture.EnrollStudent(student);
-                    _dbContext.SaveChanges();
-                    return true;
+                    return Result.Fail("alert", "Can not enroll, lecture is not open for enrollments");
+                }
+                
+                var errors = new List<Result.KeyErrorPair>();
+                
+                var hasExistingEnrollment = new HasExistingEnrollmentSpec(student.Id).IsSatisfiedBy(lecture);
+                if (hasExistingEnrollment)
+                {
+                    errors.Add(new Result.KeyErrorPair(null, "Can not enroll, lecture has already this student enrolled"));
+                }
+                
+                var hasYearOfStudyToEnroll = new HasYearOfStudyToEnrollSpec(student.YearOfStudy).IsSatisfiedBy(lecture);
+                if (!hasYearOfStudyToEnroll)
+                {
+                    errors.Add(new Result.KeyErrorPair(null, "Can not enroll, student does not have required years of study."));
+                }
+                
+                var hasFieldOfStudyToEnroll = new HasFieldOfStudyToEnrollSpec(student.FieldOfStudy).IsSatisfiedBy(lecture);
+                if (!hasFieldOfStudyToEnroll)
+                {
+                    errors.Add(new Result.KeyErrorPair(null,"Can not enroll, student does not have correct field of study."));
                 }
 
-                return false;
+                var canEnroll = new CanEnrollSpec(student).IsSatisfiedBy(lecture);
+                if (!canEnroll)
+                {
+                    return Result.Fail(errors);
+                }
+                    lecture.EnrollStudent(student);
+                    _dbContext.SaveChanges();
+                    return Result.Success();
+                
             }
         }
     }

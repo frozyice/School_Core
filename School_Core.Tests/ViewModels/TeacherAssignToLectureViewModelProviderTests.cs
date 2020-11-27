@@ -50,6 +50,17 @@ namespace TestingTests.ViewModels
         }
         
         [Test]
+        public void Provide_Throws_ArgumentException_When_Teacher_Does_Not_Exist()
+        {
+            //Act
+            Action result = () => _sut.Provide(_teacher.Id);
+            
+            //Assert
+            object teacherId;
+            result.Should().Throw<ArgumentException>().WithMessage(nameof(teacherId));
+        }
+        
+        [Test]
         public void Provide_Returns_ViewModel_When_Teacher_Exists()
         {
             _lectureViewModelProvider.Setup(x => x.Provide()).Returns(_lectureViewModels);
@@ -65,15 +76,5 @@ namespace TestingTests.ViewModels
             result.Lectures.Should().Contain(_lectureViewModel);
         }
 
-        [Test]
-        public void Provide_Throws_ViewModel_When_Teacher_Does_Not_Exist()
-        {
-            //Act
-            Action result = () => _sut.Provide(_teacher.Id);
-            
-            //Assert
-            object teacherId;
-            result.Should().Throw<ArgumentException>().WithMessage(nameof(teacherId));
-        }
     }
 }

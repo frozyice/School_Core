@@ -22,7 +22,7 @@ namespace School_Core.Domain.Models.Lectures.Specs
         public override Specification<Lecture> Specification =>
             new HasExistingEnrollmentSpec(StudentId).Negate() &&
             new HasYearOfStudyToEnrollSpec(YearOfStudy) &&
-            new HasOpenLectureStatus() &&
+            new HasOpenLectureStatusSpec() &&
             new HasFieldOfStudyToEnrollSpec(FieldOfStudy);
     }
     
@@ -51,7 +51,7 @@ namespace School_Core.Domain.Models.Lectures.Specs
         internal override Expression<Func<Lecture, bool>> Predicate => x => x.EnrollableFromYear <= YearOfStudy;
     }
     
-    public class HasOpenLectureStatus : Specification<Lecture>
+    public class HasOpenLectureStatusSpec : Specification<Lecture>
     {
         internal override Expression<Func<Lecture, bool>> Predicate => x => x.Status == LectureStatus.Open;
     }

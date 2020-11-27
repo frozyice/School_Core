@@ -34,14 +34,13 @@ namespace TestingTests.Commands
             _dbContextMock.Database.EnsureDeleted();
         }
 
-
         [Test]
-        public void Handle_Throws_ArgumentException_When_Lecture_Is_Null()
+        public void Handle_Throws_ArgumentException_When_Lecture_Is_Not_Found()
         {
             var lecture = new Lecture("name");
             var student = new Student("name");
             var command = new EnrollStudentCommand(lecture.Id, student.Name);
-            
+
             _dbContextMock.Add(student);
             _dbContextMock.SaveChanges();
 
@@ -53,12 +52,12 @@ namespace TestingTests.Commands
         }
 
         [Test]
-        public void Handle_Throws_ArgumentException_When_Student_Is_Null()
+        public void Handle_Throws_ArgumentException_When_Student_Is_Not_Found()
         {
             var lecture = new Lecture("name");
             var student = new Student("name");
             var command = new EnrollStudentCommand(lecture.Id, student.Name);
-            
+
             _dbContextMock.Add(lecture);
             _dbContextMock.SaveChanges();
 
@@ -70,12 +69,37 @@ namespace TestingTests.Commands
         }
 
         [Test]
-        public void Handle_Returns_False_And_Does_Not_Enroll_Student_To_lecture_When_Student_Has_Enrollment()
+        public void Handle_Returns_ResultFail_When_Lecture_Is_Not_Open()
         {
             var lecture = new Lecture("name");
             var student = new Student("name");
             var command = new EnrollStudentCommand(lecture.Id, student.Name);
-            
+
+            _dbContextMock.AddRange(lecture, student);
+            lecture.CloseLecture();
+            _dbContextMock.SaveChanges();
+
+            //Act
+            var result = _sut.Handle(command);
+
+            //Assert
+            Enrollment expectedEnrollment;
+            using (var context = DbContextFactory.GetInMemoryDbContext())
+            {
+                expectedEnrollment = context.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
+            }
+            result.isSuccess.Should().BeFalse();
+            Assert.That(expectedEnrollment, Is.Null);
+            result.Errors.Should().Contain(x => x.Key == "alert" && x.Error == "Can not enroll, lecture is not open for enrollments");
+        }
+
+        [Test]
+        public void Handle_Returns_ResultFail_When_Student_Has_Enrollment()
+        {
+            var lecture = new Lecture("name");
+            var student = new Student("name");
+            var command = new EnrollStudentCommand(lecture.Id, student.Name);
+
             _dbContextMock.Add(student);
             _dbContextMock.Add(lecture);
             lecture.EnrollStudent(student);
@@ -91,34 +115,59 @@ namespace TestingTests.Commands
                 enrollments = context.Enrollments.Where(e => e.LectureId == lecture.Id).ToList(); //.Lectures.Where(l => l.Id == lecture.Id).Include(x => x.Enrollments).ToList();
             }
 
-            Assert.That(result, Is.False);
+            Assert.That(result.isSuccess, Is.False);
             Assert.That(enrollments.Count, Is.EqualTo(1));
+            result.Errors.Should().Contain(x => x.Key == "" && x.Error == "Can not enroll, lecture has already this student enrolled");
         }
 
-        [TestCase(1, StudyField.Law)]
-        [TestCase(2, StudyField.None)]
-        [TestCase(1, StudyField.None)]
-        public void Handle_Returns_False_And_Does_Not_Enroll_Student_To_lecture_When_Student_Is_Not_Allowed_To_Enroll(int studentYearOfStudy, StudyField studentStudyField)
+        [Test]
+        public void Handle_Returns_ResultFail_When_Student_Does_Not_Have_Required_Years_Of_Study_To_Enroll()
         {
-            var student = new Student("name", studentYearOfStudy, studentStudyField);
+            var student = new Student("name", 1, StudyField.Law);
             var lecture = new Lecture("name", 2, StudyField.Law);
             _dbContextMock.AddRange(student, lecture);
             _dbContextMock.SaveChanges();
-            
+
             var command = new EnrollStudentCommand(lecture.Id, student.Name);
 
             //Act
             var result = _sut.Handle(command);
 
             //Assert
-            Enrollment resultEnrollment;
+            Enrollment expectedEnrollment;
             using (var context = DbContextFactory.GetInMemoryDbContext())
             {
-                resultEnrollment = context.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
+                expectedEnrollment = context.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
             }
 
-            Assert.That(result, Is.False);
-            Assert.That(resultEnrollment, Is.Null);
+            Assert.That(result.isSuccess, Is.False);
+            Assert.That(expectedEnrollment, Is.Null);
+            result.Errors.Should().Contain(x => x.Key == "" && x.Error == "Can not enroll, student does not have required years of study.");
+        }
+        
+        [Test]
+        public void Handle_Returns_ResultFail_When_Student_Does_Not_Have_Correct_Field_Of_Study()
+        {
+            var student = new Student("name", 1, StudyField.None);
+            var lecture = new Lecture("name", 1, StudyField.Law);
+            _dbContextMock.AddRange(student, lecture);
+            _dbContextMock.SaveChanges();
+
+            var command = new EnrollStudentCommand(lecture.Id, student.Name);
+
+            //Act
+            var result = _sut.Handle(command);
+
+            //Assert
+            Enrollment expectedEnrollment;
+            using (var context = DbContextFactory.GetInMemoryDbContext())
+            {
+                expectedEnrollment = context.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
+            }
+
+            Assert.That(result.isSuccess, Is.False);
+            Assert.That(expectedEnrollment, Is.Null);
+            result.Errors.Should().Contain(x => x.Key == "" && x.Error == "Can not enroll, student does not have correct field of study.");
         }
 
         [TestCase(1, StudyField.None)]
@@ -129,7 +178,7 @@ namespace TestingTests.Commands
         [TestCase(2, StudyField.None, 2, StudyField.None)]
         [TestCase(2, StudyField.Law, 2, StudyField.None)]
         [TestCase(2, StudyField.Law, 2, StudyField.Law)]
-        public void Handle_Returns_True_And_Enrolls_Student_To_lecture_When_Student_Is_Allowed_To_Enroll(int studentYearOfStudy, StudyField studentStudyField,
+        public void Handle_Returns_ResultSuccess_And_Enrolls_Student_To_lecture_When_Student_Is_Allowed_To_Enroll(int studentYearOfStudy, StudyField studentStudyField,
             int lectureEnrollableFromYear = 1, StudyField lectureStudyField = StudyField.None)
         {
             var student = new Student("name", studentYearOfStudy, studentStudyField);
@@ -144,15 +193,15 @@ namespace TestingTests.Commands
             var result = _sut.Handle(command);
 
             //Assert
-            Enrollment resultEnrollment;
+            Enrollment expectedEnrollment;
             using (var context = DbContextFactory.GetInMemoryDbContext())
             {
-                resultEnrollment = context.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
+                expectedEnrollment = context.Enrollments.Where(x => x.StudentId == student.Id).SingleOrDefault();
             }
 
-            Assert.That(result, Is.True);
-            Assert.That(resultEnrollment.LectureId, Is.EqualTo(lecture.Id));
-            Assert.That(resultEnrollment.StudentId, Is.EqualTo(student.Id));
+            Assert.That(result.isSuccess, Is.True);
+            Assert.That(expectedEnrollment.LectureId, Is.EqualTo(lecture.Id));
+            Assert.That(expectedEnrollment.StudentId, Is.EqualTo(student.Id));
         }
     }
 }

@@ -33,13 +33,13 @@ namespace School_Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Commands
+            //Command Handlers
             services.AddTransient<ICommandHandler<CloseLectureCommand>, CloseLectureCommand.Handler>();
             services.AddTransient<ICommandHandler<ArchiveLectureCommand>, ArchiveLectureCommand.Handler>();
             services.AddTransient<ICommandHandler<EnrollStudentCommand>, EnrollStudentCommand.Handler>();
             services.AddTransient<ICommandHandler<AssignTeacherToLectureCommand>, AssignTeacherToLectureCommand.Handler>();
 
-            //Querys
+            //Queries
             services.AddTransient<IQuery<Lecture>, LectureQuery>();
             services.AddTransient<IQuery<Student>, StudentQuery>();
             services.AddTransient<IQuery<Teacher>, TeacherQuery>();
@@ -47,6 +47,7 @@ namespace School_Core
             //ViewModelProviders
             services.AddTransient<StudentViewModel.IProvider, StudentViewModel.Provider>();
             services.AddTransient<StudentListViewModel.IProvider, StudentListViewModel.Provider>();
+            services.AddTransient<StudentMedicalViewModel.IProvider, StudentMedicalViewModel.Provider>();
 
             services.AddTransient<TeacherViewModel.IProvider, TeacherViewModel.Provider>();
             services.AddTransient<TeacherListViewModel.IProvider, TeacherListViewModel.Provider>();
@@ -63,15 +64,10 @@ namespace School_Core
             services.AddTransient<CounterTableViewModel.IProvider, CounterTableViewModel.Provider>();
 
             services.AddTransient<HomeViewModel.IProvider, HomeViewModel.Provider>();
-
-            //DbContext
+            
             services.AddDbContext<SchoolCoreDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SchoolDbConnection")));
-            //services.AddScoped(_ => new SchoolCoreDbContext(Configuration.GetConnectionString("SchoolDbConnection")));
-
-            //Util
             services.AddTransient<Messages>();
-
-            //MVC
+            services.AddHttpClient<IMedicalHttpClient, MedicalHttpClient>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 

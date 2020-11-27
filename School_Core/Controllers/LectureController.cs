@@ -6,6 +6,7 @@ using School_Core.Domain.Models.Students;
 using School_Core.Queries;
 using School_Core.Specifications;
 using School_Core.Util;
+using School_Core.Util.ModelState;
 using School_Core.ViewModels.Lectures;
 
 namespace School_Core.Controllers
@@ -35,40 +36,72 @@ namespace School_Core.Controllers
             _lectureAddStudentProvider = lectureAddStudentProvider;
         }
 
+        [ImportModelState]
         public IActionResult List()
         {
-            return View(_lectureListProvider.Provide());
+            var isRedirectedWithSuccess = false;
+            if (TempData.ContainsKey("redirectWithSuccess"))
+            {
+                isRedirectedWithSuccess = (bool) TempData["redirectWithSuccess"];
+            }
+            
+            var model = _lectureListProvider.Provide(isRedirectedWithSuccess);
+            return View(model);
         }
 
+        [ExportModelState]
         public IActionResult CloseLecture(Guid id)
         {
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture is null) return NotFound();
 
             var command = new CloseLectureCommand(id);
-            _messages.Dispatch(command);
-
+            var result = _messages.Dispatch(command);
+            if (!result.isSuccess)
+            {
+                result.Errors.ForEach(x => ModelState.AddModelError(x.Key, x.Error));
+                return RedirectToAction(nameof(List));
+            }
+            
+            TempData.Add("redirectWithSuccess", true);
             return RedirectToAction(nameof(List));
-            //todo: Võiks kasutajale ka kuidagi teada anda, et õnnestusime 
         }
 
+
+        [ExportModelState]
         public IActionResult ArchiveLecture(Guid id)
         {
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture is null) return NotFound();
 
             var command = new ArchiveLectureCommand(id);
-            _messages.Dispatch(command);
+            var result = _messages.Dispatch(command);
+            if (!result.isSuccess)
+            {
+                result.Errors.ForEach(x => ModelState.AddModelError(x.Key, x.Error));
+                return RedirectToAction(nameof(List));
+            }
+            
+            TempData.Add("redirectWithSuccess", true);
             return RedirectToAction(nameof(List));
         }
 
 
+        [ImportModelState]
         public IActionResult Details(Guid id)
         {
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
             if (lecture is null) return NotFound();
+            
+            var isRedirectedWithSuccess = false;
+            if (TempData.ContainsKey("redirectWithSuccess"))
+            {
+                isRedirectedWithSuccess = (bool) TempData["redirectWithSuccess"];
+            }
+            
+            var model = _lectureDetailsProvider.Provide(id, isRedirectedWithSuccess);
 
-            return View(_lectureDetailsProvider.Provide(id));
+            return View(model);
         }
 
         public IActionResult EnrollStudent(Guid id)
@@ -81,6 +114,7 @@ namespace School_Core.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ExportModelState]
         public IActionResult EnrollStudent(EnrollStudentViewModel viewModel)
         {
             var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(viewModel.LectureId));
@@ -89,14 +123,24 @@ namespace School_Core.Controllers
             var student = _studentQuery.GetSingleOrDefault(new HasNameSpec<Student>(viewModel.StudentName));
             if (student is null) return NotFound();
 
+
             var command = new EnrollStudentCommand(lecture.Id, student.Name);
-            var isSuccess = _messages.Dispatch(command);
-            if (!isSuccess)
+            var result = _messages.Dispatch(command);
+            if (!result.isSuccess)
             {
-                //todo võiks veateade olla, kas commandist võiks juba Result tulla näiteks 
+                result.Errors.ForEach(x => ModelState.AddModelError(x.Key, x.Error));
+                if (ModelState.ContainsKey("alert"))
+                {
+                    return RedirectToAction(nameof(Details), new {id = lecture.Id});
+                }
+                else
+                {
+                    return View(_lectureAddStudentProvider.Provide(viewModel.LectureId));
+                }
             }
 
-            return RedirectToAction(nameof(Details), new {lecture.Id});
+            TempData.Add("redirectWithSuccess", true);
+            return RedirectToAction(nameof(Details), new {id = lecture.Id});
         }
 
         public IActionResult GradeStudent()

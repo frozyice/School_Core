@@ -31,7 +31,7 @@
                             @student.FieldOfStudy
                         </td>
                         <td>
-                            <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditInfo">Edit Student Info</a>
+                            <a class="btn btn-outline-primary" asp-controller="Student" asp-action="Medical" asp-route-studentId="@student.Id">Student Medical Info</a>
                         </td>
 
                     </tr>
@@ -49,10 +49,6 @@
             <input asp-for="FilterLawStudents"/>
             <button class="btn btn-outline-primary" type="submit">Filter</button>
         </form>
-    </div>
-    <div style="margin-top:20px">
-
-        <a class="btn btn-outline-primary" asp-controller="Student" asp-action="RegisterNew">Register New</a>
     </div>
     <div style="margin-top:20px">
         @await Component.InvokeAsync("Counter", new {color = Model.HeadingColor, shouldAddTeachers = false})

@@ -1,0 +1,93 @@
+﻿@using School_Core.API.DTOs
+@model School_Core.ViewModels.Students.StudentMedicalViewModel
+
+<h1>@Model.StudentName</h1>
+
+@if (Model.IsRedirectedWithSuccess)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Succsess!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (!ViewContext.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Failed!</strong> <span asp-validation-for="alert"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Reason</th>
+                    <th>Active</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var medical in Model.Medicals)
+                {
+                    <tr>
+                        <td>
+                            @medical.Reason
+                        </td>
+                        <td>
+                            @medical.Active
+                        </td>
+                        <td>
+                            @{
+                                var medicalId = @medical.Id;
+                                var updateMedical = new MedicalWriteDto
+                                {
+                                    Reason = medical.Reason
+                                };
+                            }
+                            <form method="post" asp-action="EditMedicalReason">
+                                <input asp-for="@medicalId" type="hidden">
+                                <input asp-for="StudentId" type="hidden">
+                                <input asp-for="@updateMedical.Reason" type="hidden">
+                                <button class="btn btn-outline-primary" type="submit">Edit Reason</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" asp-action="MarkMedicalNotActive">
+                                <input asp-for="@medicalId" type="hidden">
+                                <input asp-for="StudentId" type="hidden">
+                                <button class="btn btn-outline-danger" type="submit">Mark As Not Active</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <form asp-action="AddMedical" method="post">
+            <div style="margin-top:20px" class="form-group">
+                <input asp-for="StudentId" type="hidden">
+
+                <label asp-for="WriteDto.Reason"></label>
+                <input asp-for="WriteDto.Reason" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary form-control">Add New Medical</button>
+            </div>
+        </form>
+    </div>
+</div>

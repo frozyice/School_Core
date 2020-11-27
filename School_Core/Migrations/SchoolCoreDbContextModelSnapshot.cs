@@ -14,122 +14,204 @@ namespace School_Core.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "3.1.7").HasAnnotation("Relational:MaxIdentifierLength", 128)
+            modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("School_Core.Domain.Models.Enrollment", b =>
-            {
-                b.Property<Guid>("Id").ValueGeneratedOnAdd().HasColumnType("uniqueidentifier");
-
-                b.Property<int>("Grade").HasColumnType("int");
-
-                b.Property<Guid>("LectureId").HasColumnType("uniqueidentifier");
-
-                b.Property<Guid>("StudentId").HasColumnType("uniqueidentifier");
-
-                b.HasKey("Id");
-
-                b.HasIndex("LectureId");
-
-                b.HasIndex("StudentId");
-
-                b.ToTable("Enrollments");
-            });
-
-            modelBuilder.Entity("School_Core.Domain.Models.Lecture", b =>
-            {
-                b.Property<Guid>("Id").ValueGeneratedOnAdd().HasColumnType("uniqueidentifier");
-
-                b.Property<int>("EnrollableFromYear").HasColumnType("int");
-
-                b.Property<int>("FieldOfStudy").HasColumnType("int");
-
-                b.Property<string>("Name").HasColumnType("nvarchar(max)");
-
-                b.Property<int>("Status").HasColumnType("int");
-
-                b.Property<Guid?>("TeacherId").HasColumnType("uniqueidentifier");
-
-                b.HasKey("Id");
-
-                b.HasIndex("TeacherId");
-
-                b.ToTable("Lectures");
-
-                b.HasData(new
                 {
-                    Id = new Guid("a625a775-58ce-424f-8b83-c1685d6f3366"),
-                    EnrollableFromYear = 2,
-                    FieldOfStudy = 0,
-                    Name = "Philosophy",
-                    Status = 0
-                }, new
-                {
-                    Id = new Guid("ae93d6f0-fcf4-4256-8c04-1939aa3d8e31"),
-                    EnrollableFromYear = 1,
-                    FieldOfStudy = 0,
-                    Name = "Sociology",
-                    Status = 0
-                }, new
-                {
-                    Id = new Guid("a1b54f8b-7cb5-492a-b7b7-e274c27a56b6"),
-                    EnrollableFromYear = 1,
-                    FieldOfStudy = 1,
-                    Name = "Introduction To Common Law",
-                    Status = 0
-                }, new
-                {
-                    Id = new Guid("d3f3bd63-b5e4-49b4-9b82-087a4caa8a2a"),
-                    EnrollableFromYear = 2,
-                    FieldOfStudy = 1,
-                    Name = "Constitutional Law",
-                    Status = 0
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LectureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LectureId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Enrollments");
                 });
-            });
+
+            modelBuilder.Entity("School_Core.Domain.Models.Lectures.Lecture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("EnrollableFromYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FieldOfStudy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Lectures");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("06f95cf6-29bb-47c3-a2a6-6fc79520c058"),
+                            EnrollableFromYear = 2,
+                            FieldOfStudy = 0,
+                            Name = "Philosophy",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("105a0074-cf7d-4696-a460-1d9a7568e6db"),
+                            EnrollableFromYear = 1,
+                            FieldOfStudy = 0,
+                            Name = "Sociology",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("e0289dcc-6422-4a47-867c-40947062f7e4"),
+                            EnrollableFromYear = 1,
+                            FieldOfStudy = 1,
+                            Name = "Introduction To Common Law",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("5d48f64c-280f-4d42-b7ec-86e71333a8f5"),
+                            EnrollableFromYear = 2,
+                            FieldOfStudy = 1,
+                            Name = "Constitutional Law",
+                            Status = 0
+                        });
+                });
 
             modelBuilder.Entity("School_Core.Domain.Models.Students.Student", b =>
-            {
-                b.Property<Guid>("Id").ValueGeneratedOnAdd().HasColumnType("uniqueidentifier");
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                b.Property<int>("FieldOfStudy").HasColumnType("int");
+                    b.Property<int>("FieldOfStudy")
+                        .HasColumnType("int");
 
-                b.Property<string>("Name").HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("YearOfStudy").HasColumnType("int");
+                    b.Property<int>("YearOfStudy")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Students");
+                    b.ToTable("Students");
 
-                b.HasData(new {Id = new Guid("df6d8f00-0d7b-460b-b422-e9af773fe6a5"), FieldOfStudy = 0, Name = "Angus", YearOfStudy = 1},
-                    new {Id = new Guid("86ce4f83-190e-4b70-a540-67bae7687d3c"), FieldOfStudy = 1, Name = "Kane", YearOfStudy = 1},
-                    new {Id = new Guid("f8a7fa7a-9b64-47c1-bfbc-45248c10de17"), FieldOfStudy = 1, Name = "Lian", YearOfStudy = 2},
-                    new {Id = new Guid("0276092c-67f0-43d2-bcd7-8a7af869a4f5"), FieldOfStudy = 0, Name = "Alissa", YearOfStudy = 2});
-            });
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b07515f3-41cc-499d-8763-62b11143e34f"),
+                            FieldOfStudy = 0,
+                            Name = "Angus",
+                            YearOfStudy = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("fb03977f-74cf-4078-b760-4aa60fb3a99d"),
+                            FieldOfStudy = 1,
+                            Name = "Kane",
+                            YearOfStudy = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("7a724934-9161-4244-b7aa-345755b58c6b"),
+                            FieldOfStudy = 1,
+                            Name = "Lian",
+                            YearOfStudy = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("93352d36-787f-447e-b1a4-b2ced583b47e"),
+                            FieldOfStudy = 0,
+                            Name = "Alissa",
+                            YearOfStudy = 2
+                        });
+                });
 
-            modelBuilder.Entity("School_Core.Domain.Models.Teacher", b =>
-            {
-                b.Property<Guid>("Id").ValueGeneratedOnAdd().HasColumnType("uniqueidentifier");
+            modelBuilder.Entity("School_Core.Domain.Models.Teachers.Teacher", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                b.Property<string>("Name").HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Teachers");
+                    b.ToTable("Teachers");
 
-                b.HasData(new {Id = new Guid("c01e9ea1-23f5-4215-930d-4c3d60262187"), Name = "Freestone"},
-                    new {Id = new Guid("8fa34838-23c8-42e1-850f-7394d9ffccf5"), Name = "Richmont"}, new {Id = new Guid("811104f6-d1cf-483f-9dc7-5834d99c03ea"), Name = "Laker"},
-                    new {Id = new Guid("155f0dcd-a845-419f-9028-00a02c99f088"), Name = "McCarroll"});
-            });
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("48c86447-0bef-4703-8103-433ee4aa72eb"),
+                            Name = "Freestone"
+                        },
+                        new
+                        {
+                            Id = new Guid("af520247-a2a3-4f80-bdb1-c4680d8426d4"),
+                            Name = "Richmont"
+                        },
+                        new
+                        {
+                            Id = new Guid("f2c43c99-ca18-49fd-90f8-48897d2a1c4c"),
+                            Name = "Laker"
+                        },
+                        new
+                        {
+                            Id = new Guid("232f5efd-6004-4f7f-95fb-96e9d4fcca21"),
+                            Name = "McCarroll"
+                        });
+                });
 
             modelBuilder.Entity("School_Core.Domain.Models.Enrollment", b =>
-            {
-                b.HasOne("School_Core.Domain.Models.Lecture", null).WithMany("Enrollments").HasForeignKey("LectureId").OnDelete(DeleteBehavior.Cascade).IsRequired();
+                {
+                    b.HasOne("School_Core.Domain.Models.Lectures.Lecture", null)
+                        .WithMany("Enrollments")
+                        .HasForeignKey("LectureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("School_Core.Domain.Models.Students.Student", null).WithMany("Enrollments").HasForeignKey("StudentId").OnDelete(DeleteBehavior.Cascade).IsRequired();
-            });
+                    b.HasOne("School_Core.Domain.Models.Students.Student", null)
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-            modelBuilder.Entity("School_Core.Domain.Models.Lecture", b => { b.HasOne("School_Core.Domain.Models.Teacher", "Teacher").WithMany().HasForeignKey("TeacherId"); });
+            modelBuilder.Entity("School_Core.Domain.Models.Lectures.Lecture", b =>
+                {
+                    b.HasOne("School_Core.Domain.Models.Teachers.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -26,10 +26,12 @@ namespace School_Core.ViewModels.Lectures
         public LectureStatus Status { get; set; }
 
         public IEnumerable<string> StudentNamesInLecture { get; set; }
+        public bool IsRedirectedWithSuccess { get; set; }
+        public object alert { get; set; }
 
         public interface IProvider
         {
-            LectureDetailsViewModel Provide(Guid id);
+            LectureDetailsViewModel Provide(Guid id, bool isRedirectedWithSuccess);
         }
 
         public class Provider : IProvider
@@ -45,7 +47,7 @@ namespace School_Core.ViewModels.Lectures
                 _studentQuery = studentQuery;
             }
 
-            public LectureDetailsViewModel Provide(Guid id)
+            public LectureDetailsViewModel Provide(Guid id, bool isRedirectedWithSuccess)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(id));
                 if (lecture is null) throw new ArgumentException(nameof(id));
@@ -61,6 +63,7 @@ namespace School_Core.ViewModels.Lectures
                     TeacherName = lecture.Teacher?.Name ?? "none",
                     StudentCount = lecture.Enrollments.Count,
                     StudentNamesInLecture = studentsNames,
+                    IsRedirectedWithSuccess = isRedirectedWithSuccess,
                     Status = lecture.Status
                 };
             }

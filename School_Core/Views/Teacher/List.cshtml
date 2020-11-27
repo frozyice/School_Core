@@ -3,6 +3,27 @@
 @{
     ViewData["Title"] = "View";
 }
+
+@if (Model.IsRedirectedWithSuccess)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Succsess!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (!ViewContext.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Failed!</strong> <span asp-validation-for="alert"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <h1 style="color:@Model.HeadingColor">@Model.HeadingTitle</h1>
 
 <div class="container">

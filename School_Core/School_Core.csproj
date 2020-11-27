@@ -29,4 +29,8 @@
     <Folder Include="Domain\Models\Teachers\Specs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\School_Core.API\School_Core.API.csproj" />
+  </ItemGroup>
+
 </Project>

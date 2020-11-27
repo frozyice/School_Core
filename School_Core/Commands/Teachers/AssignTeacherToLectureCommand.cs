@@ -7,6 +7,7 @@ using School_Core.Domain.Models.Lectures.Specs;
 using School_Core.Domain.Models.Teachers;
 using School_Core.Queries;
 using School_Core.Specifications;
+using School_Core.Util;
 
 namespace School_Core.Commands.Teachers
 {
@@ -28,26 +29,28 @@ namespace School_Core.Commands.Teachers
                 _dbContext = dbContext;
             }
 
-            public bool Handle(AssignTeacherToLectureCommand command)
+            public Result Handle(AssignTeacherToLectureCommand command)
             {
                 var lecture = _lectureQuery.GetSingleOrDefault(new HasIdSpec<Lecture>(command.LectureId));
                 if (lecture is null) throw new ArgumentException(nameof(command.LectureId));
-                
+
                 var teacher = _teacherQuery.GetSingleOrDefault(new HasIdSpec<Teacher>(command.TeacherId));
                 if (teacher is null) throw new ArgumentException(nameof(command.TeacherId));
 
-                if (lecture.Status == LectureStatus.Archived) return false;
-
-                var hasTeacherLectures = _lectureQuery.GetAll(new LecturesWithTeacherIdsSpec(new List<Guid>{teacher.Id})).Any();
-
-                if (!hasTeacherLectures)
+                if (lecture.Status == LectureStatus.Archived)
                 {
-                    lecture.AssignTeacher(teacher);
-                    _dbContext.SaveChanges(); //todo Kuidas saada teada et, _dbContext.SaveChanges(); kutsutakse
-                    return true;
+                    return Result.Fail("alert", "Can not assign, lecture is archived.");
                 }
 
-                return false;
+                var isTeacherAssignToAnyLectures = _lectureQuery.GetAll(new LecturesWithTeacherIdsSpec(new List<Guid> {teacher.Id})).Any();
+                if (isTeacherAssignToAnyLectures)
+                {
+                    return Result.Fail("alert", "Can not assign, teacher has assigned to a lecture.");
+                }
+
+                lecture.AssignTeacher(teacher);
+                _dbContext.SaveChanges(); //todo Kuidas saada teada et, _dbContext.SaveChanges(); kutsutakse
+                return Result.Success();
             }
         }
     }
