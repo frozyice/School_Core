@@ -33,4 +33,8 @@
     <ProjectReference Include="..\School_Core.API\School_Core.API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\Scripts\new.ts" />
+  </ItemGroup>
+
 </Project>
