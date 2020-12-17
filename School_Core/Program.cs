@@ -10,6 +10,7 @@ namespace School_Core
             CreateHostBuilder(args).Build().Run();
         }
         // this is a master change
+        // this is API change
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
